@@ -8,11 +8,11 @@ import { Faq, FaqDocument } from './models/faq.schema';
 export class FaqRepository {
   constructor(@InjectModel(Faq.name) private faqSchema: Model<FaqDocument>) {}
 
-  async addFaq(input: AddFaqInput) {
+  async addFaq(input: AddFaqInput): Promise<Faq> {
     return await this.faqSchema.create(input);
   }
 
-  async getFaqs() {
+  async getFaqs(): Promise<Faq[]> {
     return await this.faqSchema.aggregate([{ $match: {} }]);
   }
 }
