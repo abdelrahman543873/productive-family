@@ -1,5 +1,7 @@
 service: serverless-nestjs
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -8,6 +10,7 @@ provider:
 
 plugins:
   - serverless-offline
+  - serverless-plugin-typescript
 
 package:
   exclude:
@@ -20,7 +23,7 @@ package:
 
 functions:
   index:
-    handler: dist/index.handler
+    handler: src/index.handler
     events:
       - http:
           cors: true
