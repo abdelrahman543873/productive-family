@@ -27,12 +27,12 @@
     "@nestjs/swagger": "^4.5.12",
     "aws-serverless-express": "^3.3.8",
     "class-transformer": "^0.4.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.12.5",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4",
-    "dotenv": "^8.2.0"
+    "rxjs": "^6.5.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
@@ -52,7 +52,7 @@
     "inquirer": "^7.0.0",
     "jest": "26.0.1",
     "prettier": "^1.19.1",
-    "serverless": "^2.39.0",
+    "serverless": "^2.39.1",
     "serverless-offline": "^7.0.0",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
     "serverless-plugin-typescript": "^1.1.9",
