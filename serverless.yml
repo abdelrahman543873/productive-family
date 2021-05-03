@@ -11,9 +11,10 @@ provider:
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
+  - serverless-plugin-optimize
 
 package:
-  exclude:
+  patterns:
     - .git/**
     - src/**
     - test/**
