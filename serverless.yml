@@ -26,13 +26,9 @@ package:
 
 functions:
   index:
-    handler: src/index.handler
+    handler: src/faq/faq-handler.handler
     events:
       - http:
           cors: true
-          path: '/'
-          method: any
-      - http:
-          cors: true
-          path: '{proxy+}'
+          path: '/faq'
           method: any
