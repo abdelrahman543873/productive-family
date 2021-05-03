@@ -14,6 +14,7 @@ plugins:
   - serverless-plugin-optimize
 
 package:
+  individually: true
   patterns:
     - .git/**
     - src/**
