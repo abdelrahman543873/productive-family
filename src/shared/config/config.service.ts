@@ -10,7 +10,7 @@ export class ConfigService {
   constructor() {
     const result = dotenv.config();
     if (result.error) this.envConfig = process.env;
-    else this.envConfig = result.parsed;
+    else this.envConfig = process.env;
 
     if (this.envConfig.AWS_ACTIVE == 'true') {
       this.readAWSConfig = true;
@@ -26,7 +26,8 @@ export class ConfigService {
   public async getMongoConfig() {
     if (this.readAWSConfig) await this.upAWSConfig();
     return {
-      uri: this.get('MONGO_DB'),
+      uri:
+        'mongodb://bodi:Vindiesel33$@cluster0-shard-00-00.dd7up.mongodb.net:27017,cluster0-shard-00-01.dd7up.mongodb.net:27017,cluster0-shard-00-02.dd7up.mongodb.net:27017/test?replicaSet=atlas-nls3wr-shard-0&ssl=true&authSource=admin',
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
