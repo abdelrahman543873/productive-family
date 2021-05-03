@@ -2,6 +2,8 @@ service: serverless-nestjs
 
 useDotenv: true
 
+configValidationMode: error
+
 provider:
   name: aws
   runtime: nodejs14.x
