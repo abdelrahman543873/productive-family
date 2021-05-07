@@ -17,12 +17,11 @@ plugins:
 package:
   individually: true
   patterns:
-    - .git/**
-    - src/**
-    - test/**
-    - e2e/**
-    - nodemon.json
-    - README.md
+    - '!.git/**'
+    - '!.src/**'
+    - '!test/**'
+    - '!e2e/**'
+    - '!README.md'
 
 functions:
   faq:
