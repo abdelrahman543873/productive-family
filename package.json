@@ -25,7 +25,7 @@
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/swagger": "^4.5.12",
-    "aws-serverless-express": "^3.3.8",
+    "aws-serverless-express": "^3.4.0",
     "class-transformer": "^0.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
