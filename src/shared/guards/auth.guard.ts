@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { ModuleRef } from '@nestjs/core';
 import { BaseHttpException } from '../exceptions/base-http-exception';
 import { UserDocument, User } from '../../user/models/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
