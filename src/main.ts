@@ -12,6 +12,11 @@ async function bootstrap() {
     .setDescription('productive family API description')
     .setVersion('1.0')
     .addTag('faq', 'frequently asked questions for app users')
+    .addBearerAuth({
+      type: 'apiKey',
+      name: 'authorization',
+      bearerFormat: 'Bearer token',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
