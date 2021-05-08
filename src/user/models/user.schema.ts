@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { UserRoleEnum } from '../../shared/user.enum';
+import { getValuesFromEnum } from '../../shared/utils/column-enum';
 
 export type UserDocument = User & Document;
 
@@ -18,7 +19,7 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ enum: UserRoleEnum, required: true })
+  @Prop({ enum: getValuesFromEnum(UserRoleEnum), required: true })
   role: string;
 }
 

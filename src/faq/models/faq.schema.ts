@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { getValuesFromEnum } from '../../shared/utils/column-enum';
+import { UserRoleEnum } from '../../shared/user.enum';
 
 export type FaqDocument = Faq & Document;
 
@@ -16,6 +18,9 @@ export class Faq {
 
   @Prop()
   arAnswer: string;
+
+  @Prop({ enum: getValuesFromEnum(UserRoleEnum) })
+  type: string;
 }
 
 export const FaqSchema = SchemaFactory.createForClass(Faq);

@@ -7,12 +7,12 @@ import { Faq } from './models/faq.schema';
 export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
-  @Post()
+  @Post('addFaq')
   async addFaq(@Body() input: AddFaqInput): Promise<Faq> {
     return await this.faqService.addFaq(input);
   }
 
-  @Get()
+  @Get('getFaqs')
   async getFaqs(): Promise<Faq[]> {
     return await this.faqService.getFaqs();
   }
