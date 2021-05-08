@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { HasRoles } from 'src/shared/guards/auth.metadata';
 import { RoleGuard } from 'src/shared/guards/roles.guard';
@@ -13,6 +13,7 @@ export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
   @ApiBearerAuth()
+  @ApiTags('faq')
   @ApiResponse({ status: 201, type: AddFaqInput })
   @HasRoles(UserRoleEnum.ADMIN)
   @UseGuards(AuthGuard, RoleGuard)
@@ -21,6 +22,8 @@ export class FaqController {
     return await this.faqService.addFaq(input);
   }
 
+  @ApiTags('faq')
+  @ApiResponse({ status: 200, type: [AddFaqInput] })
   @Get('getFaqs')
   async getFaqs(): Promise<Faq[]> {
     return await this.faqService.getFaqs();

@@ -8,10 +8,10 @@ import { TransformInterceptor } from './shared/interceptors/response.interceptor
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('🚀productive-family🚀')
+    .setDescription('productive family API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('faq', 'frequently asked questions for app users')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
