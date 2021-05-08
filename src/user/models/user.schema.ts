@@ -21,6 +21,9 @@ export class User {
 
   @Prop({ enum: getValuesFromEnum(UserRoleEnum), required: true })
   role: string;
+
+  _id?: string;
+  token?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

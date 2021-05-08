@@ -1,8 +1,6 @@
+import { HelperService } from './../helper/helper.service';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from 'src/user/models/user.schema';
 import { BaseHttpException } from '../exceptions/base-http-exception';
 import { UserRoleEnum } from '../user.enum';
 
@@ -10,7 +8,7 @@ import { UserRoleEnum } from '../user.enum';
 export class RoleGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    @InjectModel(User.name) private userSchema: Model<UserDocument>,
+    private helperService: HelperService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -19,12 +17,11 @@ export class RoleGuard implements CanActivate {
       context.getHandler(),
     );
     const request = context.switchToHttp().getRequest();
-    const currentUser = await this.userSchema.findById(request);
+    const currentUser = await this.helperService.getCurrentUser(request);
     if (!currentUser) throw new BaseHttpException(request.headers.lang, 600);
     request.currentUser = currentUser;
-    if (roles?.length && roles[0] !== currentUser.role) {
+    if (!roles?.length || roles[0] !== currentUser.role)
       throw new BaseHttpException(request.headers.lang, 605);
-    }
     return true;
   }
 }
