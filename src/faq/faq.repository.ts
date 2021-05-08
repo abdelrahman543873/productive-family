@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AddFaqInput } from './inputs/faq.input';
 import { Faq, FaqDocument } from './models/faq.schema';
 import { BaseRepository } from '../shared/generics/repository.abstract';
 
 @Injectable()
-export class FaqRepository extends BaseRepository<FaqDocument> {
+export class FaqRepository extends BaseRepository<Faq> {
   constructor(@InjectModel(Faq.name) private faqSchema: Model<FaqDocument>) {
     super(faqSchema);
   }

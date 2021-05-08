@@ -19,7 +19,7 @@ export const faqsFactory = async (
   count = 10,
   obj = <any>{},
 ): Promise<Faq[]> => {
-  const faqs = [];
+  const faqs: Faq[] = [];
   for (let i = 0; i < count; i++) {
     faqs.push(buildFaqParams(obj));
   }
@@ -27,6 +27,6 @@ export const faqsFactory = async (
 };
 
 export const FaqFactory = async (obj = <any>{}): Promise<Faq> => {
-  const params: any = buildFaqParams(obj);
+  const params: Faq = buildFaqParams(obj);
   return (await FaqRepo()).add(params);
 };
