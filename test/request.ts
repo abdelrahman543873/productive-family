@@ -6,7 +6,7 @@ import { HTTP_METHODS_ENUM } from './request.methods.enum';
 export const testRequest = async (
   method: HTTP_METHODS_ENUM,
   url: string,
-  variables?: Record<string, Array<string>>,
+  variables?: Record<any, any>,
   token?: string,
   fileParam?: string,
   filePath?: string,
