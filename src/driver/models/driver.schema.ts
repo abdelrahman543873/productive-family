@@ -1,7 +1,7 @@
-import { Point } from './../../shared/spatial-schemas/point.schema';
+import { Point } from '../../_common/spatial-schemas/point.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { UserRoleEnum } from 'src/shared/user.enum';
+import { UserRoleEnum } from 'src/_common/user.enum';
 
 export type DriverDocument = Driver & Document;
 

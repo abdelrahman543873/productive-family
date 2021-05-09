@@ -1,6 +1,6 @@
 import * as faker from 'faker';
-import { UserRoleEnum } from 'src/shared/user.enum';
-import { getValuesFromEnum } from 'src/shared/utils/column-enum';
+import { UserRoleEnum } from 'src/_common/user.enum';
+import { getValuesFromEnum } from 'src/_common/utils/column-enum';
 import { FaqRepo } from 'test/faq/faq-test-repo';
 import { Faq } from './models/faq.schema';
 

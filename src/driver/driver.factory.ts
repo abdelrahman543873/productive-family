@@ -1,9 +1,9 @@
 import * as faker from 'faker';
-import { hashPass } from 'src/shared/utils/bcryptHelper';
-import { generateAuthToken } from '../shared/utils/token-utils';
+import { hashPass } from 'src/_common/utils/bcryptHelper';
+import { generateAuthToken } from '../_common/utils/token-utils';
 import { Driver } from './models/driver.schema';
 import { DriverRepo } from '../../test/driver/driver-test-repo';
-import { UserRoleEnum } from '../shared/user.enum';
+import { UserRoleEnum } from '../_common/user.enum';
 
 export const buildDriverParams = (obj = <any>{}): Driver => {
   return {

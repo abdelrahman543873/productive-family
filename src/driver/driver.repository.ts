@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver, DriverDocument } from './models/driver.schema';
-import { BaseRepository } from '../shared/generics/repository.abstract';
+import { BaseRepository } from '../_common/generics/repository.abstract';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {

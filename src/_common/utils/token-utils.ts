@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { Request } from 'express';
-import { env } from '../utils/env';
+import { env } from './env';
 
 export const getAuthToken = (req: Request): string => {
   if (

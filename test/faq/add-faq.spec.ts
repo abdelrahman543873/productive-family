@@ -5,7 +5,7 @@ import { rollbackDbForFaq } from './rollback-db-faq';
 import { ADD_FAQ } from '../endpoints/faq';
 import { buildFaqParams } from '../../src/faq/faq.factory';
 import { UserFactory } from '../../src/user/user.factory';
-import { UserRoleEnum } from '../../src/shared/user.enum';
+import { UserRoleEnum } from '../../src/_common/user.enum';
 describe('add faq suite case', () => {
   afterEach(async () => {
     await rollbackDbForFaq();

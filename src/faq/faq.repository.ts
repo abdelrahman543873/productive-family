@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Faq, FaqDocument } from './models/faq.schema';
-import { BaseRepository } from '../shared/generics/repository.abstract';
+import { BaseRepository } from '../_common/generics/repository.abstract';
 import { AddFaqInput } from './inputs/faq.input';
 
 @Injectable()

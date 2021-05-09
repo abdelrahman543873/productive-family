@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from 'src/shared/guards/auth.guard';
-import { HasRoles } from 'src/shared/guards/auth.metadata';
-import { RoleGuard } from 'src/shared/guards/roles.guard';
-import { UserRoleEnum } from 'src/shared/user.enum';
+import { AuthGuard } from 'src/_common/guards/auth.guard';
+import { HasRoles } from 'src/_common/guards/auth.metadata';
+import { RoleGuard } from 'src/_common/guards/roles.guard';
+import { UserRoleEnum } from 'src/_common/user.enum';
 import { FaqService } from './faq.service';
 import { AddFaqInput } from './inputs/faq.input';
 import { Faq } from './models/faq.schema';

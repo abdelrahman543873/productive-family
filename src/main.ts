@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import { HttpExceptionFilter } from './shared/exceptions/exception.filter';
-import { TransformInterceptor } from './shared/interceptors/response.interceptor';
+import { HttpExceptionFilter } from './_common/exceptions/exception.filter';
+import { TransformInterceptor } from './_common/interceptors/response.interceptor';
 import {
   FastifyAdapter,
   NestFastifyApplication,

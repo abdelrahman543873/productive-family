@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { DriverRepository } from './driver.repository';
 import { Driver } from './models/driver.schema';
-import { generateAuthToken } from '../shared/utils/token-utils';
+import { generateAuthToken } from '../_common/utils/token-utils';
 
 @Injectable()
 export class DriverService {

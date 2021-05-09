@@ -1,8 +1,8 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppModule } from 'src/app.module';
-import { HttpExceptionFilter } from 'src/shared/exceptions/exception.filter';
-import { TransformInterceptor } from 'src/shared/interceptors/response.interceptor';
+import { HttpExceptionFilter } from 'src/_common/exceptions/exception.filter';
+import { TransformInterceptor } from 'src/_common/interceptors/response.interceptor';
 import { Test, TestingModule } from '@nestjs/testing';
 
 //this is done this way to be able to inject repos into factories

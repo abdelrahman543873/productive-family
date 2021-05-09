@@ -1,10 +1,10 @@
 import * as faker from 'faker';
-import { UserRoleEnum } from 'src/shared/user.enum';
-import { getValuesFromEnum } from 'src/shared/utils/column-enum';
+import { UserRoleEnum } from 'src/_common/user.enum';
+import { getValuesFromEnum } from 'src/_common/utils/column-enum';
 import { User } from './models/user.schema';
 import { UserRepo } from '../../test/user/user-test-repo';
-import { hashPass } from 'src/shared/utils/bcryptHelper';
-import { generateAuthToken } from '../shared/utils/token-utils';
+import { hashPass } from 'src/_common/utils/bcryptHelper';
+import { generateAuthToken } from '../_common/utils/token-utils';
 
 export const buildUserParams = (obj = <any>{}): User => {
   return {
