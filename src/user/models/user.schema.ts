@@ -11,7 +11,7 @@ export class User {
   email: string;
 
   @Prop({ unique: true, required: true })
-  phone: string;
+  mobile: string;
 
   @Prop({ required: true })
   name: string;
@@ -19,7 +19,11 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ enum: getValuesFromEnum(UserRoleEnum), required: true })
+  @Prop({
+    enum: getValuesFromEnum(UserRoleEnum),
+    required: true,
+    default: UserRoleEnum.CLIENT,
+  })
   role: string;
 
   _id?: string;

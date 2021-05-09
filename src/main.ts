@@ -19,6 +19,7 @@ async function bootstrap() {
     .setDescription('productive family API description')
     .setVersion('1.0')
     .addTag('faq', 'frequently asked questions for app users')
+    .addTag('driver', 'driver endpoints')
     .addBearerAuth({
       type: 'apiKey',
       name: 'authorization',

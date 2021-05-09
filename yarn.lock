@@ -1382,6 +1382,11 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
+
 arr-diff@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/arr-diff/-/arr-diff-4.0.0.tgz#d6461074febfec71e7e15235761a329a5dc7c520"
@@ -2053,7 +2058,7 @@ contains-path@^0.1.0:
   resolved "https://registry.yarnpkg.com/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
   integrity sha1-/ozxhP9mcLa67wGp1IYaXL7EEgo=
 
-content-disposition@0.5.3:
+content-disposition@0.5.3, content-disposition@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/content-disposition/-/content-disposition-0.5.3.tgz#e130caf7e7279087c5616c2007d0485698984fbd"
   integrity sha512-ExO0774ikEObIAEV9kDo50o+79VCUdEB6n6lzKgGwupcVeRlhrj3qGAfwq8G6uBJjkqLrhT0qEYFcWng8z1z0g==
@@ -2890,6 +2895,28 @@ fastify-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-3.0.0.tgz#cf1b8c8098e3b5a7c8c30e6aeb06903370c054ca"
   integrity sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==
+
+fastify-static@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-4.0.1.tgz#28947728b2b4c9360eeea8a92ae7b36a0e38b273"
+  integrity sha512-Mjt0My8Gf/nzJqIDai9rz3HsxH4RAJeMGMIPmf40lGMFKAv4SbRiKJ2cmteXoKHrFGPeGxwMq0gXfixwueV8wA==
+  dependencies:
+    content-disposition "^0.5.3"
+    fastify-plugin "^3.0.0"
+    glob "^7.1.4"
+    readable-stream "^3.4.0"
+    send "^0.17.1"
+
+fastify-swagger@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/fastify-swagger/-/fastify-swagger-4.7.0.tgz#71cdf1c719137ffcb889b619bbc50edc4d92fcc8"
+  integrity sha512-IgmHuA8BGpBrvLninqDBQdlJEiB3yEg3XYYmqIcqQqWmU7KYNTQokWNTKG8nBPjj/P2wyTJ0fNxm/K2Fljq/hw==
+  dependencies:
+    fastify-plugin "^3.0.0"
+    fastify-static "^4.0.0"
+    js-yaml "^4.0.0"
+    json-schema-resolver "^1.2.0"
+    openapi-types "^8.0.0"
 
 fastify-warning@^0.2.0:
   version "0.2.0"
@@ -4188,6 +4215,13 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+js-yaml@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
+  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  dependencies:
+    argparse "^2.0.1"
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -4239,6 +4273,15 @@ json-parse-even-better-errors@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz#7c47805a94319928e05777405dc12e1f7a4ee02d"
   integrity sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==
+
+json-schema-resolver@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/json-schema-resolver/-/json-schema-resolver-1.2.2.tgz#52aeb8dbe4ece0df82c0ac2f1642384612542270"
+  integrity sha512-sW4b4BDJzYiKpJind7l1JtH3P1yn43vCv3w51YR2Ixse5rXr006TL10gM0Ek54pET6vxwiWq5RQuIMgmH9YrrQ==
+  dependencies:
+    debug "^4.1.1"
+    rfdc "^1.1.4"
+    uri-js "^4.2.2"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -5058,6 +5101,11 @@ onetime@^5.1.0:
   dependencies:
     mimic-fn "^2.1.0"
 
+openapi-types@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/openapi-types/-/openapi-types-8.0.0.tgz#7e1979538798d31a3c3bfed667e5e9295402f9bc"
+  integrity sha512-dcHYyCDOAy4QQTrur5Sn1L3lPVspB7rd04Rw/Q7AsMvfV797IiWgmKziFCbq8VhnBoREU/SPPSBDxtK9Biwa1g==
+
 optional-require@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/optional-require/-/optional-require-1.0.3.tgz#275b8e9df1dc6a17ad155369c2422a440f89cb07"
@@ -5845,7 +5893,7 @@ semver@^6.0.0, semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-send@0.17.1:
+send@0.17.1, send@^0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/send/-/send-0.17.1.tgz#c1d8b059f7900f7466dd4938bdc44e11ddb376c8"
   integrity sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yI+XjPJcNuE3V4fT9sAg==
@@ -6330,18 +6378,6 @@ supports-hyperlinks@^2.0.0:
   dependencies:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
-
-swagger-ui-dist@^3.18.1:
-  version "3.48.0"
-  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.48.0.tgz#3d23194d86ec1e76b926a345578c290ef3fc6e98"
-  integrity sha512-UgpKIQW5RAb4nYRG8B615blmQzct0DNuvtX4904Fe2aMWAVfWeKHKl4kwzFXuBJgr2WYWTwM1PnhZ+qqkLrpPg==
-
-swagger-ui-express@^4.1.4:
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.1.6.tgz#682294af3d5c70f74a1fa4d6a9b503a9ee55ea82"
-  integrity sha512-Xs2BGGudvDBtL7RXcYtNvHsFtP1DBFPMJFRxHe5ez/VG/rzVOEjazJOOSc/kSCyxreCTKfJrII6MJlL9a6t8vw==
-  dependencies:
-    swagger-ui-dist "^3.18.1"
 
 symbol-observable@3.0.0:
   version "3.0.0"

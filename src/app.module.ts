@@ -4,6 +4,7 @@ import { DataBaseModule } from './shared/database/database.module';
 import { UserModule } from './user/user.module';
 import { HelperModule } from './shared/helper/helper.module';
 import { ConfigModule } from '@nestjs/config';
+import { DriverModule } from './driver/driver.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     HelperModule,
     UserModule,
     FaqModule,
+    DriverModule,
   ],
 })
 export class AppModule {}

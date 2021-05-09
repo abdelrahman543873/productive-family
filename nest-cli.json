@@ -8,7 +8,7 @@
         "options": {
           "introspectComments": true,
           "classValidatorShim": true,
-          "dtoFileNameSuffix": [".input.ts"]
+          "dtoFileNameSuffix": [".input.ts", ".schema.ts"]
         }
       }
     ]

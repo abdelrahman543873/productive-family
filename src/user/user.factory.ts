@@ -9,7 +9,7 @@ import { generateAuthToken } from '../shared/utils/token-utils';
 export const buildUserParams = (obj = <any>{}): User => {
   return {
     email: obj.email || faker.internet.email(),
-    phone: obj.phone || faker.phone.phoneNumber(),
+    mobile: obj.phone || faker.phone.phoneNumber(),
     name: obj.name || faker.name.findName(),
     password: obj.password || faker.internet.password(),
     role:
