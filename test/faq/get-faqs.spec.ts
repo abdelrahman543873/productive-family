@@ -9,7 +9,10 @@ describe('get faqs suite case', () => {
   });
   it('get Faqs', async () => {
     await faqsFactory();
-    const res = await testRequest(HTTP_METHODS_ENUM.GET, GET_FAQS);
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.GET,
+      url: GET_FAQS,
+    });
     expect(res.body.data.length).toBe(10);
   });
 });

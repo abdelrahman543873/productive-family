@@ -13,13 +13,13 @@ describe('add faq suite case', () => {
   it('add Faq', async () => {
     const user = await UserFactory({ role: UserRoleEnum.ADMIN });
     await faqsFactory();
-    const params = await buildFaqParams();
-    const res = await testRequest(
-      HTTP_METHODS_ENUM.POST,
-      ADD_FAQ,
-      params,
-      user.token,
-    );
-    expect(res.body.data.enAnswer).toBe(params.enAnswer);
+    const variables = await buildFaqParams();
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: ADD_FAQ,
+      variables,
+      token: user.token,
+    });
+    expect(res.body.data.enAnswer).toBe(variables.enAnswer);
   });
 });

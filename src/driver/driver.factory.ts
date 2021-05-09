@@ -23,8 +23,9 @@ export const buildDriverParams = (obj = <any>{}): Driver => {
     },
     role: obj.role ?? UserRoleEnum.DRIVER,
     fcmToken: obj.fcmToken ?? faker.random.word(),
-    imagURL: obj.imageURL ?? faker.internet.url(),
-    nationalIdImages: obj.imageURL ?? [faker.internet.url()],
+    imageURL: obj.imageURL ?? faker.internet.url(),
+    nationalIDImgFront: obj.nationalIDImgFront ?? faker.internet.url(),
+    nationalIDImgBack: obj.nationalIDImgBack ?? faker.internet.url(),
   };
 };
 

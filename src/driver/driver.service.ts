@@ -7,8 +7,11 @@ import { generateAuthToken } from '../shared/utils/token-utils';
 @Injectable()
 export class DriverService {
   constructor(private readonly driverRepo: DriverRepository) {}
-  async register(input: DriverRegisterInput): Promise<Driver> {
-    const driver = await this.driverRepo.register(input);
+  async register(
+    input: DriverRegisterInput,
+    files: Array<Express.Multer.File>,
+  ): Promise<Driver> {
+    const driver = await this.driverRepo.register(input, files);
     driver.token = generateAuthToken(driver._id);
     return driver;
   }

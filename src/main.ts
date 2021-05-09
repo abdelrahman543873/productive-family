@@ -8,8 +8,11 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import * as multer from 'fastify-multer';
 
 async function bootstrap() {
+  const fastifyAdapter = new FastifyAdapter();
+  fastifyAdapter.register(multer.contentParser);
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),

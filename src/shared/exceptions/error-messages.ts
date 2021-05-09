@@ -10,4 +10,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: "User doesn't have the permissions",
     AR: "User doesn't have the permissions",
   },
+  606: {
+    EN: 'unsupported file type',
+    AR: 'unsupported file type',
+  },
 };

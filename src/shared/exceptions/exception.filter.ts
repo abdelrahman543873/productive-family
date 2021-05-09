@@ -8,9 +8,9 @@ import { Response } from 'express';
 import { BaseHttpException } from './base-http-exception';
 import { ExceptionInterface } from './exception.interface';
 
-@Catch(HttpException, BaseHttpException)
+@Catch(BaseHttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost): any {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const errorResponse = exception.getResponse() as ExceptionInterface;

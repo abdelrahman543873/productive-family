@@ -12,13 +12,25 @@ export class DriverRepository extends BaseRepository<Driver> {
   ) {
     super(driverSchema);
   }
-  async register(input: DriverRegisterInput): Promise<Driver> {
+  async register(
+    input: DriverRegisterInput,
+    files: Array<Express.Multer.File>,
+  ): Promise<Driver> {
     return (
       await this.driverSchema.create({
         ...input,
         location: {
           coordinates: [input.longitude, input.latitude],
         },
+        ...(files?.['imageURL']?.[0].path && {
+          imageURL: files['imageURL'][0].path,
+        }),
+        ...(files?.['nationalIDImgBack']?.[0].path && {
+          nationalIDImgBack: files['nationalIDImgBack'][0].path,
+        }),
+        ...(files?.['nationalIDImgFront']?.[0].path && {
+          nationalIDImgFront: files['nationalIDImgFront'][0].path,
+        }),
       })
     ).toJSON();
   }

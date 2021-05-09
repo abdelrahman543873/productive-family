@@ -19,11 +19,9 @@ export class DriverRegisterInput {
   @IsString()
   notionalId: string;
 
-  @IsNumber()
   @IsLongitude()
   longitude: string;
 
-  @IsNumber()
   @IsLatitude()
   latitude: string;
 }

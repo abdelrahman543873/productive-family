@@ -43,10 +43,13 @@ export class Driver {
   role: string;
 
   @Prop({ trim: true, required: true })
-  imagURL: string;
+  imageURL: string;
 
-  @Prop({ type: [String] })
-  nationalIdImages: string[];
+  @Prop({ type: String })
+  nationalIDImgBack: string;
+
+  @Prop({ type: String })
+  nationalIDImgFront: string;
 
   @Prop({})
   fcmToken: string;

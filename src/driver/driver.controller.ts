@@ -1,4 +1,12 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UploadedFiles,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriverService } from './driver.service';
 import { DriverRegisterInput } from './inputs/driver-register.input';
@@ -10,8 +18,18 @@ export class DriverController {
 
   @ApiTags('driver')
   @ApiResponse({ status: 201, type: Driver })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'imageURL', maxCount: 1 },
+      { name: 'nationalIDImgBack', maxCount: 1 },
+      { name: 'nationalIDImgFront', maxCount: 1 },
+    ]),
+  )
   @Post('register')
-  async register(@Body() input: DriverRegisterInput): Promise<Driver> {
-    return await this.driverService.register(input);
+  async register(
+    @Body() input: DriverRegisterInput,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ): Promise<Driver> {
+    return await this.driverService.register(input, files);
   }
 }
