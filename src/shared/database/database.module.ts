@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '../config/config.module';
-import { ConfigService } from '../config/config.service';
+import { env } from '../utils/env';
 
 @Module({
   imports: [
-    ConfigModule,
-    MongooseModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) =>
-        configService.getMongoConfig(),
+    MongooseModule.forRoot(env.MONGO_DB, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
     }),
   ],
 })
