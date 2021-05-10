@@ -4,7 +4,6 @@ import {
   Post,
   UploadedFiles,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';

@@ -4,19 +4,19 @@ import { Driver, DriverSchema } from './models/driver.schema';
 import { DriverRepository } from './driver.repository';
 import { DriverService } from './driver.service';
 import { DriverController } from './driver.controller';
-import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { filename } from '../_common/utils/multer-file-name';
+import { MulterModule } from '@nestjs/platform-express';
+import { fileFilter } from '../_common/utils/multer-file-filter';
 
 @Module({
   imports: [
     MulterModule.register({
+      fileFilter,
       preservePath: true,
       storage: diskStorage({
         destination: './public/driver',
-        filename: (req, file, cb) => {
-          return cb(null, `${Date.now()}${extname(file.originalname)}`);
-        },
+        filename,
       }),
     }),
     MongooseModule.forFeature([{ name: Driver.name, schema: DriverSchema }]),
