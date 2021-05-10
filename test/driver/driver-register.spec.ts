@@ -1,12 +1,8 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { DRIVER_REGISTER } from '../endpoints/driver';
-import {
-  buildDriverParams,
-  DriverFactory,
-} from '../../src/driver/driver.factory';
+import { buildDriverParams } from '../../src/driver/driver.factory';
 import { rollbackDbForDriver } from './rollback-db-driver';
-import path from 'path';
 describe('register driver suite case', () => {
   afterEach(async () => {
     await rollbackDbForDriver();
