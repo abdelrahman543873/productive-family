@@ -3,6 +3,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { BaseHttpException } from '../exceptions/base-http-exception';
 import { UserRoleEnum } from '../user.enum';
+import { FastifyRequest } from 'fastify';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -16,12 +17,19 @@ export class RoleGuard implements CanActivate {
       'roles',
       context.getHandler(),
     );
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<FastifyRequest>();
     const currentUser = await this.helperService.getCurrentUser(request);
-    if (!currentUser) throw new BaseHttpException(request.headers.lang, 600);
-    request.currentUser = currentUser;
+    if (!currentUser)
+      throw new BaseHttpException(
+        request?.raw?.headers?.['accept-language'] ?? 'EN',
+        600,
+      );
+    request['currentUser'] = currentUser;
     if (!roles?.length || roles[0] !== currentUser.role)
-      throw new BaseHttpException(request.headers.lang, 605);
+      throw new BaseHttpException(
+        request?.raw?.headers?.['accept-language'] ?? 'EN',
+        605,
+      );
     return true;
   }
 }

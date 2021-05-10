@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nest start",
     "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles --logHeapUsage --verbose --runInBand",
-    "test:cov": "jest --coverage --forceExit --detectOpenHandles --logHeapUsage --verbose --runInBand",
+    "test:cov": "jest --coverage --forceExit --logHeapUsage --verbose --runInBand",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

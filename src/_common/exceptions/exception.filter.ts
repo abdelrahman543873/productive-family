@@ -16,7 +16,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message = Array.isArray(errorResponse.message)
       ? errorResponse.message[0]
       : errorResponse.message;
-    response.json({
+    response.send({
       success: false,
       ...errorResponse,
       message,
