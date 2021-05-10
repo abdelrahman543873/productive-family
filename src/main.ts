@@ -9,6 +9,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import * as multer from 'fastify-multer';
+import { MongoExceptionFilter } from './_common/exceptions/mongo-exception.filter';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
@@ -34,7 +35,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter(), new MongoExceptionFilter());
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

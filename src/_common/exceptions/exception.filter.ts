@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { BaseHttpException } from './base-http-exception';
 import { ExceptionInterface } from './exception.interface';
-
 @Catch(BaseHttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost): any {
