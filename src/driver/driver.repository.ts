@@ -5,6 +5,7 @@ import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver, DriverDocument } from './models/driver.schema';
 import { BaseRepository } from '../_common/generics/repository.abstract';
 import { hashPass } from 'src/_common/utils/bcryptHelper';
+import { File } from 'fastify-multer/lib/interfaces';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
@@ -15,7 +16,7 @@ export class DriverRepository extends BaseRepository<Driver> {
   }
   async register(
     input: DriverRegisterInput,
-    files: Array<Express.Multer.File>,
+    files: Array<File>,
   ): Promise<Driver> {
     return (
       await this.driverSchema.create({

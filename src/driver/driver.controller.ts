@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@webundsoehne/nest-fastify-file-upload';
+import { File } from 'fastify-multer/lib/interfaces';
 import { DriverService } from './driver.service';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver } from './models/driver.schema';
@@ -30,7 +31,7 @@ export class DriverController {
   @Post('register')
   async register(
     @Body() input: DriverRegisterInput,
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFiles() files: Array<File>,
   ): Promise<Driver> {
     return await this.driverService.register(input, files);
   }
