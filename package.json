@@ -30,8 +30,6 @@
     "@nestjs/swagger": "^4.5.12",
     "@types/bcrypt": "^3.0.1",
     "@types/faker": "^5.5.4",
-    "@webundsoehne/nest-fastify-file-upload": "^1.0.0",
-    "aws-serverless-express": "^3.4.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "dotenv": "^8.2.0",
