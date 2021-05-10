@@ -6,8 +6,8 @@ import { DriverService } from './driver.service';
 import { DriverController } from './driver.controller';
 import { diskStorage } from 'multer';
 import { filename } from '../_common/utils/multer-file-name';
-import { MulterModule } from '@nestjs/platform-express';
 import { fileFilter } from '../_common/utils/multer-file-filter';
+import { MulterModule } from '@webundsoehne/nest-fastify-file-upload';
 
 @Module({
   imports: [

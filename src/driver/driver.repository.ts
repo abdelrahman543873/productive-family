@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver, DriverDocument } from './models/driver.schema';
 import { BaseRepository } from '../_common/generics/repository.abstract';
+import { hashPass } from 'src/_common/utils/bcryptHelper';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
@@ -22,6 +23,7 @@ export class DriverRepository extends BaseRepository<Driver> {
         location: {
           coordinates: [input.longitude, input.latitude],
         },
+        ...(input.password && { password: await hashPass(input.password) }),
         ...(files?.['imageURL']?.[0].path && {
           imageURL: files['imageURL'][0].path,
         }),

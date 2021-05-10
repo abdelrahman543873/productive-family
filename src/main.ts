@@ -4,16 +4,14 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './_common/exceptions/exception.filter';
 import { TransformInterceptor } from './_common/interceptors/response.interceptor';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
+import * as multer from 'fastify-multer';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  );
+  const fastifyAdapter = new FastifyAdapter();
+  fastifyAdapter.register(multer.contentParser);
+
+  const app = await NestFactory.create(AppModule, fastifyAdapter);
   const options = new DocumentBuilder()
     .setTitle('🚀productive-family🚀')
     .setDescription('productive family API description')
@@ -31,6 +29,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

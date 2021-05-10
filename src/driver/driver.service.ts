@@ -13,6 +13,7 @@ export class DriverService {
   ): Promise<Driver> {
     const driver = await this.driverRepo.register(input, files);
     driver.token = generateAuthToken(driver._id);
+    delete driver.password;
     return driver;
   }
 }

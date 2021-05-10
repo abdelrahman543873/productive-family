@@ -5,11 +5,12 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@webundsoehne/nest-fastify-file-upload';
 import { DriverService } from './driver.service';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver } from './models/driver.schema';
+import { driverRegisterSchema } from './swagger/driver-register.swagger';
 
 @Controller('driver')
 export class DriverController {
@@ -17,6 +18,8 @@ export class DriverController {
 
   @ApiTags('driver')
   @ApiResponse({ status: 201, type: Driver })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody(driverRegisterSchema)
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'imageURL', maxCount: 1 },

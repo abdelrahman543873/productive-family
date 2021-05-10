@@ -27,6 +27,7 @@ beforeAll(async () => {
   const module = await moduleRef();
   app = module.createNestApplication();
   await app.init();
+  await app.listen(3000, '0.0.0.0');
 });
 
 afterAll(async done => {
