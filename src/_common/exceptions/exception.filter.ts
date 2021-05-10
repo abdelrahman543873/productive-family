@@ -4,7 +4,6 @@ import {
   ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { BaseHttpException } from './base-http-exception';
 import { ExceptionInterface } from './exception.interface';
 
@@ -12,7 +11,7 @@ import { ExceptionInterface } from './exception.interface';
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost): any {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
+    const response = ctx.getResponse();
     const errorResponse = exception.getResponse() as ExceptionInterface;
     const message = Array.isArray(errorResponse.message)
       ? errorResponse.message[0]

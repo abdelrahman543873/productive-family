@@ -1,8 +1,8 @@
 import * as jwt from 'jsonwebtoken';
-import { Request } from 'express';
 import { env } from './env';
+import { FastifyRequest } from 'fastify';
 
-export const getAuthToken = (req: Request): string => {
+export const getAuthToken = (req: FastifyRequest): string => {
   if (
     req &&
     req.headers &&

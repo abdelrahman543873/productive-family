@@ -4,7 +4,8 @@ import { AppModule } from 'src/app.module';
 import { HttpExceptionFilter } from 'src/_common/exceptions/exception.filter';
 import { TransformInterceptor } from 'src/_common/interceptors/response.interceptor';
 import { Test, TestingModule } from '@nestjs/testing';
-
+import { FastifyAdapter } from '@nestjs/platform-fastify';
+import * as multer from 'fastify-multer';
 //this is done this way to be able to inject repos into factories
 export const moduleRef = async (): Promise<TestingModule> => {
   return await Test.createTestingModule({
@@ -25,9 +26,14 @@ export let app: INestApplication;
 beforeAll(async () => {
   jest.setTimeout(50000);
   const module = await moduleRef();
-  app = module.createNestApplication();
+  const fastifyAdapter = new FastifyAdapter();
+  fastifyAdapter.register(multer.contentParser);
+  app = module.createNestApplication(fastifyAdapter);
   await app.init();
-  await app.listen(3000, '0.0.0.0');
+  await app
+    .getHttpAdapter()
+    .getInstance()
+    .ready();
 });
 
 afterAll(async done => {

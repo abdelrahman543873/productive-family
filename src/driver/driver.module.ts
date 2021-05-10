@@ -4,10 +4,10 @@ import { Driver, DriverSchema } from './models/driver.schema';
 import { DriverRepository } from './driver.repository';
 import { DriverService } from './driver.service';
 import { DriverController } from './driver.controller';
-import { diskStorage } from 'multer';
 import { filename } from '../_common/utils/multer-file-name';
 import { fileFilter } from '../_common/utils/multer-file-filter';
 import { MulterModule } from '@webundsoehne/nest-fastify-file-upload';
+import { diskStorage } from 'fastify-multer/lib';
 
 @Module({
   imports: [

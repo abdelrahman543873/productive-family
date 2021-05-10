@@ -4,14 +4,20 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './_common/exceptions/exception.filter';
 import { TransformInterceptor } from './_common/interceptors/response.interceptor';
-import { FastifyAdapter } from '@nestjs/platform-fastify';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import * as multer from 'fastify-multer';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
   fastifyAdapter.register(multer.contentParser);
 
-  const app = await NestFactory.create(AppModule, fastifyAdapter);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    fastifyAdapter,
+  );
   const options = new DocumentBuilder()
     .setTitle('🚀productive-family🚀')
     .setDescription('productive family API description')
