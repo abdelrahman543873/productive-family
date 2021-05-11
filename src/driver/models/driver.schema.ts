@@ -33,7 +33,7 @@ export class Driver {
   @Prop({ min: 0, max: 5 })
   rating: number;
 
-  @Prop({ type: Point })
+  @Prop({ type: Point, index: '2dsphere' })
   location: Point;
 
   @Prop({
@@ -56,5 +56,4 @@ export class Driver {
 
   token?: string;
 }
-
 export const DriverSchema = SchemaFactory.createForClass(Driver);

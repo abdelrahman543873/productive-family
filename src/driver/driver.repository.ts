@@ -6,11 +6,13 @@ import { Driver, DriverDocument } from './models/driver.schema';
 import { BaseRepository } from '../_common/generics/repository.abstract';
 import { hashPass } from 'src/_common/utils/bcryptHelper';
 import { File } from 'fastify-multer/lib/interfaces';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
   constructor(
     @InjectModel(Driver.name) private driverSchema: Model<DriverDocument>,
+    private configService: ConfigService,
   ) {
     super(driverSchema);
   }
@@ -26,13 +28,18 @@ export class DriverRepository extends BaseRepository<Driver> {
         },
         ...(input.password && { password: await hashPass(input.password) }),
         ...(files?.['imageURL']?.[0].path && {
-          imageURL: files['imageURL'][0].path,
+          imageURL:
+            this.configService.get<string>('IP') + files['imageURL'][0].path,
         }),
         ...(files?.['nationalIDImgBack']?.[0].path && {
-          nationalIDImgBack: files['nationalIDImgBack'][0].path,
+          nationalIDImgBack:
+            this.configService.get<string>('IP') +
+            files['nationalIDImgBack'][0].path,
         }),
         ...(files?.['nationalIDImgFront']?.[0].path && {
-          nationalIDImgFront: files['nationalIDImgFront'][0].path,
+          nationalIDImgFront:
+            this.configService.get<string>('IP') +
+            files['nationalIDImgFront'][0].path,
         }),
       })
     ).toJSON();
