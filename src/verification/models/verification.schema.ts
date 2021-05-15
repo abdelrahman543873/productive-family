@@ -15,10 +15,10 @@ export class Verification {
   expirationDate: Date;
 
   @Prop()
-  mobile: string;
+  mobile?: string;
 
   @Prop()
-  email: string;
+  email?: string;
 }
 
 export const VerificationSchema = SchemaFactory.createForClass(Verification);
