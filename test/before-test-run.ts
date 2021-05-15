@@ -6,7 +6,8 @@ import { TransformInterceptor } from 'src/_common/interceptors/response.intercep
 import { Test, TestingModule } from '@nestjs/testing';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import * as multer from 'fastify-multer';
-//this is done this way to be able to inject repos into factories
+
+// this is done this way to be able to inject repos into factories
 export const moduleRef = async (): Promise<TestingModule> => {
   return await Test.createTestingModule({
     imports: [AppModule],

@@ -1,20 +1,19 @@
 import { adminFactory } from 'src/admin/admin.factory';
-import faker from 'faker';
-import dotenv from 'dotenv';
+import * as faker from 'faker';
 import { verificationRepo } from '../../test/verification/verification-test-repo';
 import { Verification } from './models/verification.schema';
+import { env } from '../_common/utils/env';
 
-dotenv.config();
 export const buildVerificationParams = async (
   obj: Record<any, any> = {},
 ): Promise<Verification> => {
   return {
     user: obj.user || (await adminFactory())._id,
-    code: obj.code || faker.datatype.number(),
+    code: obj.code || `${faker.datatype.number()}`,
     expirationDate:
       obj.expirationDate ||
-      Date.now() + Number(process.env.OTP_EXPIRY_TIME) * 1000 * 60,
-    phone: obj.phone || faker.phone.phoneNumber('+20165#######'),
+      new Date(Date.now() + Number(env.OTP_EXPIRY_TIME) * 1000 * 60),
+    mobile: obj.mobile || faker.phone.phoneNumber('+20165#######'),
     email: obj.email || faker.internet.email(),
   };
 };

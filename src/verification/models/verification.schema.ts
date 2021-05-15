@@ -15,7 +15,7 @@ export class Verification {
   expirationDate: Date;
 
   @Prop()
-  phone: string;
+  mobile: string;
 
   @Prop()
   email: string;

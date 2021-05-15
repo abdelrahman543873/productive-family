@@ -20,7 +20,7 @@ export class VerificationInput {
 
   @IsOptional()
   @IsPhoneNumber()
-  phone?: string;
+  mobile?: string;
 
   @IsOptional()
   @IsEmail()

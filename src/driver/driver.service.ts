@@ -23,6 +23,7 @@ export class DriverService {
     delete driver.password;
     const verificationCode = await this.verificationRepo.addVerificationCode({
       user: driver._id,
+      mobile: driver.mobile,
       ...createVerificationCode(),
     });
     await sendMessage({

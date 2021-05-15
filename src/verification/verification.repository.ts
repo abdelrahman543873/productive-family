@@ -29,7 +29,7 @@ export class VerificationRepository extends BaseRepository<Verification> {
     return await this.verificationSchema.findOne({
       ...(verification.user && { user: verification.user }),
       ...(verification.email && { email: verification.email }),
-      ...(verification.phone && { phone: verification.phone }),
+      ...(verification.mobile && { phone: verification.mobile }),
       expirationDate: { $gte: new Date() },
       code: verification.code,
     });
