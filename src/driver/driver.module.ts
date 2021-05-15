@@ -8,6 +8,7 @@ import { filename } from '../_common/utils/multer-file-name';
 import { fileFilter } from '../_common/utils/multer-file-filter';
 import { MulterModule } from '@webundsoehne/nest-fastify-file-upload';
 import { diskStorage } from 'fastify-multer/lib';
+import { VerificationModule } from '../verification/verification.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { diskStorage } from 'fastify-multer/lib';
       }),
     }),
     MongooseModule.forFeature([{ name: Driver.name, schema: DriverSchema }]),
+    VerificationModule,
   ],
   controllers: [DriverController],
   providers: [DriverRepository, DriverService],

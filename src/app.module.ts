@@ -5,12 +5,14 @@ import { UserModule } from './user/user.module';
 import { HelperModule } from './_common/helper/helper.module';
 import { ConfigModule } from '@nestjs/config';
 import { DriverModule } from './driver/driver.module';
+import { VerificationModule } from './verification/verification.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DataBaseModule,
     HelperModule,
+    VerificationModule,
     UserModule,
     FaqModule,
     DriverModule,

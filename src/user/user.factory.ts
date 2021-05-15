@@ -28,7 +28,7 @@ export const usersFactory = async (
   return (await UserRepo()).addMany(faqs);
 };
 
-export const UserFactory = async (obj = <any>{}): Promise<User> => {
+export const userFactory = async (obj = <any>{}): Promise<User> => {
   const params = buildUserParams(obj);
   params.password = await hashPass(params.password);
   const user = await (await UserRepo()).add(params);
