@@ -11,6 +11,8 @@ import { HelperService } from 'src/_common/helper/helper.service';
 import { BaseHttpException } from '../_common/exceptions/base-http-exception';
 import { REQUEST } from '@nestjs/core';
 import { RequestContext } from '../_common/request.interface';
+import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
+import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
 
 @Injectable()
 export class DriverService {
@@ -20,6 +22,7 @@ export class DriverService {
     private readonly verificationRepo: VerificationRepository,
     private readonly helperService: HelperService,
   ) {}
+
   async register(
     input: DriverRegisterInput,
     files: Array<File>,
@@ -42,5 +45,21 @@ export class DriverService {
       body: verificationCode.code,
     });
     return driver;
+  }
+
+  async updateProfile(
+    input: DriverUpdateProfileInput,
+    files: Array<File>,
+  ): Promise<Driver> {
+    const passwordValidation = input.password
+      ? await bcryptCheckPass(input.password, this.request.currentUser.password)
+      : true;
+    if (!passwordValidation)
+      throw new BaseHttpException(this.request.lang, 607);
+    return await this.driverRepo.updateProfile(
+      this.request.currentUser._id,
+      input,
+      files,
+    );
   }
 }

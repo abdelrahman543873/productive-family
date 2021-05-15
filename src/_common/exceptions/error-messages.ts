@@ -14,4 +14,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'unsupported file type',
     AR: 'unsupported file type',
   },
+  607: {
+    EN: 'wrong password',
+    AR: 'wrong password',
+  },
 };
