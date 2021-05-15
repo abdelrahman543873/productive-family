@@ -29,7 +29,7 @@ export const buildDriverParams = (obj = <any>{}): Driver => {
   };
 };
 
-export const usersFactory = async (
+export const driversFactory = async (
   count = 10,
   obj = <any>{},
 ): Promise<Driver[]> => {
@@ -40,7 +40,7 @@ export const usersFactory = async (
   return (await DriverRepo()).addMany(faqs);
 };
 
-export const DriverFactory = async (obj = <any>{}): Promise<Driver> => {
+export const driverFactory = async (obj = <any>{}): Promise<Driver> => {
   const params = buildDriverParams(obj);
   params.password = await hashPass(params.password);
   const driver = await (await DriverRepo()).add(params);

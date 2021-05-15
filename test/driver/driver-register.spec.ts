@@ -1,7 +1,10 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { DRIVER_REGISTER } from '../endpoints/driver';
-import { buildDriverParams } from '../../src/driver/driver.factory';
+import {
+  buildDriverParams,
+  driverFactory,
+} from '../../src/driver/driver.factory';
 import { rollbackDbForDriver } from './rollback-db-driver';
 describe('register driver suite case', () => {
   afterEach(async () => {
@@ -27,5 +30,21 @@ describe('register driver suite case', () => {
     expect(res.body.data.nationalIDImgFront).toContain('.jpeg');
     expect(res.body.data.token).toBeTruthy();
     expect(res.body.data.name).toBe(params.name);
+  });
+
+  it('should throw error if mobile already exists', async () => {
+    const driver = await driverFactory();
+    const params = await buildDriverParams();
+    delete params.role;
+    params.mobile = driver.mobile;
+    params['longitude'] = params.location.coordinates[0];
+    params['latitude'] = params.location.coordinates[1];
+    delete params.location;
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: DRIVER_REGISTER,
+      variables: params,
+    });
+    expect(res.body.statusCode).toBe(602);
   });
 });
