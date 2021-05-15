@@ -1,6 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from 'src/user/models/user.schema';
+import { Admin, AdminSchema } from 'src/admin/models/admin.schema';
 import { HelperService } from './helper.service';
 import { Driver, DriverSchema } from '../../driver/models/driver.schema';
 
@@ -8,7 +8,7 @@ import { Driver, DriverSchema } from '../../driver/models/driver.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: User.name, schema: UserSchema },
+      { name: Admin.name, schema: AdminSchema },
       { name: Driver.name, schema: DriverSchema },
     ]),
   ],

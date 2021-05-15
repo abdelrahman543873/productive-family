@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User, UserDocument } from 'src/user/models/user.schema';
+import { Admin, AdminDocument } from 'src/admin/models/admin.schema';
 import * as jwt from 'jsonwebtoken';
 import { getAuthToken } from '../utils/token-utils';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,18 +14,18 @@ export interface TokenPayload {
 @Injectable()
 export class HelperService {
   constructor(
-    @InjectModel(User.name) private userSchema: Model<UserDocument>,
+    @InjectModel(Admin.name) private adminSchema: Model<AdminDocument>,
     @InjectModel(Driver.name) private driverSchema: Model<DriverDocument>,
     private configService: ConfigService,
   ) {}
-  async getCurrentUser(req: FastifyRequest): Promise<User | Driver> {
+  async getCurrentUser(req: FastifyRequest): Promise<Admin | Driver> {
     const token = getAuthToken(req);
     if (!token) return null;
     const { _id } = <TokenPayload>(
       jwt.verify(token, this.configService.get<string>('JWT_SECRET'))
     );
     const user =
-      (await this.userSchema.findById(_id)) ??
+      (await this.adminSchema.findById(_id)) ??
       (await this.driverSchema.findById(_id));
     return user;
   }

@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { UserRoleEnum } from '../../_common/user.enum';
-import { getValuesFromEnum } from '../../_common/utils/column-enum';
 
-export type UserDocument = User & Document;
+export type AdminDocument = Admin & Document;
 
 @Schema({ versionKey: false })
-export class User {
+export class Admin {
   @Prop({ unique: true, required: true })
   email: string;
 
@@ -20,9 +19,8 @@ export class User {
   password: string;
 
   @Prop({
-    enum: getValuesFromEnum(UserRoleEnum),
     required: true,
-    default: UserRoleEnum.CLIENT,
+    default: UserRoleEnum.ADMIN,
   })
   role: string;
 
@@ -30,4 +28,4 @@ export class User {
   token?: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const AdminSchema = SchemaFactory.createForClass(Admin);

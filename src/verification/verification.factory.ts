@@ -1,6 +1,6 @@
+import { adminFactory } from 'src/admin/admin.factory';
 import faker from 'faker';
 import dotenv from 'dotenv';
-import { userFactory } from 'src/user/user.factory';
 import { verificationRepo } from '../../test/verification/verification-test-repo';
 import { Verification } from './models/verification.schema';
 
@@ -9,7 +9,7 @@ export const buildVerificationParams = async (
   obj: Record<any, any> = {},
 ): Promise<Verification> => {
   return {
-    user: obj.user || (await userFactory())._id,
+    user: obj.user || (await adminFactory())._id,
     code: obj.code || faker.datatype.number(),
     expirationDate:
       obj.expirationDate ||
