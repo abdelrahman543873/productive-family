@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
-import { UserRoleEnum } from 'src/_common/user.enum';
+import { UserRoleEnum } from 'src/_common/app.enum';
 import { FaqService } from './faq.service';
 import { AddFaqInput } from './inputs/faq.input';
 import { Faq } from './models/faq.schema';

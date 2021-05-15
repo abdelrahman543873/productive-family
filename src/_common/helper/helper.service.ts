@@ -7,6 +7,7 @@ import { Model } from 'mongoose';
 import { ConfigService } from '@nestjs/config';
 import { Driver, DriverDocument } from '../../driver/models/driver.schema';
 import { FastifyRequest } from 'fastify';
+import { GetExistingUserInput } from './inputs/get-existing-user.input';
 
 export interface TokenPayload {
   _id: string;
@@ -27,6 +28,21 @@ export class HelperService {
     const user =
       (await this.adminSchema.findById(_id)) ??
       (await this.driverSchema.findById(_id));
+    return user;
+  }
+
+  async getExistingUser(input: GetExistingUserInput): Promise<Admin | Driver> {
+    const user =
+      (await this.adminSchema.findOne({
+        ...(input._id && { _id: input._id }),
+        ...(input.email && { email: input.email }),
+        ...(input.mobile && { mobile: input.mobile }),
+      })) ??
+      (await this.driverSchema.findOne({
+        ...(input._id && { _id: input._id }),
+        ...(input.email && { email: input.email }),
+        ...(input.mobile && { mobile: input.mobile }),
+      }));
     return user;
   }
 }

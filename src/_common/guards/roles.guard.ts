@@ -2,7 +2,7 @@ import { HelperService } from '../helper/helper.service';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { BaseHttpException } from '../exceptions/base-http-exception';
-import { UserRoleEnum } from '../user.enum';
+import { UserRoleEnum } from '../app.enum';
 import { FastifyRequest } from 'fastify';
 
 @Injectable()

@@ -3,7 +3,7 @@ import { hashPass } from 'src/_common/utils/bcryptHelper';
 import { generateAuthToken } from '../_common/utils/token-utils';
 import { Driver } from './models/driver.schema';
 import { DriverRepo } from '../../test/driver/driver-test-repo';
-import { UserRoleEnum } from '../_common/user.enum';
+import { UserRoleEnum } from '../_common/app.enum';
 
 export const buildDriverParams = (obj = <any>{}): Driver => {
   return {

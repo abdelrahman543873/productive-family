@@ -3,7 +3,7 @@ import { IErrorMessage } from './error-messages-interface';
 export const LocalizedErrorMessages: IErrorMessage = {
   600: { EN: 'Unauthorized', AR: 'غير مصرح له' },
   601: { EN: 'Email already exists', AR: 'Email already exists' },
-  602: { EN: 'Phone already exists', AR: 'Phone already exists' },
+  602: { EN: 'mobile already exists', AR: 'mobile already exists' },
   603: { EN: 'Invalid credentials', AR: 'Invalid credentials' },
   604: { EN: 'Blocked user', AR: 'Blocked user' },
   605: {

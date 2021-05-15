@@ -1,6 +1,6 @@
 import { AdminRepo } from './../../test/user/user-test-repo';
 import * as faker from 'faker';
-import { UserRoleEnum } from 'src/_common/user.enum';
+import { UserRoleEnum } from 'src/_common/app.enum';
 import { Admin } from './models/admin.schema';
 import { hashPass } from 'src/_common/utils/bcryptHelper';
 import { generateAuthToken } from '../_common/utils/token-utils';

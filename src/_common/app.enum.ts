@@ -4,3 +4,8 @@ export enum UserRoleEnum {
   CLIENT = 'CLIENT',
   PRODUCTIVE_FAMILY = 'PRODUCTIVE_FAMILY',
 }
+
+export enum LangEnum {
+  EN = 'EN',
+  AR = 'AR',
+}
