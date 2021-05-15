@@ -10,13 +10,12 @@ import { sendMessage } from 'src/_common/utils/twilio';
 import { HelperService } from 'src/_common/helper/helper.service';
 import { BaseHttpException } from '../_common/exceptions/base-http-exception';
 import { REQUEST } from '@nestjs/core';
-import { FastifyRequest } from 'fastify';
-import { LangEnum } from '../_common/app.enum';
+import { RequestContext } from '../_common/request.interface';
 
 @Injectable()
 export class DriverService {
   constructor(
-    @Inject(REQUEST) private readonly request: FastifyRequest,
+    @Inject(REQUEST) private readonly request: RequestContext,
     private readonly driverRepo: DriverRepository,
     private readonly verificationRepo: VerificationRepository,
     private readonly helperService: HelperService,
@@ -25,14 +24,11 @@ export class DriverService {
     input: DriverRegisterInput,
     files: Array<File>,
   ): Promise<Driver> {
-    const alreadyRegisteredUser = await this.helperService.getExistingUser({
+    const alreadyRegisteredMobile = await this.helperService.getExistingUser({
       mobile: input.mobile,
     });
-    if (alreadyRegisteredUser)
-      throw new BaseHttpException(
-        this.request.headers['accept-language'] ?? LangEnum.EN,
-        602,
-      );
+    if (alreadyRegisteredMobile)
+      throw new BaseHttpException(this.request.lang, 602);
     const driver = await this.driverRepo.register(input, files);
     driver.token = generateAuthToken(driver._id);
     delete driver.password;
