@@ -21,7 +21,7 @@ import { DriverService } from './driver.service';
 import { DriverRegisterInput } from './inputs/driver-register.input';
 import { Driver } from './models/driver.schema';
 import { driverRegisterSchema } from './swagger/driver-register.swagger';
-import { driverUpdateProfileSchema } from './swagger/driver-update-profile';
+import { driverUpdateProfileSchema } from './swagger/driver-update-profile.swagger';
 import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
 import { UserRoleEnum } from 'src/_common/app.enum';

@@ -8,6 +8,7 @@ import { JoiValidationPipe } from '../_common/pipes/joi.pipe';
 import { VerifyOtpJoi } from './joi/verify-otp.joi';
 import { SendOtpInput } from './inputs/send-otp.input';
 import { SendOtpJoi } from './joi/send-otp.joi';
+import { sendOtpSchema } from './swagger/send-otp.swagger';
 
 @Controller('verification')
 export class VerificationController {
@@ -21,7 +22,7 @@ export class VerificationController {
     return await this.verificationService.verifyOtp(input);
   }
 
-  @ApiResponse({ status: 201 })
+  @ApiResponse({ status: 201, schema: sendOtpSchema })
   @ApiTags('verification')
   @UsePipes(new JoiValidationPipe(SendOtpJoi))
   @Post('sendOtp')
