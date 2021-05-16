@@ -26,4 +26,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'expired OTP',
     AR: 'expired OTP',
   },
+  610: {
+    EN: "user doesn't exist",
+    AR: "user doesn't exist",
+  },
 };

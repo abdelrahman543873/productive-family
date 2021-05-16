@@ -2,6 +2,7 @@ import { ObjectID } from 'mongodb';
 import {
   IsDate,
   IsEmail,
+  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
@@ -9,6 +10,7 @@ import {
 } from 'class-validator';
 
 export class VerificationInput {
+  @IsMongoId()
   @IsOptional()
   user?: ObjectID;
 

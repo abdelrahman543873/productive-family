@@ -8,6 +8,9 @@ import { Admin } from '../admin/models/admin.schema';
 import { Driver } from '../driver/models/driver.schema';
 import { generateAuthToken } from '../_common/utils/token-utils';
 import { RequestContext } from 'src/_common/request.interface';
+import { SendOtpInput } from './inputs/send-otp.input';
+import { createVerificationCode } from 'src/_common/utils/sms-token';
+import { sendMessage } from 'src/_common/utils/twilio';
 
 @Injectable()
 export class VerificationService {
@@ -27,5 +30,24 @@ export class VerificationService {
     });
     user.token = generateAuthToken(user._id);
     return user;
+  }
+
+  async sendOtp(input: SendOtpInput): Promise<null> {
+    const user = await this.helperService.getExistingUser({
+      _id: input.user,
+      email: input.email,
+      mobile: input.mobile,
+    });
+    if (!user) throw new BaseHttpException(this.request.lang, 610);
+    const verificationCode = await this.verificationRepo.addVerificationCode({
+      user: user._id,
+      mobile: user.mobile,
+      ...createVerificationCode(),
+    });
+    await sendMessage({
+      to: user.mobile,
+      body: verificationCode.code,
+    });
+    return null;
   }
 }
