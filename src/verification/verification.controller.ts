@@ -11,7 +11,7 @@ import { VerifyOtpJoi } from './joi/verify-otp.joi';
 export class VerificationController {
   constructor(private readonly verificationService: VerificationService) {}
 
-  @ApiResponse({ status: 201, type: Driver || Admin })
+  @ApiResponse({ status: 201, type: Driver })
   @ApiTags('verification')
   @UsePipes(new JoiValidationPipe(VerifyOtpJoi))
   @Post('otp')
