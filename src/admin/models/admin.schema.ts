@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { UserRoleEnum } from '../../_common/app.enum';
+import { ObjectID } from 'mongodb';
 
 export type AdminDocument = Admin & Document;
 
@@ -24,7 +25,7 @@ export class Admin {
   })
   role: string;
 
-  _id?: string;
+  _id?: ObjectID;
   token?: string;
 }
 

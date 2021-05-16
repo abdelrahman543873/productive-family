@@ -33,16 +33,24 @@ export class HelperService {
 
   async getExistingUser(input: GetExistingUserInput): Promise<Admin | Driver> {
     const user =
-      (await this.adminSchema.findOne({
-        ...(input._id && { _id: input._id }),
-        ...(input.email && { email: input.email }),
-        ...(input.mobile && { mobile: input.mobile }),
-      })) ??
-      (await this.driverSchema.findOne({
-        ...(input._id && { _id: input._id }),
-        ...(input.email && { email: input.email }),
-        ...(input.mobile && { mobile: input.mobile }),
-      }));
+      (await this.adminSchema.findOne(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { password: 0 },
+        { lean: true },
+      )) ??
+      (await this.driverSchema.findOne(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { password: 0 },
+        { lean: true },
+      ));
     return user;
   }
 }

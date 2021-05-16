@@ -29,7 +29,6 @@ export class VerificationRepository extends BaseRepository<Verification> {
       ...(verification.user && { user: verification.user }),
       ...(verification.email && { email: verification.email }),
       ...(verification.mobile && { mobile: verification.mobile }),
-      expirationDate: { $gte: new Date() },
       code: verification.code,
     });
   }

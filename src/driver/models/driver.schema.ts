@@ -2,12 +2,13 @@ import { Point } from '../../_common/spatial-schemas/point.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { UserRoleEnum } from 'src/_common/app.enum';
+import { ObjectID } from 'mongodb';
 
 export type DriverDocument = Driver & Document;
 
 @Schema({ versionKey: false })
 export class Driver {
-  _id?: string;
+  _id?: ObjectID;
 
   @Prop({ trim: true, required: true })
   name: string;

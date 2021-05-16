@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsMongoId,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
@@ -7,6 +8,7 @@ import {
 } from 'class-validator';
 
 export class VerifyOtpInput {
+  @IsMongoId()
   @IsOptional()
   user?: string;
 
@@ -15,7 +17,7 @@ export class VerifyOtpInput {
   code: string;
 
   @IsOptional()
-  @IsPhoneNumber()
+  @IsPhoneNumber('EG')
   mobile?: string;
 
   @IsOptional()

@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import {
   IsDate,
   IsEmail,
@@ -9,7 +10,7 @@ import {
 
 export class VerificationInput {
   @IsOptional()
-  user?: string;
+  user?: ObjectID;
 
   @IsNotEmpty()
   @IsString()
@@ -19,7 +20,7 @@ export class VerificationInput {
   expirationDate: Date;
 
   @IsOptional()
-  @IsPhoneNumber()
+  @IsPhoneNumber('EG')
   mobile?: string;
 
   @IsOptional()

@@ -18,4 +18,12 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'wrong password',
     AR: 'wrong password',
   },
+  608: {
+    EN: 'invalid OTP',
+    AR: 'invalid OTP',
+  },
+  609: {
+    EN: 'expired OTP',
+    AR: 'expired OTP',
+  },
 };

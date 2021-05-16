@@ -1,4 +1,4 @@
-import { verificationFactory } from './../../src/verification/verification.factory';
+import { verificationFactory } from '../../src/verification/verification.factory';
 import { rollbackDbForVerification } from './rollback-for-verification';
 import { verificationRepo } from './verification-test-repo';
 describe('verify verification code suite case', () => {

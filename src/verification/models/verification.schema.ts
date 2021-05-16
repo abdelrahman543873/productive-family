@@ -1,12 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
+import { ObjectID } from 'mongodb';
 
 export type VerificationDocument = Verification & Document;
 
 @Schema({ versionKey: false, timestamps: false })
 export class Verification {
-  @Prop({ type: Types.ObjectId })
-  user: string;
+  _id?: ObjectID;
+
+  @Prop({ type: ObjectID })
+  user: ObjectID;
 
   @Prop({ required: true })
   code: string;

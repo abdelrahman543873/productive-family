@@ -25,6 +25,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('faq', 'frequently asked questions for app users')
     .addTag('driver', 'driver endpoints')
+    .addTag('verification', 'endpoint used to verify email, phone or a user')
     .addBearerAuth({
       type: 'apiKey',
       name: 'authorization',

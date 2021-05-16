@@ -28,7 +28,7 @@ import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { JoiValidationPipe } from '../_common/pipes/joi.pipe';
-import { DriverUpdateProfileJoi } from './joi/driver-updateprofile.joi';
+import { DriverUpdateProfileJoi } from './joi/driver-update-profile.joi';
 
 @Controller('driver')
 export class DriverController {

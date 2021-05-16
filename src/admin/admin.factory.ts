@@ -8,7 +8,7 @@ import { generateAuthToken } from '../_common/utils/token-utils';
 export const buildAdminParams = (obj = <any>{}): Admin => {
   return {
     email: obj.email || faker.internet.email(),
-    mobile: obj.phone || faker.phone.phoneNumber(),
+    mobile: obj.phone || faker.phone.phoneNumber('+20100#######'),
     name: obj.name || faker.name.findName(),
     password: obj.password || faker.internet.password(),
     role: obj.role || UserRoleEnum.ADMIN,

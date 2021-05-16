@@ -1,6 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { env } from './env';
 import { FastifyRequest } from 'fastify';
+import { ObjectID } from 'mongodb';
 
 export const getAuthToken = (req: FastifyRequest): string => {
   if (req?.headers?.authorization || req?.headers?.Authorization) {
@@ -12,6 +13,6 @@ export const getAuthToken = (req: FastifyRequest): string => {
   return null;
 };
 
-export const generateAuthToken = (_id: string): string => {
+export const generateAuthToken = (_id: ObjectID): string => {
   return jwt.sign({ _id }, env.JWT_SECRET);
 };
