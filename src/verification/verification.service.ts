@@ -33,12 +33,13 @@ export class VerificationService {
   }
 
   async sendOtp(input: SendOtpInput): Promise<null> {
-    const user = await this.helperService.getExistingUser({
+    const user = (await this.helperService.getExistingUser({
       _id: input.user,
       email: input.email,
       mobile: input.mobile,
-    });
+    })) as Driver;
     if (!user) throw new BaseHttpException(this.request.lang, 610);
+    if (user.isActive) throw new BaseHttpException(this.request.lang, 611);
     const verificationCode = await this.verificationRepo.addVerificationCode({
       user: user._id,
       mobile: user.mobile,

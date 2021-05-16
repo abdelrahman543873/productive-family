@@ -11,9 +11,9 @@ export const buildDriverParams = (obj = <any>{}): Driver => {
     name: obj.name ?? faker.name.findName(),
     password: obj.password ?? faker.internet.password(),
     notionalId: obj.nationalId ?? faker.finance.iban(),
-    isActive: obj.isActive ?? false,
-    isVerified: obj.isVerified ?? false,
-    isAvailable: obj.isAvailable ?? false,
+    isActive: obj.isActive ?? true,
+    isVerified: obj.isVerified ?? true,
+    isAvailable: obj.isAvailable ?? true,
     rating: obj.rating ?? faker.datatype.number(5),
     location: obj.location ?? {
       coordinates: [

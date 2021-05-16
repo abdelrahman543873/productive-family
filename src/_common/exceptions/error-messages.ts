@@ -30,4 +30,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: "user doesn't exist",
     AR: "user doesn't exist",
   },
+  611: {
+    EN: 'user already verified',
+    AR: 'user already verified',
+  },
 };
