@@ -7,10 +7,10 @@ import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { ReviewService } from './review.service';
 import { REQUEST } from '@nestjs/core';
 import { RequestContext } from 'src/_common/request.interface';
-import { PaginationInterface } from '../_common/interfaces/paginatation.interface';
 import { PaginateResult } from 'mongoose';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { MessagesEnum } from '../_common/app.enum';
+import { PaginationInterface } from 'src/_common/interfaces/pagination.interface';
 
 @Controller('reviews')
 export class ReviewController {

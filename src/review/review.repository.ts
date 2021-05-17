@@ -4,7 +4,7 @@ import { PaginateModel, PaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Review, ReviewDocument } from './models/review.schema';
 import { ObjectID } from 'mongodb';
-import { PaginationInterface } from '../_common/interfaces/paginatation.interface';
+import { PaginationInterface } from '../_common/interfaces/pagination.interface';
 
 @Injectable()
 export class ReviewRepository extends BaseRepository<Review> {

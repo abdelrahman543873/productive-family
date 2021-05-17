@@ -3,7 +3,7 @@ import { ReviewRepository } from './review.repository';
 import { Injectable } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
 import { PaginateResult } from 'mongoose';
-import { PaginationInterface } from '../_common/interfaces/paginatation.interface';
+import { PaginationInterface } from '../_common/interfaces/pagination.interface';
 
 @Injectable()
 export class ReviewService {
