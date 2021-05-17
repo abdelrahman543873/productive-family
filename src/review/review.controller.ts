@@ -9,6 +9,8 @@ import { REQUEST } from '@nestjs/core';
 import { RequestContext } from 'src/_common/request.interface';
 import { PaginationInterface } from '../_common/interfaces/paginatation.interface';
 import { PaginateResult } from 'mongoose';
+import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { MessagesEnum } from '../_common/app.enum';
 
 @Controller('reviews')
 export class ReviewController {
@@ -17,6 +19,13 @@ export class ReviewController {
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
 
+  @ApiBearerAuth()
+  @ApiTags('reviews')
+  @ApiResponse({
+    status: 200,
+    type: Review,
+    description: MessagesEnum.PAGINATED_RESPONSE,
+  })
   @HasRoles(UserRoleEnum.DRIVER)
   @UseGuards(AuthGuard, RoleGuard)
   @Get('driver')
