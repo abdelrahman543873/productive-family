@@ -7,7 +7,7 @@ import { AddFaqInput } from './inputs/faq.input';
 
 @Injectable()
 export class FaqRepository extends BaseRepository<Faq> {
-  constructor(@InjectModel(Faq.name) private faqSchema: Model<FaqDocument>) {
+    constructor(@InjectModel(Faq.name) private faqSchema: Model<FaqDocument>) {
     super(faqSchema);
   }
 

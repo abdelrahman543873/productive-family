@@ -1,0 +1,31 @@
+import { Review } from './models/review.schema';
+import { Controller, Get, Inject, Query, UseGuards } from '@nestjs/common';
+import { UserRoleEnum } from 'src/_common/app.enum';
+import { AuthGuard } from 'src/_common/guards/auth.guard';
+import { HasRoles } from 'src/_common/guards/auth.metadata';
+import { RoleGuard } from 'src/_common/guards/roles.guard';
+import { ReviewService } from './review.service';
+import { REQUEST } from '@nestjs/core';
+import { RequestContext } from 'src/_common/request.interface';
+import { PaginationInterface } from '../_common/interfaces/paginatation.interface';
+import { PaginateResult } from 'mongoose';
+
+@Controller('reviews')
+export class ReviewController {
+  constructor(
+    private readonly reviewService: ReviewService,
+    @Inject(REQUEST) private readonly request: RequestContext,
+  ) {}
+
+  @HasRoles(UserRoleEnum.DRIVER)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get('driver')
+  async getDriverReviews(
+    @Query() query: PaginationInterface,
+  ): Promise<PaginateResult<Review>> {
+    return await this.reviewService.getDriverReviews(
+      this.request.currentUser._id,
+      query,
+    );
+  }
+}

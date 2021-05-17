@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { DriverModule } from './driver/driver.module';
 import { VerificationModule } from './verification/verification.module';
 import { AdminModule } from './admin/admin.module';
+import { ReviewModule } from './review/review.module';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { AdminModule } from './admin/admin.module';
     DataBaseModule,
     HelperModule,
     VerificationModule,
+    ReviewModule,
+    ClientModule,
     AdminModule,
     FaqModule,
     DriverModule,
