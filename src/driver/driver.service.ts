@@ -9,18 +9,18 @@ import { VerificationRepository } from '../verification/verification.repository'
 import { sendMessage } from 'src/_common/utils/twilio';
 import { HelperService } from 'src/_common/helper/helper.service';
 import { BaseHttpException } from '../_common/exceptions/base-http-exception';
-import { REQUEST } from '@nestjs/core';
-import { RequestContext } from '../_common/request.interface';
 import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
 import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
+import { REQUEST } from '@nestjs/core';
+import { RequestContext } from 'src/_common/request.interface';
 
 @Injectable()
 export class DriverService {
   constructor(
-    @Inject(REQUEST) private readonly request: RequestContext,
     private readonly driverRepo: DriverRepository,
     private readonly verificationRepo: VerificationRepository,
     private readonly helperService: HelperService,
+    @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
 
   async register(
@@ -61,5 +61,13 @@ export class DriverService {
       input,
       files,
     );
+  }
+
+  async toggleActivity(): Promise<boolean> {
+    const driver = await this.driverRepo.toggleActivity(
+      this.request.currentUser._id,
+      !this.request.currentUser.isActive,
+    );
+    return driver.isActive;
   }
 }

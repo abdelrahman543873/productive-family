@@ -9,6 +9,7 @@ import { File } from 'fastify-multer/lib/interfaces';
 import { ConfigService } from '@nestjs/config';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
+import { ObjectID } from 'mongodb';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
@@ -83,6 +84,14 @@ export class DriverRepository extends BaseRepository<Driver> {
         }),
       },
       { new: true, lean: true, projection: { password: 0 } },
+    );
+  }
+
+  async toggleActivity(_id: ObjectID, isActive: boolean): Promise<Driver> {
+    return await this.driverSchema.findOneAndUpdate(
+      { _id },
+      { isActive },
+      { new: true, lean: true },
     );
   }
 }

@@ -75,4 +75,14 @@ export class DriverController {
   ): Promise<Driver> {
     return await this.driverService.updateProfile(input, files);
   }
+
+  @ApiBearerAuth()
+  @ApiTags('driver')
+  @ApiResponse({ status: 201, type: 'boolean' })
+  @HasRoles(UserRoleEnum.DRIVER)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Put('toggleActivity')
+  async toggleActivity(): Promise<boolean> {
+    return await this.driverService.toggleActivity();
+  }
 }

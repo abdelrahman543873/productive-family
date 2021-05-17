@@ -37,7 +37,7 @@ export const testRequest = async (
     ? req.attach(input.fileParam, input.filePath)
     : input.fileParams
     ? null
-    : req.send(input.variables).set('Content-Type', 'application/json');
+    : req.send(input.variables);
   input?.fileParams
     ? input.fileParams.forEach(param => {
         req.attach(param, input.filePath);
