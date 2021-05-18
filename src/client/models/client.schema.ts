@@ -15,22 +15,22 @@ export class Client {
   name: string;
 
   @Prop()
-  password: string;
+  password?: string;
 
   @Prop({ sparse: true })
-  mobile: string;
+  mobile?: string;
 
   @Prop({ sparse: true })
-  email: string;
+  email?: string;
 
   @Prop({ required: true, default: false })
   isVerified: boolean;
 
   @Prop({ sparse: true })
-  socialMediaId: string;
+  socialMediaId?: string;
 
   @Prop({ enum: getValuesFromEnum(SocialMediaType) })
-  socialMediaType: string;
+  socialMediaType?: string;
 
   @Prop({
     type: [
@@ -40,13 +40,13 @@ export class Client {
       },
     ],
   })
-  favProducts: ObjectID[];
+  favProducts?: ObjectID[];
 
-  @Prop({})
-  fcmToken: string;
+  @Prop()
+  fcmToken?: string;
 
-  @Prop({})
-  imageURL: string;
+  @Prop()
+  imageURL?: string;
 
   @Prop({
     required: true,

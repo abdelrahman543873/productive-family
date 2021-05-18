@@ -9,19 +9,19 @@ export type FaqDocument = Faq & Document;
 @Schema({ versionKey: false })
 export class Faq {
   _id?: ObjectID;
-  @Prop()
+  @Prop({ required: true })
   enQuestion: string;
 
-  @Prop()
+  @Prop({ required: true })
   arQuestion: string;
 
-  @Prop()
+  @Prop({ required: true })
   enAnswer: string;
 
-  @Prop()
+  @Prop({ required: true })
   arAnswer: string;
 
-  @Prop({ enum: getValuesFromEnum(UserRoleEnum) })
+  @Prop({ enum: getValuesFromEnum(UserRoleEnum), required: true })
   type: string;
 }
 

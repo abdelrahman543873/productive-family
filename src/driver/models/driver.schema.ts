@@ -32,10 +32,10 @@ export class Driver {
   isAvailable: boolean;
 
   @Prop({ min: 0, max: 5 })
-  rating: number;
+  rating?: number;
 
   @Prop({ type: Point, index: '2dsphere' })
-  location: Point;
+  location?: Point;
 
   @Prop({
     required: true,
@@ -46,14 +46,14 @@ export class Driver {
   @Prop({ trim: true, required: true })
   imageURL: string;
 
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   nationalIDImgBack: string;
 
-  @Prop({ type: String })
+  @Prop({ type: String, required: true })
   nationalIDImgFront: string;
 
-  @Prop({})
-  fcmToken: string;
+  @Prop()
+  fcmToken?: string;
 
   token?: string;
 }

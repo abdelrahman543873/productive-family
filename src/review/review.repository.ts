@@ -4,7 +4,7 @@ import { PaginateModel, PaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Review, ReviewDocument } from './models/review.schema';
 import { ObjectID } from 'mongodb';
-import { PaginationInterface } from '../_common/interfaces/pagination.interface';
+import { Pagination } from '../_common/utils/pagination';
 
 @Injectable()
 export class ReviewRepository extends BaseRepository<Review> {
@@ -16,13 +16,13 @@ export class ReviewRepository extends BaseRepository<Review> {
   }
   async getDriverReviews(
     reviewed: ObjectID,
-    input: PaginationInterface,
+    input: Pagination,
   ): Promise<PaginateResult<Review>> {
     return await this.reviewSchema.paginate(
       { reviewed },
       {
-        offset: input.offset * input.limit || 0,
-        limit: input.limit || 15,
+        offset: input.offset * input.limit,
+        limit: input.limit,
       },
     );
   }

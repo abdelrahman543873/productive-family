@@ -2,7 +2,7 @@ export enum UserRoleEnum {
   ADMIN = 'ADMIN',
   DRIVER = 'DRIVER',
   CLIENT = 'CLIENT',
-  PRODUCTIVE_FAMILY = 'PRODUCTIVE_FAMILY',
+  PROVIDER = 'PROVIDER',
 }
 
 export enum LangEnum {

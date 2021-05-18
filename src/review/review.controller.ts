@@ -1,5 +1,13 @@
 import { Review } from './models/review.schema';
-import { Controller, Get, Inject, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Inject,
+  Query,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
@@ -10,7 +18,7 @@ import { RequestContext } from 'src/_common/request.interface';
 import { PaginateResult } from 'mongoose';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { MessagesEnum } from '../_common/app.enum';
-import { PaginationInterface } from 'src/_common/interfaces/pagination.interface';
+import { Pagination } from 'src/_common/utils/pagination';
 
 @Controller('reviews')
 export class ReviewController {
@@ -30,7 +38,7 @@ export class ReviewController {
   @UseGuards(AuthGuard, RoleGuard)
   @Get('driver')
   async getDriverReviews(
-    @Query() query: PaginationInterface,
+    @Query() query: Pagination,
   ): Promise<PaginateResult<Review>> {
     return await this.reviewService.getDriverReviews(
       this.request.currentUser._id,
