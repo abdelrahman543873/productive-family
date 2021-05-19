@@ -5,6 +5,7 @@ import { OrderRepository } from './order.repository';
 import { REQUEST } from '@nestjs/core';
 import { Pagination } from '../_common/utils/pagination';
 import { RequestContext } from 'src/_common/request.interface';
+import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 
 @Injectable()
 export class OrderService {
@@ -13,10 +14,14 @@ export class OrderService {
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
 
-  async getDriverOrders(input: Pagination): Promise<PaginateResult<Order>> {
+  async getDriverOrders(
+    input: DriverOrdersFilterInput,
+    pagination: Pagination,
+  ): Promise<PaginateResult<Order>> {
     return await this.orderRepository.getDriverOrders(
       this.request.currentUser._id,
-      input,
+      pagination,
+      input
     );
   }
 }

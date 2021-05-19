@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Pagination } from '../_common/utils/pagination';
 import { Order } from './models/order.schema';
@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 
 @Controller('orders')
 export class OrderController {
@@ -20,8 +21,9 @@ export class OrderController {
   @UseGuards(AuthGuard, RoleGuard)
   @Get('driver')
   async getDriverOrders(
+    @Body() input: DriverOrdersFilterInput,
     @Query() query: Pagination,
   ): Promise<PaginateResult<Order>> {
-    return await this.orderService.getDriverOrders(query);
+    return await this.orderService.getDriverOrders(input,query);
   }
 }
