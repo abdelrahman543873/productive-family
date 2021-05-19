@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel, PaginateResult } from 'mongoose';
+import {
+  AggregatePaginateModel,
+  AggregatePaginateResult,
+  PaginateResult,
+} from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Pagination } from '../_common/utils/pagination.input';
 import { ProviderDriver } from './models/provider-driver.schema';
@@ -10,7 +14,9 @@ import { ProviderDriverDocument } from './models/provider-driver.schema';
 export class ProviderDriverRepository extends BaseRepository<ProviderDriver> {
   constructor(
     @InjectModel(ProviderDriver.name)
-    private providerDriverSchema: PaginateModel<ProviderDriverDocument>,
+    private providerDriverSchema: AggregatePaginateModel<
+      ProviderDriverDocument
+    >,
   ) {
     super(providerDriverSchema);
   }
@@ -18,13 +24,18 @@ export class ProviderDriverRepository extends BaseRepository<ProviderDriver> {
   async getDriversProviders(
     driver: ObjectID,
     pagination: Pagination,
-  ): Promise<PaginateResult<ProviderDriver>> {
-    return await this.providerDriverSchema.paginate(
-      { driver, isBlocked: false },
+  ): Promise<AggregatePaginateResult<ProviderDriver>> {
+    const aggregation = this.providerDriverSchema.aggregate([
       {
-        offset: pagination.offset * pagination.limit,
-        limit: pagination.limit,
+        $match: {
+          driver,
+          isBlocked: false,
+        },
       },
-    );
+    ]);
+    return await this.providerDriverSchema.aggregatePaginate(aggregation, {
+      offset: pagination.offset * pagination.limit,
+      limit: pagination.limit,
+    });
   }
 }

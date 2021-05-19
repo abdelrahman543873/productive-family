@@ -1,5 +1,5 @@
 import { env } from './env';
-import * as twilio from 'twilio';
+import twilio from 'twilio';
 import { MessageInstance } from 'twilio/lib/rest/api/v2010/account/message';
 
 interface messageInterface {

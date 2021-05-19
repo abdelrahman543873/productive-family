@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import request from 'supertest';
 import { app } from './before-test-run';
 import { BaseHttpException } from '../src/_common/exceptions/base-http-exception';
 import { HTTP_METHODS_ENUM } from './request.methods.enum';

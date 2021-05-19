@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectID } from 'mongodb';
-import * as paginate from 'mongoose-paginate-v2';
+import paginate from 'mongoose-paginate-v2';
 
 export type ReviewDocument = Review & Document;
 

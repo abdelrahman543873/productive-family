@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ProviderDriverService } from './provider-driver.service';
 import { Pagination } from '../_common/utils/pagination.input';
 import { ProviderDriver } from './models/provider-driver.schema';
-import { PaginateResult } from 'mongoose';
+import { AggregatePaginateResult, PaginateResult } from 'mongoose';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
@@ -21,7 +21,7 @@ export class ProviderDriverController {
   @Get('driverProviders')
   async getDriversProviders(
     @Query() pagination: Pagination,
-  ): Promise<PaginateResult<ProviderDriver>> {
+  ): Promise<AggregatePaginateResult<ProviderDriver>> {
     return await this.providerDriverService.getDriversProviders(pagination);
   }
 }

@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { ObjectID } from 'mongodb';
 import { OrderEnum } from '../order.enum';
-import * as paginate from 'mongoose-paginate-v2';
+import paginate from 'mongoose-paginate-v2';
 
 export type OrderDocument = Order & Document;
 
