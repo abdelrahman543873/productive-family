@@ -1,10 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import {
-  AggregatePaginateModel,
-  AggregatePaginateResult,
-  PaginateResult,
-} from 'mongoose';
+import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Pagination } from '../_common/utils/pagination.input';
 import { ProviderDriver } from './models/provider-driver.schema';
@@ -31,6 +27,21 @@ export class ProviderDriverRepository extends BaseRepository<ProviderDriver> {
           driver,
           isBlocked: false,
         },
+      },
+      {
+        $lookup: {
+          from: 'drivers',
+          localField: 'driver',
+          foreignField: '_id',
+          as: 'driver',
+        },
+      },
+      {
+        $unwind: '$driver',
+      },
+      { $replaceRoot: { newRoot: '$driver' } },
+      {
+        $project: { password: 0 },
       },
     ]);
     return await this.providerDriverSchema.aggregatePaginate(aggregation, {
