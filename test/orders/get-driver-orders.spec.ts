@@ -25,9 +25,8 @@ describe('get driver orders suite case', () => {
     await ordersFactory(10, { driver: driver._id, state: OrderEnum.SHIPPING });
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.GET,
-      url: GET_DRIVER_ORDERS,
+      url: `${GET_DRIVER_ORDERS}?state=${OrderEnum.SHIPPING}`,
       token: driver.token,
-      variables: { state: OrderEnum.SHIPPING },
     });
     expect(res.body.data.docs.length).toBe(10);
   });
