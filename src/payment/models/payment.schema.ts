@@ -1,5 +1,6 @@
 import { PaymentEnum } from './../payment.enum';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { ObjectID } from 'mongodb';
 import { getValuesFromEnum } from 'src/_common/utils/column-enum';
 
@@ -18,11 +19,11 @@ export class Payment {
   @Prop({ required: true, default: true })
   isActive: boolean;
 
-  @Prop({ enum: getValuesFromEnum(PaymentEnum) })
+  @Prop({ enum: getValuesFromEnum(PaymentEnum), required: true })
   type: string;
 
   @Prop({ trim: true })
-  imageURL: string;
+  imageURL?: string;
 }
 
 export const PaymentSchema = SchemaFactory.createForClass(Payment);

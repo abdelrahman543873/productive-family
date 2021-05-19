@@ -19,11 +19,11 @@ export const adminsFactory = async (
   count = 10,
   obj = <any>{},
 ): Promise<Admin[]> => {
-  const faqs: Admin[] = [];
+  const admins: Admin[] = [];
   for (let i = 0; i < count; i++) {
-    faqs.push(buildAdminParams(obj));
+    admins.push(buildAdminParams(obj));
   }
-  return (await AdminRepo()).addMany(faqs);
+  return (await AdminRepo()).addMany(admins);
 };
 
 export const adminFactory = async (obj = <any>{}): Promise<Admin> => {

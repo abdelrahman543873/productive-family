@@ -6,6 +6,9 @@ import { OrderEnum } from './order.enum';
 import { driverFactory } from '../driver/driver.factory';
 import { clientFactory } from '../client/client.factory';
 import { OrderRepo } from '../../test/orders/order-test-repo';
+import { paymentFactory } from '../payment/payment.factory';
+import { addressFactory } from '../address/address.factory';
+import { discountFactory } from '../discount/discount.factory';
 
 interface OrderParamsType {
   client?: ObjectID;
@@ -24,13 +27,12 @@ interface OrderParamsType {
 export const buildOrderParams = async (
   obj: OrderParamsType = {},
 ): Promise<Order> => {
-  const something = (await driverFactory())._id;
   return {
     client: obj.client || (await clientFactory())._id,
-    driver: obj.driver || something,
-    payment: obj.payment || something,
-    address: obj.address || something,
-    discount: obj.discount || something,
+    driver: obj.driver || (await driverFactory())._id,
+    payment: obj.payment || (await paymentFactory())._id,
+    address: obj.address || (await addressFactory())._id,
+    discount: obj.discount || (await discountFactory())._id,
     orderNumber: obj.orderNumber || faker.datatype.number(),
     deliveryFees: obj.deliveryFees || faker.datatype.number(),
     state: obj.state || faker.random.arrayElement(getValuesFromEnum(OrderEnum)),
@@ -44,11 +46,11 @@ export const ordersFactory = async (
   count = 10,
   obj: OrderParamsType = {},
 ): Promise<Order[]> => {
-  const faqs: Order[] = [];
+  const orders: Order[] = [];
   for (let i = 0; i < count; i++) {
-    faqs.push(await buildOrderParams(obj));
+    orders.push(await buildOrderParams(obj));
   }
-  return (await OrderRepo()).addMany(faqs);
+  return (await OrderRepo()).addMany(orders);
 };
 
 export const orderFactory = async (

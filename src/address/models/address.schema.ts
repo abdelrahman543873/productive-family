@@ -3,6 +3,7 @@ import { ObjectID } from 'mongodb';
 import { Point } from '../../_common/spatial-schemas/point.schema';
 import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { BuildingTypeEnum } from '../address.enum';
+import { Document } from 'mongoose';
 
 export type AddressDocument = Address & Document;
 

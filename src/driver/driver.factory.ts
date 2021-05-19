@@ -33,11 +33,11 @@ export const driversFactory = async (
   count = 10,
   obj = <any>{},
 ): Promise<Driver[]> => {
-  const faqs: Driver[] = [];
+  const drivers: Driver[] = [];
   for (let i = 0; i < count; i++) {
-    faqs.push(buildDriverParams(obj));
+    drivers.push(buildDriverParams(obj));
   }
-  return (await DriverRepo()).addMany(faqs);
+  return (await DriverRepo()).addMany(drivers);
 };
 
 export const driverFactory = async (obj = <any>{}): Promise<Driver> => {
