@@ -13,6 +13,7 @@ import { ClientModule } from './client/client.module';
 import { OrderModule } from './order/order.module';
 import { DiscountModule } from './discount/discount.module';
 import { ProviderModule } from './provider/provider.module';
+import { ProviderDriverModule } from './provider-driver/provider-driver.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ProviderModule } from './provider/provider.module';
     AddressModule,
     DiscountModule,
     ProviderModule,
+    ProviderDriverModule,
   ],
 })
 export class AppModule {}

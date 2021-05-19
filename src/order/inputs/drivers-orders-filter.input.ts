@@ -4,5 +4,5 @@ import { IsEnum, IsOptional } from 'class-validator';
 export class DriverOrdersFilterInput {
   @IsOptional()
   @IsEnum(OrderEnum)
-  state: OrderEnum;
+  state?: OrderEnum;
 }

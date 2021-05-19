@@ -28,6 +28,7 @@ async function bootstrap() {
     .addTag('verification', 'endpoint used to verify email, phone or a user')
     .addTag('reviews', 'reviews requests for providers or drivers')
     .addTag('orders', 'all requests related to orders')
+    .addTag('providers&drivers', 'queries related to drivers providers')
     .addBearerAuth({
       type: 'apiKey',
       name: 'authorization',

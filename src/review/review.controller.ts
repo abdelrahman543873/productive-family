@@ -1,13 +1,5 @@
 import { Review } from './models/review.schema';
-import {
-  Controller,
-  Get,
-  Inject,
-  Query,
-  UseGuards,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Get, Inject, Query, UseGuards } from '@nestjs/common';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';

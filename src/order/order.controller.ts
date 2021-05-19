@@ -7,7 +7,7 @@ import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 
 @Controller('orders')
@@ -21,9 +21,9 @@ export class OrderController {
   @UseGuards(AuthGuard, RoleGuard)
   @Get('driver')
   async getDriverOrders(
-    @Body() input: DriverOrdersFilterInput,
     @Query() query: Pagination,
+    @Body() input?: DriverOrdersFilterInput,
   ): Promise<PaginateResult<Order>> {
-    return await this.orderService.getDriverOrders(input,query);
+    return await this.orderService.getDriverOrders(input, query);
   }
 }
