@@ -10,7 +10,7 @@ import { RequestContext } from 'src/_common/request.interface';
 import { PaginateResult } from 'mongoose';
 import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { MessagesEnum } from '../_common/app.enum';
-import { Pagination } from 'src/_common/utils/pagination';
+import { Pagination } from 'src/_common/utils/pagination.input';
 
 @Controller('reviews')
 export class ReviewController {

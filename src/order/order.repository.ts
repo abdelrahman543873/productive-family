@@ -4,7 +4,7 @@ import { PaginateModel, PaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Order, OrderDocument } from './models/order.schema';
 import { ObjectID } from 'mongodb';
-import { Pagination } from 'src/_common/utils/pagination';
+import { Pagination } from 'src/_common/utils/pagination.input';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { Pagination } from '../_common/utils/pagination';
+import { Pagination } from '../_common/utils/pagination.input';
 import { Order } from './models/order.schema';
 import { PaginateResult } from 'mongoose';
 import { UserRoleEnum } from 'src/_common/app.enum';

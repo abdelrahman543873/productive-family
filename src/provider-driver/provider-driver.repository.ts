@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { PaginateModel, PaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
-import { Pagination } from '../_common/utils/pagination';
+import { Pagination } from '../_common/utils/pagination.input';
 import { ProviderDriver } from './models/provider-driver.schema';
 import { ObjectID } from 'mongodb';
 import { ProviderDriverDocument } from './models/provider-driver.schema';
