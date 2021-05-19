@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { ObjectID } from 'mongodb';
 import { OrderEnum } from '../order.enum';
+import * as paginate from 'mongoose-paginate-v2';
 
 export type OrderDocument = Order & Document;
 
@@ -12,9 +13,6 @@ export class Order {
 
   @Prop({ type: ObjectID, ref: 'Client', required: true })
   client: ObjectID;
-
-  @Prop({ type: [{ type: ObjectID, ref: 'Product' }], required: true })
-  products: ObjectID;
 
   @Prop({ type: ObjectID, ref: 'Driver', required: true })
   driver: ObjectID;
@@ -48,7 +46,8 @@ export class Order {
   note?: string;
 
   @Prop({ required: true })
-  estimatedTime: number;
+  estimatedTime: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
+OrderSchema.plugin(paginate);

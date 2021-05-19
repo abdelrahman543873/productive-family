@@ -26,7 +26,7 @@ export const faqsFactory = async (
   return (await FaqRepo()).addMany(faqs);
 };
 
-export const FaqFactory = async (obj = <any>{}): Promise<Faq> => {
+export const faqFactory = async (obj = <any>{}): Promise<Faq> => {
   const params: Faq = buildFaqParams(obj);
   return (await FaqRepo()).add(params);
 };
