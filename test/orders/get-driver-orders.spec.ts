@@ -4,11 +4,11 @@ import { driverFactory } from '../../src/driver/driver.factory';
 import { rollbackDbForOrder } from './rollback-db-for-order';
 import { ordersFactory } from '../../src/order/order.factory';
 import { GET_DRIVER_ORDERS } from '../endpoints/order';
-describe('get driver reviews suite case', () => {
+describe('get driver orders suite case', () => {
   afterEach(async () => {
     await rollbackDbForOrder();
   });
-  it('get driver reviews', async () => {
+  it('get driver orders', async () => {
     const driver = await driverFactory();
     await ordersFactory(10, { driver: driver._id });
     const res = await testRequest({
