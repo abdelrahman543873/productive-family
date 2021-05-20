@@ -55,6 +55,8 @@ export class Provider {
 
   @Prop()
   fcmToken?: string;
+
+  token?: string;
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(Provider);

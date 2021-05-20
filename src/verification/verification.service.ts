@@ -1,3 +1,4 @@
+import { Provider } from './../provider/models/provider.schema';
 import { Inject, Injectable } from '@nestjs/common';
 import { VerifyOtpInput } from './inputs/verify-otp.input';
 import { VerificationRepository } from './verification.repository';
@@ -11,6 +12,7 @@ import { RequestContext } from 'src/_common/request.interface';
 import { SendOtpInput } from './inputs/send-otp.input';
 import { createVerificationCode } from 'src/_common/utils/sms-token';
 import { sendMessage } from 'src/_common/utils/twilio';
+import { Client } from 'src/client/models/client.schema';
 
 @Injectable()
 export class VerificationService {
@@ -20,7 +22,9 @@ export class VerificationService {
     private readonly helperService: HelperService,
   ) {}
 
-  async verifyOtp(input: VerifyOtpInput): Promise<Admin | Driver> {
+  async verifyOtp(
+    input: VerifyOtpInput,
+  ): Promise<Admin | Driver | Client | Provider> {
     const verification = await this.verificationRepo.verifyOTP(input);
     if (!verification) throw new BaseHttpException(this.request.lang, 608);
     if (verification.expirationDate < new Date())
