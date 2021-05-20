@@ -2,12 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectID } from 'mongodb';
 import paginate from 'mongoose-paginate-v2';
+import { SchemasEnum } from '../../_common/app.enum';
 
 export type ReviewDocument = Review & Document;
 
 @Schema({ versionKey: false })
 export class Review {
-  @Prop({ type: ObjectID, required: true, ref: 'Client' })
+  @Prop({ type: ObjectID, required: true, ref: SchemasEnum.Client })
   reviewer: ObjectID;
 
   @Prop({ type: ObjectID, required: true })

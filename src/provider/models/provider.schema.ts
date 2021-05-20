@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { UserRoleEnum } from '../../_common/app.enum';
+import { UserRoleEnum, SchemasEnum } from '../../_common/app.enum';
 import { ObjectID } from 'mongodb';
 import { Point } from 'src/_common/spatial-schemas/point.schema';
 
@@ -38,7 +38,7 @@ export class Provider {
     type: [
       {
         type: ObjectID,
-        ref: 'Payment',
+        ref: SchemasEnum.Payment,
       },
     ],
   })

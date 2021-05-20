@@ -4,6 +4,7 @@ import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { ObjectID } from 'mongodb';
 import { SocialMediaType } from '../social-media.enum';
 import { UserRoleEnum } from 'src/_common/app.enum';
+import { SchemasEnum } from '../../_common/app.enum';
 
 export type ClientDocument = Client & Document;
 
@@ -36,7 +37,7 @@ export class Client {
     type: [
       {
         type: ObjectID,
-        ref: 'Product',
+        ref: SchemasEnum.Product,
       },
     ],
   })

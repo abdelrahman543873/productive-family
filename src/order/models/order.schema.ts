@@ -4,6 +4,7 @@ import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { ObjectID } from 'mongodb';
 import { OrderEnum } from '../order.enum';
 import paginate from 'mongoose-paginate-v2';
+import { SchemasEnum } from '../../_common/app.enum';
 
 export type OrderDocument = Order & Document;
 
@@ -11,22 +12,22 @@ export type OrderDocument = Order & Document;
 export class Order {
   _id?: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Client', required: true })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Client, required: true })
   client: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Provider', required: true })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Provider, required: true })
   provider: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Driver', required: true })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Driver, required: true })
   driver: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Payment', required: true })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Payment, required: true })
   payment: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Address', required: true })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Address, required: true })
   address: ObjectID;
 
-  @Prop({ type: ObjectID, ref: 'Discount' })
+  @Prop({ type: ObjectID, ref: SchemasEnum.Discount })
   discount?: ObjectID;
 
   @Prop({ type: Number, required: true, unique: true })
