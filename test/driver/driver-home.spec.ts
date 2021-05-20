@@ -19,6 +19,7 @@ describe('get driver orders suite case', () => {
       url: GET_DRIVER_HOME,
       token: driver.token,
     });
+    expect(res.body.data.providersLocations.length).toBe(10);
     expect(res.body.data.providers).toBe(10);
     expect(res.body.data.orders).toBe(10);
   });

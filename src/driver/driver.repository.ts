@@ -111,6 +111,29 @@ export class DriverRepository extends BaseRepository<Driver> {
     const orders = await this.orderSchema.countDocuments({
       driver,
     });
-    return { providers, orders };
+    const providersLocations = await this.providerDriverSchema.aggregate([
+      {
+        $match: {
+          driver,
+          isBlocked: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'drivers',
+          localField: 'driver',
+          foreignField: '_id',
+          as: 'driver',
+        },
+      },
+      {
+        $unwind: '$driver',
+      },
+      { $replaceRoot: { newRoot: '$driver' } },
+      {
+        $project: { location: '$location.coordinates', _id: 0 },
+      },
+    ]);
+    return { providers, orders, providersLocations };
   }
 }
