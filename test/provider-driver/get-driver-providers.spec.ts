@@ -1,4 +1,4 @@
-import { rollbackDbForProviderDriver } from './rollback-db-for-provider-drvier';
+import { rollbackDbForProviderDriver } from './rollback-db-for-provider-driver';
 import { driverFactory } from '../../src/driver/driver.factory';
 import { ProviderDriversFactory } from 'src/provider-driver/provider-driver.factory';
 import { testRequest } from 'test/request';
