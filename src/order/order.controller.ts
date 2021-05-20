@@ -9,6 +9,7 @@ import { HasRoles } from 'src/_common/guards/auth.metadata';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
+import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 
 @Controller('orders')
 export class OrderController {
@@ -25,5 +26,15 @@ export class OrderController {
     @Query() input?: DriverOrdersFilterInput,
   ): Promise<AggregatePaginateResult<Order>> {
     return await this.orderService.getDriverOrders(input, query);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('orders')
+  @ApiResponse({ status: 200, type: Order })
+  @HasRoles(UserRoleEnum.DRIVER)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get('getDriverOrder')
+  async getDriverOrder(@Query() input: GetDriverOrderInput): Promise<Order> {
+    return await this.orderService.getDriverOrder(input);
   }
 }

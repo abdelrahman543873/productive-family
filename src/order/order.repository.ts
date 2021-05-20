@@ -6,6 +6,7 @@ import { ObjectID } from 'mongodb';
 import { Pagination } from 'src/_common/utils/pagination.input';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
+import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 
 @Injectable()
 export class OrderRepository extends BaseRepository<Order> {
@@ -50,5 +51,19 @@ export class OrderRepository extends BaseRepository<Order> {
       offset: pagination.offset * pagination.limit,
       limit: pagination.limit,
     });
+  }
+
+  async getDriverOrder(
+    driver: ObjectID,
+    input: GetDriverOrderInput,
+  ): Promise<Order> {
+    return await this.orderSchema.findOne(
+      {
+        driver,
+        _id: input.order,
+      },
+      {},
+      { populate: 'client' },
+    );
   }
 }

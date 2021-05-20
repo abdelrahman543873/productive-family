@@ -6,6 +6,7 @@ import { REQUEST } from '@nestjs/core';
 import { Pagination } from '../_common/utils/pagination.input';
 import { RequestContext } from 'src/_common/request.interface';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
+import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 
 @Injectable()
 export class OrderService {
@@ -21,7 +22,14 @@ export class OrderService {
     return await this.orderRepository.getDriverOrders(
       this.request.currentUser._id,
       pagination,
-      input
+      input,
+    );
+  }
+
+  async getDriverOrder(input: GetDriverOrderInput): Promise<Order> {
+    return await this.orderRepository.getDriverOrder(
+      this.request.currentUser._id,
+      input,
     );
   }
 }
