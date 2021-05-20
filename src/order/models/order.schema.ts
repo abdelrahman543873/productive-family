@@ -14,6 +14,9 @@ export class Order {
   @Prop({ type: ObjectID, ref: 'Client', required: true })
   client: ObjectID;
 
+  @Prop({ type: ObjectID, ref: 'Provider', required: true })
+  provider: ObjectID;
+
   @Prop({ type: ObjectID, ref: 'Driver', required: true })
   driver: ObjectID;
 
