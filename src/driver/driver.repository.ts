@@ -11,6 +11,7 @@ import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
 import { ObjectID } from 'mongodb';
 import { Order, OrderDocument } from '../order/models/order.schema';
+import { OrderEnum } from '../order/order.enum';
 import {
   ProviderDriver,
   ProviderDriverDocument,
@@ -104,14 +105,7 @@ export class DriverRepository extends BaseRepository<Driver> {
   }
 
   async home(driver: ObjectID): Promise<Record<any, any>> {
-    const providers = await this.providerDriverSchema.countDocuments({
-      driver,
-      isBlocked: false,
-    });
-    const orders = await this.orderSchema.countDocuments({
-      driver,
-    });
-    const providersLocations = await this.providerDriverSchema.aggregate([
+    const locations = await this.providerDriverSchema.aggregate([
       {
         $match: {
           driver,
@@ -131,9 +125,65 @@ export class DriverRepository extends BaseRepository<Driver> {
       },
       { $replaceRoot: { newRoot: '$driver' } },
       {
-        $project: { location: '$location.coordinates', _id: 0 },
+        $project: {
+          location: '$location.coordinates',
+          _id: 0,
+        },
       },
     ]);
-    return { providers, orders, providersLocations };
+    const currentOrders = await this.orderSchema.aggregate([
+      {
+        $match: {
+          driver,
+          state: OrderEnum.SHIPPING,
+        },
+      },
+      {
+        $lookup: {
+          from: 'orderproducts',
+          localField: '_id',
+          foreignField: 'order',
+          as: 'products',
+        },
+      },
+      {
+        $addFields: {
+          total: { $sum: '$products.price' },
+        },
+      },
+      {
+        $lookup: {
+          from: 'providers',
+          localField: 'provider',
+          foreignField: '_id',
+          as: 'provider',
+        },
+      },
+      {
+        $unwind: '$provider',
+      },
+      {
+        $lookup: {
+          from: 'clients',
+          localField: 'client',
+          foreignField: '_id',
+          as: 'client',
+        },
+      },
+      {
+        $unwind: '$client',
+      },
+      {
+        $project: {
+          products: 0,
+        },
+      },
+    ]);
+    return {
+      providers: locations.length,
+      orders: currentOrders.length,
+      locations,
+      currentOrders,
+    };
   }
 }
