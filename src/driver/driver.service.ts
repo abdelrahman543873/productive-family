@@ -70,4 +70,8 @@ export class DriverService {
     );
     return driver.isActive;
   }
+
+  async home(): Promise<Record<any, any>> {
+    return await this.driverRepo.home(this.request.currentUser._id);
+  }
 }

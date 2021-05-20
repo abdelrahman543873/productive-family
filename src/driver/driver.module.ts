@@ -9,6 +9,11 @@ import { fileFilter } from '../_common/utils/multer-file-filter';
 import { MulterModule } from '@webundsoehne/nest-fastify-file-upload';
 import { diskStorage } from 'fastify-multer/lib';
 import { VerificationModule } from '../verification/verification.module';
+import { Order, OrderSchema } from '../order/models/order.schema';
+import {
+  ProviderDriver,
+  ProviderDriverSchema,
+} from '../provider-driver/models/provider-driver.schema';
 
 @Module({
   imports: [
@@ -20,7 +25,11 @@ import { VerificationModule } from '../verification/verification.module';
         filename,
       }),
     }),
-    MongooseModule.forFeature([{ name: Driver.name, schema: DriverSchema }]),
+    MongooseModule.forFeature([
+      { name: Order.name, schema: OrderSchema },
+      { name: Driver.name, schema: DriverSchema },
+      { name: ProviderDriver.name, schema: ProviderDriverSchema },
+    ]),
     VerificationModule,
   ],
   controllers: [DriverController],

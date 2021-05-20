@@ -21,7 +21,7 @@ export const buildProviderDriverParams = async (
   };
 };
 
-export const ProviderDriversFactory = async (
+export const providerDriversFactory = async (
   count = 10,
   obj: ProviderDriverType = {},
 ): Promise<ProviderDriver[]> => {
@@ -32,7 +32,7 @@ export const ProviderDriversFactory = async (
   return (await ProviderDriverRepo()).addMany(providerDrivers);
 };
 
-export const ProviderDriverFactory = async (
+export const providerDriverFactory = async (
   obj: ProviderDriverType = {},
 ): Promise<ProviderDriver> => {
   const params: ProviderDriver = await buildProviderDriverParams(obj);

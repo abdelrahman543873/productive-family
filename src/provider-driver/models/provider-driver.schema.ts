@@ -6,7 +6,7 @@ import { SchemasEnum } from '../../_common/app.enum';
 
 export type ProviderDriverDocument = ProviderDriver & Document;
 
-@Schema({ versionKey: false, _id: false })
+@Schema({ versionKey: false })
 export class ProviderDriver {
   @Prop({ type: ObjectID, ref: SchemasEnum.Provider, required: true })
   provider: ObjectID;

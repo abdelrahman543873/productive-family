@@ -9,6 +9,8 @@ import { VerifyOtpJoi } from './joi/verify-otp.joi';
 import { SendOtpInput } from './inputs/send-otp.input';
 import { SendOtpJoi } from './joi/send-otp.joi';
 import { sendOtpSchema } from './swagger/send-otp.swagger';
+import { Client } from '../client/models/client.schema';
+import { Provider } from '../provider/models/provider.schema';
 
 @Controller('verification')
 export class VerificationController {
@@ -18,7 +20,9 @@ export class VerificationController {
   @ApiTags('verification')
   @UsePipes(new JoiValidationPipe(VerifyOtpJoi))
   @Post('otp')
-  async verifyOtp(@Body() input: VerifyOtpInput): Promise<Admin | Driver> {
+  async verifyOtp(
+    @Body() input: VerifyOtpInput,
+  ): Promise<Admin | Driver | Client | Provider> {
     return await this.verificationService.verifyOtp(input);
   }
 

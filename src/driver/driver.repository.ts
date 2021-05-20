@@ -10,11 +10,19 @@ import { ConfigService } from '@nestjs/config';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { DriverUpdateProfileInput } from './inputs/driver-update-profile.input';
 import { ObjectID } from 'mongodb';
+import { Order, OrderDocument } from '../order/models/order.schema';
+import {
+  ProviderDriver,
+  ProviderDriverDocument,
+} from '../provider-driver/models/provider-driver.schema';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
   constructor(
     @InjectModel(Driver.name) private driverSchema: Model<DriverDocument>,
+    @InjectModel(Order.name) private orderSchema: Model<OrderDocument>,
+    @InjectModel(ProviderDriver.name)
+    private providerDriverSchema: Model<ProviderDriverDocument>,
     private configService: ConfigService,
   ) {
     super(driverSchema);
@@ -93,5 +101,16 @@ export class DriverRepository extends BaseRepository<Driver> {
       { isActive },
       { new: true, lean: true },
     );
+  }
+
+  async home(driver: ObjectID): Promise<Record<any, any>> {
+    const providers = await this.providerDriverSchema.countDocuments({
+      driver,
+      isBlocked: false,
+    });
+    const orders = await this.orderSchema.countDocuments({
+      driver,
+    });
+    return { providers, orders };
   }
 }

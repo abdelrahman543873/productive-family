@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Put,
   UploadedFiles,
@@ -29,6 +30,7 @@ import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { JoiValidationPipe } from '../_common/pipes/joi.pipe';
 import { DriverUpdateProfileJoi } from './joi/driver-update-profile.joi';
+import { driverHomeSchema } from './swagger/driver-home.swagger';
 
 @Controller('driver')
 export class DriverController {
@@ -84,5 +86,15 @@ export class DriverController {
   @Put('toggleActivity')
   async toggleActivity(): Promise<boolean> {
     return await this.driverService.toggleActivity();
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('driver')
+  @ApiResponse(driverHomeSchema)
+  @HasRoles(UserRoleEnum.DRIVER)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get('home')
+  async home(): Promise<Record<any, any>> {
+    return await this.driverService.home();
   }
 }
