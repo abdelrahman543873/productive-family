@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Pagination } from '../_common/utils/pagination.input';
 import { Order } from './models/order.schema';
-import { PaginateResult } from 'mongoose';
+import { PaginateResult, AggregatePaginateResult } from 'mongoose';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { HasRoles } from 'src/_common/guards/auth.metadata';
@@ -23,7 +23,7 @@ export class OrderController {
   async getDriverOrders(
     @Query() query: Pagination,
     @Query() input?: DriverOrdersFilterInput,
-  ): Promise<PaginateResult<Order>> {
+  ): Promise<AggregatePaginateResult<Order>> {
     return await this.orderService.getDriverOrders(input, query);
   }
 }

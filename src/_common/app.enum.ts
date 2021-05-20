@@ -17,6 +17,7 @@ export enum SchemasEnum {
   Payment = 'Payment',
   Discount = 'Discount',
   Provider = 'Provider',
+  Category = 'Category',
   OrderProduct = 'OrderProduct',
   Verification = 'Verification',
   ProviderDriver = 'ProviderDriver',

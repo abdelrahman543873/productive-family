@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel, PaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Order, OrderDocument } from './models/order.schema';
 import { ObjectID } from 'mongodb';
 import { Pagination } from 'src/_common/utils/pagination.input';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
+import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 
 @Injectable()
 export class OrderRepository extends BaseRepository<Order> {
   constructor(
-    @InjectModel(Order.name) private orderSchema: PaginateModel<OrderDocument>,
+    @InjectModel(Order.name)
+    private orderSchema: AggregatePaginateModel<OrderDocument>,
   ) {
     super(orderSchema);
   }
@@ -19,13 +20,35 @@ export class OrderRepository extends BaseRepository<Order> {
     driver: ObjectID,
     pagination: Pagination,
     input: DriverOrdersFilterInput,
-  ): Promise<PaginateResult<Order>> {
-    return await this.orderSchema.paginate(
-      { driver, ...(input.state && { state: input.state }) },
+  ): Promise<AggregatePaginateResult<Order>> {
+    const aggregation = this.orderSchema.aggregate([
       {
-        offset: pagination.offset * pagination.limit,
-        limit: pagination.limit,
+        $match: {
+          driver,
+          ...(input.state && { state: input.state }),
+          ...(input.provider && { provider: new ObjectID(input.provider) }),
+        },
       },
-    );
+      {
+        $lookup: {
+          from: 'orderproducts',
+          localField: '_id',
+          foreignField: 'order',
+          as: 'products',
+        },
+      },
+      {
+        $addFields: {
+          total: { $sum: '$products.price' },
+        },
+      },
+      {
+        $project: { products: 0 },
+      },
+    ]);
+    return await this.orderSchema.aggregatePaginate(aggregation, {
+      offset: pagination.offset * pagination.limit,
+      limit: pagination.limit,
+    });
   }
 }

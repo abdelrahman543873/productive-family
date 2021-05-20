@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { getValuesFromEnum } from '../../_common/utils/column-enum';
 import { ObjectID } from 'mongodb';
 import { OrderEnum } from '../order.enum';
-import paginate from 'mongoose-paginate-v2';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import { SchemasEnum } from '../../_common/app.enum';
 
 export type OrderDocument = Order & Document;
@@ -54,4 +54,4 @@ export class Order {
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
-OrderSchema.plugin(paginate);
+OrderSchema.plugin(aggregatePaginate);

@@ -1,3 +1,4 @@
+import { ProductModule } from './product/product.module';
 import { AddressModule } from './address/address.module';
 import { PaymentModule } from './payment/payment.module';
 import { Module } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { OrderModule } from './order/order.module';
 import { DiscountModule } from './discount/discount.module';
 import { ProviderModule } from './provider/provider.module';
 import { ProviderDriverModule } from './provider-driver/provider-driver.module';
+import { OrderProductModule } from './order-product/order-product.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { ProviderDriverModule } from './provider-driver/provider-driver.module';
     DiscountModule,
     ProviderModule,
     ProviderDriverModule,
+    ProductModule,
+    OrderProductModule,
   ],
 })
 export class AppModule {}

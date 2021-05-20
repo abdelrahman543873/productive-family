@@ -1,6 +1,6 @@
 import { Order } from './models/order.schema';
 import { Inject, Injectable } from '@nestjs/common';
-import { PaginateResult } from 'mongoose';
+import { AggregatePaginateResult, PaginateResult } from 'mongoose';
 import { OrderRepository } from './order.repository';
 import { REQUEST } from '@nestjs/core';
 import { Pagination } from '../_common/utils/pagination.input';
@@ -17,7 +17,7 @@ export class OrderService {
   async getDriverOrders(
     input: DriverOrdersFilterInput,
     pagination: Pagination,
-  ): Promise<PaginateResult<Order>> {
+  ): Promise<AggregatePaginateResult<Order>> {
     return await this.orderRepository.getDriverOrders(
       this.request.currentUser._id,
       pagination,
