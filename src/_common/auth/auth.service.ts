@@ -17,7 +17,6 @@ export class AuthService {
   constructor(
     private readonly helperService: HelperService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
   async login(input: LoginInput): Promise<Driver | Client | Provider | Admin> {
