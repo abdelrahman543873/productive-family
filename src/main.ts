@@ -11,6 +11,7 @@ import {
 import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from './_common/exceptions/mongo-exception.filter';
 import fastifyHelmet from 'fastify-helmet';
+import { env } from './_common/utils/env';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
@@ -44,7 +45,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter(), new MongoExceptionFilter());
   // used for securing the nestjs application
-  await app.register(fastifyHelmet);
+  env.NODE_ENV === 'production' && (await app.register(fastifyHelmet));
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

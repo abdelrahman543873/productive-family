@@ -10,7 +10,7 @@ import { LoginInput } from './inputs/login.input';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiTags('faq')
+  @ApiTags('auth')
   @Post('login')
   async login(
     @Body() input: LoginInput,
