@@ -1,7 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { BaseHttpException } from '../exceptions/base-http-exception';
 import { HelperService } from '../helper/helper.service';
-import { FastifyRequest } from 'fastify';
 import { RequestContext } from '../request.interface';
 import { LangEnum } from '../app.enum';
 

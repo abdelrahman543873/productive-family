@@ -6,6 +6,8 @@ import { Provider } from './models/provider.schema';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { paymentFactory } from '../payment/payment.factory';
 import { ProviderRepo } from 'test/provider/provider-test-repo';
+import { hashPass } from 'src/_common/utils/bcryptHelper';
+import { generateAuthToken } from 'src/_common/utils/token-utils';
 
 interface ProviderType {
   name?: string;
@@ -59,5 +61,8 @@ export const providerFactory = async (
   obj: ProviderType = {},
 ): Promise<Provider> => {
   const params: Provider = await buildProviderParams(obj);
-  return (await ProviderRepo()).add(params);
+  params.password = await hashPass(params.password);
+  const provider = await (await ProviderRepo()).add(params);
+  provider.token = generateAuthToken(provider._id);
+  return provider;
 };

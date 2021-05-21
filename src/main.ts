@@ -10,6 +10,7 @@ import {
 } from '@nestjs/platform-fastify';
 import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from './_common/exceptions/mongo-exception.filter';
+import fastifyHelmet from 'fastify-helmet';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
@@ -29,6 +30,7 @@ async function bootstrap() {
     .addTag('reviews', 'reviews requests for providers or drivers')
     .addTag('orders', 'all requests related to orders')
     .addTag('providers&drivers', 'queries related to drivers providers')
+    .addTag('auth', 'routes related to authentication')
     .addBearerAuth({
       type: 'apiKey',
       name: 'authorization',
@@ -41,6 +43,8 @@ async function bootstrap() {
   // done this way so that default values could be set in DTO
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter(), new MongoExceptionFilter());
+  // used for securing the nestjs application
+  await app.register(fastifyHelmet);
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

@@ -1,5 +1,6 @@
 import { ObjectID } from 'mongodb';
 import {
+  IsBoolean,
   IsEmail,
   IsLowercase,
   IsMongoId,
@@ -18,4 +19,7 @@ export class GetExistingUserInput {
 
   @IsPhoneNumber()
   mobile?: string;
+
+  @IsBoolean()
+  password?: boolean;
 }

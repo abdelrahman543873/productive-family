@@ -16,6 +16,7 @@ import { DiscountModule } from './discount/discount.module';
 import { ProviderModule } from './provider/provider.module';
 import { ProviderDriverModule } from './provider-driver/provider-driver.module';
 import { OrderProductModule } from './order-product/order-product.module';
+import { AuthModule } from './_common/auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { OrderProductModule } from './order-product/order-product.module';
     ClientModule,
     AdminModule,
     FaqModule,
+    AuthModule,
     DriverModule,
     OrderModule,
     PaymentModule,

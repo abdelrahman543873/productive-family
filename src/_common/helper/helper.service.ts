@@ -48,7 +48,8 @@ export class HelperService {
           ...(input.email && { email: input.email }),
           ...(input.mobile && { mobile: input.mobile }),
         },
-        { password: 0 },
+        // done to allow getting the password for cases like login
+        { ...(!input.password && { password: 0 }) },
         { lean: true },
       )) ??
       (await this.driverSchema.findOne(
@@ -57,7 +58,7 @@ export class HelperService {
           ...(input.email && { email: input.email }),
           ...(input.mobile && { mobile: input.mobile }),
         },
-        { password: 0 },
+        { ...(!input.password && { password: 0 }) },
         { lean: true },
       )) ??
       (await this.clientSchema.findOne(
@@ -66,7 +67,7 @@ export class HelperService {
           ...(input.email && { email: input.email }),
           ...(input.mobile && { mobile: input.mobile }),
         },
-        { password: 0 },
+        { ...(!input.password && { password: 0 }) },
         { lean: true },
       )) ??
       (await this.providerSchema.findOne(
@@ -75,7 +76,7 @@ export class HelperService {
           ...(input.email && { email: input.email }),
           ...(input.mobile && { mobile: input.mobile }),
         },
-        { password: 0 },
+        { ...(!input.password && { password: 0 }) },
         { lean: true },
       ));
     return user;

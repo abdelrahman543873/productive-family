@@ -1,4 +1,3 @@
-import { AdminRepo } from './../../test/user/user-test-repo';
 import * as faker from 'faker';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { hashPass } from 'src/_common/utils/bcryptHelper';
@@ -30,7 +29,7 @@ export const buildClientParams = async (
     mobile: obj.mobile || faker.phone.phoneNumber('+20100#######'),
     name: obj.name || faker.name.findName(),
     password: obj.password || faker.internet.password(),
-    role: obj.role || UserRoleEnum.ADMIN,
+    role: obj.role || UserRoleEnum.CLIENT,
     isVerified: obj.isVerified ?? false,
     socialMediaId: obj.socialMediaId || faker.finance.iban(),
     socialMediaType:
