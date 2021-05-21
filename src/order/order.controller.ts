@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Pagination } from '../_common/utils/pagination.input';
 import { Order } from './models/order.schema';
@@ -10,6 +10,7 @@ import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
+import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
 
 @Controller('orders')
 export class OrderController {
@@ -36,5 +37,15 @@ export class OrderController {
   @Get('getDriverOrder')
   async getDriverOrder(@Query() input: GetDriverOrderInput): Promise<Order> {
     return await this.orderService.getDriverOrder(input);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('orders')
+  @ApiResponse({ status: 200, type: Order })
+  @HasRoles(UserRoleEnum.DRIVER)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Put('addDeliveryFees')
+  async addDeliveryFees(@Body() input: addDeliveryFeesInput): Promise<Order> {
+    return await this.orderService.addDeliveryFees(input);
   }
 }

@@ -7,6 +7,8 @@ import { Pagination } from 'src/_common/utils/pagination.input';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
+import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
+import request from 'supertest';
 
 @Injectable()
 export class OrderRepository extends BaseRepository<Order> {
@@ -64,6 +66,19 @@ export class OrderRepository extends BaseRepository<Order> {
       },
       {},
       { populate: 'client' },
+    );
+  }
+
+  async addDeliveryFees(
+    driver: ObjectID,
+    input: addDeliveryFeesInput,
+  ): Promise<Order> {
+    return await this.orderSchema.findOneAndUpdate(
+      { _id: input.order, driver },
+      {
+        deliveryFees: input.deliveryFees,
+      },
+      { lean: true, new: true },
     );
   }
 }
