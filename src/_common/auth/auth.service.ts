@@ -32,10 +32,7 @@ export class AuthService {
     );
     if (!passwordValidation)
       throw new BaseHttpException(this.request.lang, 603);
-    user.token = this.jwtService.sign(
-      { _id: user._id },
-      { secret: this.configService.get<string>('JWT_SECRET') },
-    );
+    user.token = this.jwtService.sign({ _id: user._id });
     delete user.password;
     return user;
   }
