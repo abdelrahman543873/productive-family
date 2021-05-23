@@ -7,11 +7,15 @@ import { ClientRegisterInput } from './inputs/client-register.input';
 import { SocialRegisterInput } from './inputs/social-register.input';
 import { Client, ClientDocument } from './models/client.schema';
 import { SocialLoginInput } from './inputs/social-login.input';
-
+import { ObjectID } from 'mongodb';
+import { ClientUpdateProfileInput } from './inputs/client-update-profile';
+import { ConfigService } from '@nestjs/config';
+import { File } from 'fastify-multer/lib/interfaces';
 @Injectable()
 export class ClientRepository extends BaseRepository<Client> {
   constructor(
     @InjectModel(Client.name) private clientSchema: Model<ClientDocument>,
+    private configService: ConfigService,
   ) {
     super(clientSchema);
   }
@@ -33,5 +37,23 @@ export class ClientRepository extends BaseRepository<Client> {
 
   async socialLogin(input: SocialLoginInput): Promise<Client> {
     return await this.clientSchema.findOne({ ...input }, {}, { lean: true });
+  }
+
+  async updateProfile(
+    _id: ObjectID,
+    input: ClientUpdateProfileInput,
+    file?: File,
+  ): Promise<Client> {
+    return await this.clientSchema.findOneAndUpdate(
+      { _id },
+      {
+        ...input,
+        ...(input.password && { password: await hashPass(input.newPassword) }),
+        ...(file?.path && {
+          imageURL: this.configService.get<string>('IP') + file.path,
+        }),
+      },
+      { lean: true, new: true, projection: { password: 0 } },
+    );
   }
 }

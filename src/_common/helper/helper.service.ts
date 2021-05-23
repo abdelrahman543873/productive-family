@@ -9,10 +9,8 @@ import { Driver, DriverDocument } from '../../driver/models/driver.schema';
 import { FastifyRequest } from 'fastify';
 import { GetExistingUserInput } from './inputs/get-existing-user.input';
 import { Client, ClientDocument } from '../../client/models/client.schema';
-import {
-  Provider,
-  ProviderDocument,
-} from '../../provider/models/provider.schema';
+import { Provider } from '../../provider/models/provider.schema';
+import { ProviderDocument } from '../../provider/models/provider.schema';
 
 export interface TokenPayload {
   _id: string;
@@ -26,7 +24,9 @@ export class HelperService {
     @InjectModel(Provider.name) private providerSchema: Model<ProviderDocument>,
     private configService: ConfigService,
   ) {}
-  async getCurrentUser(req: FastifyRequest): Promise<Admin | Driver> {
+  async getCurrentUser(
+    req: FastifyRequest,
+  ): Promise<Admin | Driver | Client | Provider> {
     const token = getAuthToken(req);
     if (!token) return null;
     const { _id } = <TokenPayload>(
@@ -34,7 +34,9 @@ export class HelperService {
     );
     const user =
       (await this.adminSchema.findById(_id)) ??
-      (await this.driverSchema.findById(_id));
+      (await this.driverSchema.findById(_id)) ??
+      (await this.clientSchema.findById(_id)) ??
+      (await this.providerSchema.findById(_id));
     return user;
   }
 

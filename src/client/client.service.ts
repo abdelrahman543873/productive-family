@@ -12,7 +12,9 @@ import { ClientRegisterInput } from './inputs/client-register.input';
 import { Client } from './models/client.schema';
 import { SocialRegisterInput } from './inputs/social-register.input';
 import { SocialLoginInput } from './inputs/social-login.input';
-
+import { ClientUpdateProfileInput } from './inputs/client-update-profile';
+import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
+import { File } from 'fastify-multer/lib/interfaces';
 @Injectable()
 export class ClientService {
   constructor(
@@ -50,5 +52,21 @@ export class ClientService {
     const client = await this.clientRepo.socialLogin(input);
     client.token = generateAuthToken(client._id);
     return client;
+  }
+
+  async updateProfile(
+    input: ClientUpdateProfileInput,
+    file?: File,
+  ): Promise<Client> {
+    const passwordValidation = input.password
+      ? await bcryptCheckPass(input.password, this.request.currentUser.password)
+      : true;
+    if (!passwordValidation)
+      throw new BaseHttpException(this.request.lang, 607);
+    return await this.clientRepo.updateProfile(
+      this.request.currentUser._id,
+      input,
+      file,
+    );
   }
 }
