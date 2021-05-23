@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  productivefamilies-backendservices:
+    image: productivefamilies-backendservices
+    build: .
+    env_file: .env
+    restart: always
+    volumes:
+      - ./public:/app/public
+    ports:
+      - "3333:3000"
+    depends_on:
+      - productivefamilies-backendservices-db
+  productivefamilies-backendservices-db:
+    image: "mongo"
+    volumes:
+      - ./mongo:/var/lib/mongo
+      - ./externalVolumes/db:/data/db
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
