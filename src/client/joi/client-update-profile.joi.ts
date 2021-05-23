@@ -10,5 +10,4 @@ export const ClientUpdateProfileJoi = Joi.object({
     .optional(),
 })
   .with('password', 'newPassword')
-  .with('newPassword', 'password')
-  .min(1);
+  .with('newPassword', 'password');

@@ -45,4 +45,18 @@ describe('update client suite case', () => {
     });
     expect(res1.body.data.token).toBeTruthy();
   });
+
+  it('should update driver image files', async () => {
+    const driver = await clientFactory();
+    const testFiles = process.cwd();
+    const filePath = `${testFiles}/test/test-files/test-duck.jpeg`;
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.PUT,
+      url: CLIENT_UPDATE_PROFILE,
+      filePath,
+      fileParam: 'imageURL',
+      token: driver.token,
+    });
+    expect(res.body.data.imageURL).toContain('.jpeg');
+  });
 });
