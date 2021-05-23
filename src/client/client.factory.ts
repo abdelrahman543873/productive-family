@@ -27,7 +27,7 @@ export const buildClientParams = async (
   return {
     email: obj.email || faker.internet.email(),
     mobile: obj.mobile || faker.phone.phoneNumber('+20100#######'),
-    name: obj.name || faker.name.findName(),
+    name: obj.name || faker.name.firstName(),
     password: obj.password || faker.internet.password(),
     role: obj.role || UserRoleEnum.CLIENT,
     isVerified: obj.isVerified ?? false,

@@ -25,13 +25,14 @@ async function bootstrap() {
     .setTitle('🚀productive-family🚀')
     .setDescription('productive family API description')
     .setVersion('1.0')
-    .addTag('faq', 'frequently asked questions for app users')
+    .addTag('client', 'client routes')
     .addTag('driver', 'driver endpoints')
-    .addTag('verification', 'endpoint used to verify email, phone or a user')
-    .addTag('reviews', 'reviews requests for providers or drivers')
-    .addTag('orders', 'all requests related to orders')
-    .addTag('providers&drivers', 'queries related to drivers providers')
     .addTag('auth', 'routes related to authentication')
+    .addTag('orders', 'all requests related to orders')
+    .addTag('faq', 'frequently asked questions for app users')
+    .addTag('reviews', 'reviews requests for providers or drivers')
+    .addTag('providers&drivers', 'queries related to drivers providers')
+    .addTag('verification', 'endpoint used to verify email, phone or a user')
     .addBearerAuth({
       type: 'apiKey',
       name: 'authorization',
