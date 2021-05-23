@@ -6,6 +6,6 @@ COPY ./ /app
 
 RUN npm install --force
 
-ENV RUN_INSIDE_DOCKER=true
+ENV MONGO_DB=mongodb://productivefamilies-backendservices-db:27017/productive
 
 CMD [ "npm", "run", "start" ]
