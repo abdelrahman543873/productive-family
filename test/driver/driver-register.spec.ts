@@ -32,6 +32,24 @@ describe('register driver suite case', () => {
     expect(res.body.data.name).toBe(params.name);
   });
 
+  it('should throw error if invalid file types are uploaded', async () => {
+    const params = await buildDriverParams();
+    delete params.role;
+    params['longitude'] = params.location.coordinates[0];
+    params['latitude'] = params.location.coordinates[1];
+    delete params.location;
+    const testFiles = process.cwd();
+    const filePath = `${testFiles}/test/test-files/test-file.txt`;
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: DRIVER_REGISTER,
+      variables: params,
+      filePath,
+      fileParams: ['imageURL', 'nationalIDImgBack', 'nationalIDImgFront'],
+    });
+    expect(res.body.statusCode).toBe(606);
+  });
+
   it('should throw error if mobile already exists', async () => {
     const driver = await driverFactory();
     const params = await buildDriverParams();

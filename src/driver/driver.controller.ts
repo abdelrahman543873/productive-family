@@ -31,6 +31,7 @@ import { RoleGuard } from 'src/_common/guards/roles.guard';
 import { JoiValidationPipe } from '../_common/pipes/joi.pipe';
 import { DriverUpdateProfileJoi } from './joi/driver-update-profile.joi';
 import { driverHomeSchema } from './swagger/driver-home.swagger';
+import { FileValidationInterceptor } from 'src/_common/interceptors/file-upload.interceptor';
 
 @Controller('driver')
 export class DriverController {
@@ -40,6 +41,7 @@ export class DriverController {
   @ApiResponse({ status: 201, type: Driver })
   @ApiConsumes('multipart/form-data')
   @ApiBody(driverRegisterSchema)
+  @UseInterceptors(FileValidationInterceptor)
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'imageURL', maxCount: 1 },
@@ -62,6 +64,7 @@ export class DriverController {
   @ApiBody(driverUpdateProfileSchema)
   @HasRoles(UserRoleEnum.DRIVER)
   @UseGuards(AuthGuard, RoleGuard)
+  @UseInterceptors(FileValidationInterceptor)
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'imageURL', maxCount: 1 },
