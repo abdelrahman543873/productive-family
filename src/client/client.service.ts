@@ -10,6 +10,8 @@ import { sendMessage } from 'src/_common/utils/twilio';
 import { ClientRepository } from './client.repository';
 import { ClientRegisterInput } from './inputs/client-register.input';
 import { Client } from './models/client.schema';
+import { SocialRegisterInput } from './inputs/social-register.input';
+import { SocialLoginInput } from './inputs/social-login.input';
 
 @Injectable()
 export class ClientService {
@@ -37,6 +39,16 @@ export class ClientService {
       to: client.mobile,
       body: verificationCode.code,
     });
+    return client;
+  }
+
+  async socialRegister(input: SocialRegisterInput): Promise<Client> {
+    return await this.clientRepo.socialRegister(input);
+  }
+
+  async socialLogin(input: SocialLoginInput): Promise<Client> {
+    const client = await this.clientRepo.socialLogin(input);
+    client.token = generateAuthToken(client._id);
     return client;
   }
 }
