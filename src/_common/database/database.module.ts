@@ -1,10 +1,9 @@
+import { env } from './../utils/env';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_DB, {
+    MongooseModule.forRoot(env.MONGO_DB ?? env.LOCAL_DB, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
