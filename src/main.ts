@@ -16,7 +16,6 @@ import { env } from './_common/utils/env';
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
   fastifyAdapter.register(multer.contentParser);
-
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyAdapter,
