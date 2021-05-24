@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY ./ /app
 
-RUN npm install --force
+RUN yarn
 
 ARG MONGO_DB=mongodb://productivefamilies-backendservices-db:27017/productive
 
 ENV MONGO_DB=${MONGO_DB}
 
-CMD [ "npm", "run", "start" ]
+CMD [ "yarn", "start" ]
