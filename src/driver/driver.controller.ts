@@ -83,7 +83,7 @@ export class DriverController {
 
   @ApiBearerAuth()
   @ApiTags('driver')
-  @ApiResponse({ status: 201, type: 'boolean' })
+  @ApiResponse({ status: 201 })
   @HasRoles(UserRoleEnum.DRIVER)
   @UseGuards(AuthGuard, RoleGuard)
   @Put('toggleActivity')
