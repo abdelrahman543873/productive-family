@@ -13,7 +13,7 @@ import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from './_common/exceptions/mongo-exception.filter';
 import fastifyHelmet from 'fastify-helmet';
 import { env } from './_common/utils/env';
-
+declare const module: any;
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
   fastifyAdapter.register(multer.contentParser);
@@ -51,6 +51,10 @@ async function bootstrap() {
   );
   // used for securing the nestjs application
   env.NODE_ENV === 'production' && (await app.register(fastifyHelmet));
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();
