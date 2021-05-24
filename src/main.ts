@@ -27,6 +27,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('client', 'client routes')
     .addTag('driver', 'driver endpoints')
+    .addTag('provider', 'providers routes')
     .addTag('auth', 'routes related to authentication')
     .addTag('orders', 'all requests related to orders')
     .addTag('faq', 'frequently asked questions for app users')

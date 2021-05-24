@@ -7,6 +7,8 @@ import { getValuesFromEnum } from '../_common/utils/column-enum';
 import { SocialMediaType } from './social-media.enum';
 import { ObjectID } from 'mongodb';
 import { ClientRepo } from '../../test/client/client-test-repo';
+import { Point } from 'src/_common/spatial-schemas/point.schema';
+import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 
 interface clientType {
   email?: string;
@@ -20,6 +22,7 @@ interface clientType {
   favProducts?: ObjectID[];
   fcmToken?: string;
   imageURL?: string;
+  location?: Point;
 }
 export const buildClientParams = async (
   obj: clientType = {},
@@ -38,6 +41,10 @@ export const buildClientParams = async (
     favProducts: obj.favProducts || null,
     fcmToken: obj.fcmToken || faker.random.word(),
     imageURL: obj.imageURL || faker.internet.url(),
+    location: obj.location || {
+      type: SpatialType.Point,
+      coordinates: [+faker.address.longitude(), +faker.address.latitude()],
+    },
   };
 };
 

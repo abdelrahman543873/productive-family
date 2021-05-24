@@ -5,6 +5,7 @@ import { ObjectID } from 'mongodb';
 import { SocialMediaType } from '../social-media.enum';
 import { UserRoleEnum } from 'src/_common/app.enum';
 import { SchemasEnum } from '../../_common/app.enum';
+import { Point } from 'src/_common/spatial-schemas/point.schema';
 
 export type ClientDocument = Client & Document;
 
@@ -54,6 +55,9 @@ export class Client {
     default: UserRoleEnum.CLIENT,
   })
   role: string;
+
+  @Prop({ type: Point, index: '2dsphere' })
+  location: Point;
 }
 
 export const ClientSchema = SchemaFactory.createForClass(Client);
