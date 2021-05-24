@@ -31,7 +31,3 @@ export enum LangEnum {
 export enum MessagesEnum {
   PAGINATED_RESPONSE = 'paginated response',
 }
-
-export enum Responses {
-  PAGINATED_RESPONSE = 'paginated response'
-}

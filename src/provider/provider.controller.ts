@@ -1,4 +1,4 @@
-import { Responses, UserRoleEnum } from 'src/_common/app.enum';
+import { MessagesEnum, UserRoleEnum } from 'src/_common/app.enum';
 import { AuthGuard } from 'src/_common/guards/auth.guard';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { AggregatePaginateResult } from 'mongoose';
@@ -18,7 +18,7 @@ export class ProviderController {
   @ApiResponse({
     status: 200,
     type: Provider,
-    description: Responses.PAGINATED_RESPONSE,
+    description: MessagesEnum.PAGINATED_RESPONSE,
   })
   @HasRoles(UserRoleEnum.CLIENT)
   @UseGuards(AuthGuard, RoleGuard)
