@@ -1,4 +1,4 @@
-import { AllExceptionsFilter } from './_common/exceptions/all-exceptions-filter';
+import { ValidationMongooseError } from './_common/exceptions/validation-excpetion-filter';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -44,7 +44,11 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   // done this way so that default values could be set in DTO
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  app.useGlobalFilters(new HttpExceptionFilter(), new MongoExceptionFilter(),new AllExceptionsFilter());
+  app.useGlobalFilters(
+    new HttpExceptionFilter(),
+    new MongoExceptionFilter(),
+    new ValidationMongooseError(),
+  );
   // used for securing the nestjs application
   env.NODE_ENV === 'production' && (await app.register(fastifyHelmet));
   await app.listen(3000, '0.0.0.0');
