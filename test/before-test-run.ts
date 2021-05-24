@@ -7,6 +7,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from 'src/_common/exceptions/mongo-exception.filter';
+import { ValidationMongooseError } from 'src/_common/exceptions/validation-excpetion-filter';
 
 // this is done this way to be able to inject repos into factories
 export const moduleRef = async (): Promise<TestingModule> => {
@@ -25,7 +26,11 @@ beforeAll(async () => {
   app = module.createNestApplication(fastifyAdapter);
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  app.useGlobalFilters(new HttpExceptionFilter(), new MongoExceptionFilter());
+  app.useGlobalFilters(
+    new HttpExceptionFilter(),
+    new MongoExceptionFilter(),
+    new ValidationMongooseError(),
+  );
   await app.init();
   await app
     .getHttpAdapter()
