@@ -32,6 +32,7 @@ async function bootstrap() {
     .addTag('orders', 'all requests related to orders')
     .addTag('faq', 'frequently asked questions for app users')
     .addTag('reviews', 'reviews requests for providers or drivers')
+    .addTag('order&product', 'queries related to orders and products')
     .addTag('providers&drivers', 'queries related to drivers providers')
     .addTag('verification', 'endpoint used to verify email, phone or a user')
     .addBearerAuth({

@@ -1,8 +1,5 @@
-import { driverFactory } from '../../src/driver/driver.factory';
-import { providerDriversFactory } from 'src/provider-driver/provider-driver.factory';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { GET_DRIVER_PROVIDERS } from '../endpoints/provider-driver';
 import { rollbackDbForProvider } from './rollback-for-provider';
 import { providersFactory } from '../../src/provider/provider.factory';
 import { clientFactory } from '../../src/client/client.factory';

@@ -31,6 +31,7 @@ export class ProviderRepository extends BaseRepository<Provider> {
           },
           distanceField: 'distance',
           key: 'location',
+          distanceMultiplier: 0.001,
         },
       },
     ]);
