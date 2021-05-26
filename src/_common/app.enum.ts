@@ -29,6 +29,8 @@ export enum LookupSchemasEnum {
   Product = 'products',
   Provider = 'providers',
   OrderProduct = 'orderproducts',
+  Category = 'categories',
+  Discount = 'discounts',
 }
 
 export enum LangEnum {

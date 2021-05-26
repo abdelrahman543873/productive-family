@@ -19,6 +19,7 @@ import { OrderProductModule } from './order-product/order-product.module';
 import { AuthModule } from './_common/auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { join } from 'path';
     ProviderDriverModule,
     ProductModule,
     OrderProductModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}

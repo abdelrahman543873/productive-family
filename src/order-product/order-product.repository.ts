@@ -20,6 +20,17 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
   ): Promise<AggregatePaginateResult<OrderProduct>> {
     const aggregation = this.orderProductSchema.aggregate([
       {
+        $geoNear: {
+          near: {
+            type: SpatialType.Point,
+            coordinates,
+          },
+          distanceField: 'distance',
+          key: 'location',
+          distanceMultiplier: 0.001,
+        },
+      },
+      {
         $sortByCount: '$product',
       },
       {
@@ -43,15 +54,29 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
         },
       },
       {
-        $geoNear: {
-          near: {
-            type: SpatialType.Point,
-            coordinates,
-          },
-          distanceField: 'distance',
-          key: 'provider.location',
-          distanceMultiplier: 0.001,
+        $unwind: '$provider',
+      },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Category,
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
         },
+      },
+      {
+        $unwind: '$category',
+      },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Discount,
+          localField: 'discount',
+          foreignField: '_id',
+          as: 'discount',
+        },
+      },
+      {
+        $unwind: '$discount',
       },
     ]);
     return await this.orderProductSchema.aggregatePaginate(aggregation, {});

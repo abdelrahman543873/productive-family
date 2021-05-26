@@ -4,6 +4,7 @@ import * as faker from 'faker';
 import { providerFactory } from '../provider/provider.factory';
 import { discountFactory } from '../discount/discount.factory';
 import { ProductRepo } from '../../test/product/product-test-repo';
+import { categoryFactory } from '../category/category.factory';
 
 interface ProductType {
   provider?: ObjectID;
@@ -24,7 +25,7 @@ export const buildProductParams = async (
 ): Promise<Product> => {
   return {
     provider: obj.provider || (await providerFactory())._id,
-    category: obj.category || (await providerFactory())._id,
+    category: obj.category || (await categoryFactory())._id,
     enName: obj.enName || faker.commerce.product(),
     arName: obj.arName || faker.commerce.product(),
     enDescription: obj.enDescription || faker.commerce.productDescription(),

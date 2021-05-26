@@ -4,10 +4,13 @@ import { orderFactory } from '../order/order.factory';
 import { productFactory } from '../product/product.factory';
 import { OrderProductRepo } from '../../test/order-product/order-product-test-repo';
 import * as faker from 'faker';
+import { Point } from 'src/_common/spatial-schemas/point.schema';
+import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 
 interface OrderProductType {
   price?: number;
   order?: ObjectID;
+  location?: Point;
   product?: ObjectID;
 }
 
@@ -18,6 +21,10 @@ export const buildOrderProductParams = async (
     order: obj.order || (await orderFactory())._id,
     product: obj.product || (await productFactory())._id,
     price: obj.price || parseFloat(faker.commerce.price()),
+    location: obj.location || {
+      type: SpatialType.Point,
+      coordinates: [+faker.address.longitude(), +faker.address.latitude()],
+    },
   };
 };
 

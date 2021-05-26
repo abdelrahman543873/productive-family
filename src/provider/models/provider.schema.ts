@@ -32,8 +32,8 @@ export class Provider {
   @Prop({ type: Point, index: '2dsphere' })
   location: Point;
 
-  @Prop({ min: 0, max: 5 })
-  rating: number;
+  @Prop()
+  maxDistance: number;
 
   @Prop({
     type: [

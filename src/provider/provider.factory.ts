@@ -16,33 +16,33 @@ interface ProviderType {
   slogan?: string;
   location?: Point;
   password?: string;
-  rating?: number;
   isActive?: boolean;
+  role?: UserRoleEnum;
+  maxDistance?: number;
   isVerified?: boolean;
   acceptedPaymentMethods?: ObjectID[];
-  role?: UserRoleEnum;
 }
 
 export const buildProviderParams = async (
   obj: ProviderType = {},
 ): Promise<Provider> => {
   return {
+    isActive: obj.isActive ?? true,
+    isVerified: obj.isVerified ?? true,
     name: obj.name || faker.random.word(),
+    role: obj.role || UserRoleEnum.PROVIDER,
     email: obj.email || faker.random.words(),
-    mobile: obj.mobile || faker.phone.phoneNumber('+20100#######'),
     slogan: obj.slogan || faker.random.words(),
+    password: obj.password || faker.internet.password(),
+    maxDistance: obj.maxDistance || faker.datatype.number(5),
+    acceptedPaymentMethods: obj.acceptedPaymentMethods || [
+      (await paymentFactory())._id,
+    ],
+    mobile: obj.mobile || faker.phone.phoneNumber('+20100#######'),
     location: obj.location || {
       type: SpatialType.Point,
       coordinates: [+faker.address.longitude(), +faker.address.latitude()],
     },
-    isActive: obj.isActive ?? true,
-    isVerified: obj.isVerified ?? true,
-    password: obj.password || faker.internet.password(),
-    rating: obj.rating || faker.datatype.number(5),
-    acceptedPaymentMethods: obj.acceptedPaymentMethods || [
-      (await paymentFactory())._id,
-    ],
-    role: obj.role || UserRoleEnum.PROVIDER,
   };
 };
 
