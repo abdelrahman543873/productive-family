@@ -1,1 +1,1 @@
-export const GET_POPULAR_PRODUCTS = '/order&product/popularProducts';
+export const GET_POPULAR_PRODUCTS = '/trends/popularProducts';

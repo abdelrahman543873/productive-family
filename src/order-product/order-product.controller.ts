@@ -1,27 +1,24 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AggregatePaginateResult } from 'mongoose';
-import { UserRoleEnum, MessagesEnum } from 'src/_common/app.enum';
-import { AuthGuard } from 'src/_common/guards/auth.guard';
-import { HasRoles } from 'src/_common/guards/auth.metadata';
-import { RoleGuard } from 'src/_common/guards/roles.guard';
+import { MessagesEnum } from 'src/_common/app.enum';
 import { OrderProduct } from './order-product.schema';
 import { OrderProductService } from './order-product.service';
 import { Product } from '../product/models/product.schema';
+import { semiAuthGuard } from '../_common/guards/semi-auth.guard';
 
-@Controller('order&product')
+@Controller('trends')
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}
 
   @ApiBearerAuth()
-  @ApiTags('order&product')
+  @ApiTags('client')
   @ApiResponse({
     status: 200,
     type: Product,
     description: MessagesEnum.PAGINATED_RESPONSE,
   })
-  @HasRoles(UserRoleEnum.CLIENT)
-  @UseGuards(AuthGuard, RoleGuard)
+  @UseGuards(semiAuthGuard)
   @Get('popularProducts')
   async getPopularProducts(): Promise<AggregatePaginateResult<OrderProduct>> {
     return await this.orderProductService.getPopularProducts();
