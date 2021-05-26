@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { OrderProductDocument, OrderProduct } from './order-product.schema';
 import { LookupSchemasEnum } from '../_common/app.enum';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class OrderProductRepository extends BaseRepository<OrderProduct> {
@@ -44,18 +44,23 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
       {
         $unwind: '$product',
       },
-      { $replaceRoot: { newRoot: '$product' } },
       {
         $lookup: {
           from: LookupSchemasEnum.Provider,
-          localField: 'provider',
+          localField: 'product.provider',
           foreignField: '_id',
-          as: 'provider',
+          as: 'product.provider',
         },
       },
       {
-        $unwind: '$provider',
+        $unwind: '$product.provider',
       },
+      // {
+      //   $match: {
+      //     distance: { $lte: '$product.provider.maxDistance' },
+      //   },
+      // },
+      { $replaceRoot: { newRoot: '$product' } },
       {
         $lookup: {
           from: LookupSchemasEnum.Category,
