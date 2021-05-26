@@ -55,6 +55,8 @@ describe('get popular products suite case', () => {
     expect(res.body.data.docs[0]._id).toBe(
       decodeURI(encodeURI(`${product._id}`)),
     );
+    expect(res.body.data.docs[0].provider._id).toBeTruthy();
+    expect(res.body.data.docs[0].category._id).toBeTruthy();
   });
 
   it("shouldn't get a product if it's outside the providers max distance range", async () => {
@@ -96,5 +98,7 @@ describe('get popular products suite case', () => {
     expect(res.body.data.docs[0]._id).toBe(
       decodeURI(encodeURI(`${product._id}`)),
     );
+    expect(res.body.data.docs[0].provider._id).toBeTruthy();
+    expect(res.body.data.docs[0].category._id).toBeTruthy();
   });
 });

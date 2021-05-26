@@ -32,6 +32,17 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
           distanceMultiplier: 0.001,
         },
       },
+      // done for query optimization purposes
+      {
+        $project: {
+          product: { product: '$product' },
+          distance: { distance: '$distance' },
+        },
+      },
+      {
+        $sortByCount: { $mergeObjects: ['$product', '$distance'] },
+      },
+      { $replaceRoot: { newRoot: '$_id' } },
       {
         $lookup: {
           from: LookupSchemasEnum.Product,
@@ -60,31 +71,6 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
             $lte: ['$distance', '$product.provider.maxDistance'],
           },
         },
-      },
-      {
-        $sortByCount: '$product._id',
-      },
-      {
-        $lookup: {
-          from: LookupSchemasEnum.Product,
-          localField: '_id',
-          foreignField: '_id',
-          as: 'product',
-        },
-      },
-      {
-        $unwind: '$product',
-      },
-      {
-        $lookup: {
-          from: LookupSchemasEnum.Provider,
-          localField: 'product.provider',
-          foreignField: '_id',
-          as: 'product.provider',
-        },
-      },
-      {
-        $unwind: '$product.provider',
       },
       {
         $lookup: {
