@@ -23,6 +23,14 @@ export enum SchemasEnum {
   ProviderDriver = 'ProviderDriver',
 }
 
+export enum LookupSchemasEnum {
+  Client = 'clients',
+  Driver = 'drivers',
+  Product = 'products',
+  Provider = 'providers',
+  OrderProduct = 'orderproducts',
+}
+
 export enum LangEnum {
   EN = 'EN',
   AR = 'AR',

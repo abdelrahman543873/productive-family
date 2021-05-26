@@ -34,4 +34,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'user already verified',
     AR: 'user already verified',
   },
+  612: {
+    EN: 'missing location',
+    AR: 'missing location',
+  },
 };

@@ -6,6 +6,7 @@ import { Pagination } from '../_common/utils/pagination.input';
 import { ProviderDriver } from './models/provider-driver.schema';
 import { ObjectID } from 'mongodb';
 import { ProviderDriverDocument } from './models/provider-driver.schema';
+import { LookupSchemasEnum } from '../_common/app.enum';
 @Injectable()
 export class ProviderDriverRepository extends BaseRepository<ProviderDriver> {
   constructor(
@@ -30,7 +31,7 @@ export class ProviderDriverRepository extends BaseRepository<ProviderDriver> {
       },
       {
         $lookup: {
-          from: 'drivers',
+          from: LookupSchemasEnum.Driver,
           localField: 'driver',
           foreignField: '_id',
           as: 'driver',

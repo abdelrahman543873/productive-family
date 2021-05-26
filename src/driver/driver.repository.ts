@@ -16,6 +16,7 @@ import {
   ProviderDriver,
   ProviderDriverDocument,
 } from '../provider-driver/models/provider-driver.schema';
+import { LookupSchemasEnum } from 'src/_common/app.enum';
 
 @Injectable()
 export class DriverRepository extends BaseRepository<Driver> {
@@ -114,7 +115,7 @@ export class DriverRepository extends BaseRepository<Driver> {
       },
       {
         $lookup: {
-          from: 'drivers',
+          from: LookupSchemasEnum.Driver,
           localField: 'driver',
           foreignField: '_id',
           as: 'driver',
@@ -140,7 +141,7 @@ export class DriverRepository extends BaseRepository<Driver> {
       },
       {
         $lookup: {
-          from: 'orderproducts',
+          from: LookupSchemasEnum.OrderProduct,
           localField: '_id',
           foreignField: 'order',
           as: 'products',
@@ -153,7 +154,7 @@ export class DriverRepository extends BaseRepository<Driver> {
       },
       {
         $lookup: {
-          from: 'providers',
+          from: LookupSchemasEnum.Provider,
           localField: 'provider',
           foreignField: '_id',
           as: 'provider',
@@ -164,7 +165,7 @@ export class DriverRepository extends BaseRepository<Driver> {
       },
       {
         $lookup: {
-          from: 'clients',
+          from: LookupSchemasEnum.Client,
           localField: 'client',
           foreignField: '_id',
           as: 'client',

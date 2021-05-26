@@ -12,6 +12,8 @@ export class semiAuthGuard implements CanActivate {
     request.appContext = request['raw'];
     request.lang =
       request?.appContext.raw?.headers?.['accept-language'] ?? LangEnum.EN;
+    request.long = +request?.appContext.raw?.headers?.long;
+    request.lat = +request?.appContext.raw?.headers?.lat;
     const currentUser = await this.helperService.getCurrentUser(
       request.appContext,
     );

@@ -9,6 +9,7 @@ import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
 import request from 'supertest';
+import { LookupSchemasEnum } from '../_common/app.enum';
 
 @Injectable()
 export class OrderRepository extends BaseRepository<Order> {
@@ -34,7 +35,7 @@ export class OrderRepository extends BaseRepository<Order> {
       },
       {
         $lookup: {
-          from: 'orderproducts',
+          from: LookupSchemasEnum.OrderProduct,
           localField: '_id',
           foreignField: 'order',
           as: 'products',
