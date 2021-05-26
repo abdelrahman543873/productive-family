@@ -31,24 +31,70 @@ describe('get popular products suite case', () => {
       },
     });
     const product = await productFactory({ provider: provider._id });
-    const orders = await orderProductsFactory(3, {
+    // mostPopularProduct
+    await orderProductsFactory(2, {
       product: product._id,
-      location: {
+      providerLocation: {
         type: SpatialType.Point,
         coordinates: TestLocations.EL_RAML,
       },
     });
-    const mostPopularProduct = await orderProductFactory({
-      product: product._id,
+    // less popular product
+    await orderProductFactory({
+      providerLocation: {
+        type: SpatialType.Point,
+        coordinates: TestLocations.EL_RAML,
+      },
     });
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.GET,
       url: GET_POPULAR_PRODUCTS,
       token: client.token,
     });
-    console.log(res.body);
-    // expect(res.body.data.docs[0]._id).toBe(
-    //   decodeURI(encodeURI(`${mostPopularProduct.product}`)),
-    // );
+    expect(res.body.data.docs.length).toBe(2);
+    expect(res.body.data.docs[0]._id).toBe(
+      decodeURI(encodeURI(`${product._id}`)),
+    );
+  });
+
+  it("shouldn't get a product if it's outside the providers max distance range", async () => {
+    const client = await clientFactory({
+      location: {
+        type: SpatialType.Point,
+        coordinates: TestLocations.SIDI_BISHR,
+      },
+    });
+    const provider = await providerFactory({
+      maxDistance: 60,
+      location: {
+        type: SpatialType.Point,
+        coordinates: TestLocations.EL_RAML,
+      },
+    });
+    const product = await productFactory({ provider: provider._id });
+    // mostPopularProduct
+    await orderProductsFactory(2, {
+      product: product._id,
+      providerLocation: {
+        type: SpatialType.Point,
+        coordinates: TestLocations.EL_RAML,
+      },
+    });
+    // less popular product
+    await orderProductFactory({
+      providerLocation: {
+        type: SpatialType.Point,
+        coordinates: TestLocations.CAIRO,
+      },
+    });
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.GET,
+      url: GET_POPULAR_PRODUCTS,
+      token: client.token,
+    });
+    expect(res.body.data.docs.length).toBe(1);
+    expect(res.body.data.docs[0]._id).toBe(
+      decodeURI(encodeURI(`${product._id}`)),
+    );
   });
 });

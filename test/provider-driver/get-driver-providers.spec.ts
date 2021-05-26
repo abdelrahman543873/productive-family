@@ -17,7 +17,6 @@ describe('get driver providers suite case', () => {
       url: GET_DRIVER_PROVIDERS,
       token: driver.token,
     });
-    expect(res.body.data.docs[0].rating).toBeTruthy();
     expect(res.body.data.docs[0].role).toBeTruthy();
     expect(res.body.data.docs.length).toBe(10);
   });

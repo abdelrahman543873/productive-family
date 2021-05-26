@@ -5,6 +5,7 @@ import { OrderProductDocument, OrderProduct } from './order-product.schema';
 import { LookupSchemasEnum } from '../_common/app.enum';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { Injectable } from '@nestjs/common';
+import { Pagination } from 'src/_common/utils/pagination.input';
 
 @Injectable()
 export class OrderProductRepository extends BaseRepository<OrderProduct> {
@@ -16,6 +17,7 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
   }
 
   async getPopularProducts(
+    pagination: Pagination,
     coordinates: [number],
   ): Promise<AggregatePaginateResult<OrderProduct>> {
     const aggregation = this.orderProductSchema.aggregate([
@@ -26,12 +28,41 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
             coordinates,
           },
           distanceField: 'distance',
-          key: 'location',
+          key: 'providerLocation',
           distanceMultiplier: 0.001,
         },
       },
       {
-        $sortByCount: '$product',
+        $lookup: {
+          from: LookupSchemasEnum.Product,
+          localField: 'product',
+          foreignField: '_id',
+          as: 'product',
+        },
+      },
+      {
+        $unwind: '$product',
+      },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Provider,
+          localField: 'product.provider',
+          foreignField: '_id',
+          as: 'product.provider',
+        },
+      },
+      {
+        $unwind: '$product.provider',
+      },
+      {
+        $match: {
+          $expr: {
+            $lte: ['$distance', '$product.provider.maxDistance'],
+          },
+        },
+      },
+      {
+        $sortByCount: '$product._id',
       },
       {
         $lookup: {
@@ -55,35 +86,33 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
       {
         $unwind: '$product.provider',
       },
-      // {
-      //   $match: {
-      //     distance: { $lte: '$product.provider.maxDistance' },
-      //   },
-      // },
-      { $replaceRoot: { newRoot: '$product' } },
       {
         $lookup: {
           from: LookupSchemasEnum.Category,
-          localField: 'category',
+          localField: 'product.category',
           foreignField: '_id',
-          as: 'category',
+          as: 'product.category',
         },
       },
       {
-        $unwind: '$category',
+        $unwind: '$product.category',
       },
       {
         $lookup: {
           from: LookupSchemasEnum.Discount,
-          localField: 'discount',
+          localField: 'product.discount',
           foreignField: '_id',
-          as: 'discount',
+          as: 'product.discount',
         },
       },
       {
-        $unwind: '$discount',
+        $unwind: '$product.discount',
       },
+      { $replaceRoot: { newRoot: '$product' } },
     ]);
-    return await this.orderProductSchema.aggregatePaginate(aggregation, {});
+    return await this.orderProductSchema.aggregatePaginate(aggregation, {
+      offset: pagination.offset * pagination.limit,
+      limit: pagination.limit,
+    });
   }
 }

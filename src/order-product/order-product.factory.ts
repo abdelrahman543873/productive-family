@@ -10,7 +10,7 @@ import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 interface OrderProductType {
   price?: number;
   order?: ObjectID;
-  location?: Point;
+  providerLocation?: Point;
   product?: ObjectID;
 }
 
@@ -21,7 +21,7 @@ export const buildOrderProductParams = async (
     order: obj.order || (await orderFactory())._id,
     product: obj.product || (await productFactory())._id,
     price: obj.price || parseFloat(faker.commerce.price()),
-    location: obj.location || {
+    providerLocation: obj.providerLocation || {
       type: SpatialType.Point,
       coordinates: [+faker.address.longitude(), +faker.address.latitude()],
     },

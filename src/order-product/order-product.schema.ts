@@ -18,7 +18,7 @@ export class OrderProduct {
   price: number;
 
   @Prop({ type: Point, index: '2dsphere' })
-  location: Point;
+  providerLocation: Point;
 }
 
 export const OrderProductSchema = SchemaFactory.createForClass(OrderProduct);
