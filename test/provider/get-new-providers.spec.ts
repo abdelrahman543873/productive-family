@@ -1,6 +1,5 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForProvider } from './rollback-for-provider';
 import { providersFactory } from '../../src/provider/provider.factory';
 import { clientFactory } from '../../src/client/client.factory';
 import { GET_NEW_PROVIDERS } from '../endpoints/provider';
@@ -14,6 +13,6 @@ describe('get client providers suite case', () => {
       url: GET_NEW_PROVIDERS,
       token: client.token,
     });
-    expect(res.body.data.docs.length).toBe(10);
+    expect(res.body.data.docs.length).toBeGreaterThanOrEqual(10);
   });
 });

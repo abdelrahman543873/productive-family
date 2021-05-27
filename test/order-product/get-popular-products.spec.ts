@@ -6,7 +6,6 @@ import {
   orderProductFactory,
 } from '../../src/order-product/order-product.factory';
 import { clientFactory } from '../../src/client/client.factory';
-import { rollbackDbForOrderProduct } from './rollback-for-order-product';
 import { providerFactory } from '../../src/provider/provider.factory';
 import { productFactory } from '../../src/product/product.factory';
 import { TestLocations } from '../test-files/test-locations.enum';
@@ -21,7 +20,7 @@ describe('get popular products suite case', () => {
       },
     });
     const provider = await providerFactory({
-      maxDistance: 60,
+      maxDistance: 10,
       location: {
         type: SpatialType.Point,
         coordinates: TestLocations.EL_RAML,
@@ -57,30 +56,27 @@ describe('get popular products suite case', () => {
     const client = await clientFactory({
       location: {
         type: SpatialType.Point,
-        coordinates: TestLocations.SIDI_BISHR,
+        coordinates: TestLocations.FIFTH_SETTLEMENT,
       },
     });
     const provider = await providerFactory({
       maxDistance: 60,
       location: {
         type: SpatialType.Point,
-        coordinates: TestLocations.EL_RAML,
+        coordinates: TestLocations.INSIDE_FIFTH_SETTLEMENT,
       },
     });
     const product = await productFactory({ provider: provider._id });
     // mostPopularProduct
     await orderProductsFactory(2, {
       product: product._id,
-      providerLocation: {
-        type: SpatialType.Point,
-        coordinates: TestLocations.EL_RAML,
-      },
+      providerLocation: provider.location,
     });
-    // less popular product
+    // outside scope product
     await orderProductFactory({
       providerLocation: {
         type: SpatialType.Point,
-        coordinates: TestLocations.CAIRO,
+        coordinates: TestLocations.CANADA,
       },
     });
     const res = await testRequest({
