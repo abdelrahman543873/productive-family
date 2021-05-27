@@ -1,14 +1,26 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import dotenv from 'dotenv';
-import { env } from '../utils/env';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 @Module({
   imports: [
     MongooseModule.forRootAsync({
       useFactory: async () => {
         dotenv.config();
+        if (process.env.MONGO_DB)
+          return {
+            uri: process.env.MONGO_DB,
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+          };
+        const mongod = new MongoMemoryServer({
+          autoStart: true,
+        });
+        const mongoUri = await mongod.getUri();
         return {
-          uri: process.env.MONGO_DB || env.LOCAL_MONGO_DB,
+          uri: mongoUri,
           useNewUrlParser: true,
           useCreateIndex: true,
           useUnifiedTopology: true,
