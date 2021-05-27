@@ -6,9 +6,6 @@ import { clientFactory } from '../../src/client/client.factory';
 import { GET_NEW_PROVIDERS } from '../endpoints/provider';
 
 describe('get client providers suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForProvider();
-  });
   it('get client providers', async () => {
     const client = await clientFactory();
     await providersFactory();

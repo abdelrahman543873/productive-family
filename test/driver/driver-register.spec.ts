@@ -7,9 +7,6 @@ import {
 } from '../../src/driver/driver.factory';
 import { rollbackDbForDriver } from './rollback-db-driver';
 describe('register driver suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForDriver();
-  });
   it('register driver', async () => {
     const params = await buildDriverParams();
     delete params.role;

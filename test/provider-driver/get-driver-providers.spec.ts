@@ -6,9 +6,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { GET_DRIVER_PROVIDERS } from '../endpoints/provider-driver';
 
 describe('get driver providers suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForProviderDriver();
-  });
   it('get driver providers', async () => {
     const driver = await driverFactory();
     await providerDriversFactory(10, { driver: driver._id });

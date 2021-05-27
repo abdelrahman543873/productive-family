@@ -5,9 +5,6 @@ import { rollbackDbForReview } from './rollback-db-for-review';
 import { driverFactory } from '../../src/driver/driver.factory';
 import { reviewsFactory } from '../../src/review/review.factory';
 describe('get driver reviews suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForReview();
-  });
   it('get driver reviews', async () => {
     const driver = await driverFactory();
     await reviewsFactory(10, { reviewed: driver._id });

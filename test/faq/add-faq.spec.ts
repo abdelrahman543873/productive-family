@@ -6,9 +6,6 @@ import { buildFaqParams } from '../../src/faq/faq.factory';
 import { UserRoleEnum } from '../../src/_common/app.enum';
 import { adminFactory } from 'src/admin/admin.factory';
 describe('add faq suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForFaq();
-  });
   it('add Faq', async () => {
     const user = await adminFactory({ role: UserRoleEnum.ADMIN });
     const variables = await buildFaqParams();

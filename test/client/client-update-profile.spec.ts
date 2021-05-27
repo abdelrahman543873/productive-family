@@ -9,9 +9,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { LOGIN } from 'test/endpoints/auth';
 
 describe('update client suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForClient();
-  });
   it('update client profile', async () => {
     const client = await clientFactory();
     const params = await buildClientParams();

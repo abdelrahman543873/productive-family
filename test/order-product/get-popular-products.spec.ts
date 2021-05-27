@@ -13,9 +13,6 @@ import { TestLocations } from '../test-files/test-locations.enum';
 import { SpatialType } from '../../src/_common/spatial-schemas/spatial.enum';
 
 describe('get popular products suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForOrderProduct();
-  });
   it('should get all most popular products', async () => {
     const client = await clientFactory({
       location: {

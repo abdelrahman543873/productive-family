@@ -6,9 +6,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { rollbackDbForOrder } from './rollback-db-for-order';
 
 describe('add delivery fees suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForOrder();
-  });
   it('should add delivery fees', async () => {
     const driver = await driverFactory();
     const order = await orderFactory({ driver: driver._id });

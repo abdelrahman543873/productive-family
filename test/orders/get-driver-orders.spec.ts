@@ -9,9 +9,6 @@ import { providerFactory } from '../../src/provider/provider.factory';
 import { productFactory } from '../../src/product/product.factory';
 import { orderProductFactory } from 'src/order-product/order-product.factory';
 describe('get driver orders suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForOrder();
-  });
   it('should get all driver orders', async () => {
     const driver = await driverFactory();
     await ordersFactory(10, { driver: driver._id });

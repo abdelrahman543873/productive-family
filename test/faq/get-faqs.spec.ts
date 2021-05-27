@@ -4,9 +4,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { rollbackDbForFaq } from './rollback-db-faq';
 import { GET_FAQS } from '../endpoints/faq';
 describe('get faqs suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForFaq();
-  });
   it('get Faqs', async () => {
     await faqsFactory();
     const res = await testRequest({

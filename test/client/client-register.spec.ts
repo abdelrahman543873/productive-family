@@ -2,15 +2,11 @@ import { CLIENT_REGISTER } from './../endpoints/client';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { buildDriverParams } from '../../src/driver/driver.factory';
-import { rollbackDbForClient } from './rollback-for-client';
 import {
   buildClientParams,
   clientFactory,
 } from '../../src/client/client.factory';
 describe('register client suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForClient();
-  });
   it('register client', async () => {
     const params = await buildClientParams();
     const res = await testRequest({

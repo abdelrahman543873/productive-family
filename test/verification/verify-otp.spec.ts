@@ -5,9 +5,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { VERIFY_OTP } from '../endpoints/verification';
 import { driverFactory } from '../../src/driver/driver.factory';
 describe('verify verification code suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForVerification();
-  });
   it('should verify verification code for admin', async () => {
     const verification = await verificationFactory();
     const res = await testRequest({

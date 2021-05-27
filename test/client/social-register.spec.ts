@@ -5,9 +5,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { rollbackDbForClient } from './rollback-for-client';
 
 describe('social register client suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForClient();
-  });
   it('social register client', async () => {
     const params = await buildClientParams();
     const res = await testRequest({

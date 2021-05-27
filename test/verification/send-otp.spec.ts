@@ -4,9 +4,6 @@ import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { SEND_OTP, VERIFY_OTP } from '../endpoints/verification';
 import { adminFactory } from '../../src/admin/admin.factory';
 describe('verify verification code suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForVerification();
-  });
   it('should send verification code for admin', async () => {
     const admin = await adminFactory();
     const res = await testRequest({

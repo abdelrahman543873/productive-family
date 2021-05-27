@@ -7,9 +7,6 @@ import { rollbackDbForClient } from './rollback-for-client';
 import { clientFactory } from '../../src/client/client.factory';
 
 describe('social login client suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForClient();
-  });
   it('social login client', async () => {
     const client = await clientFactory();
     const res = await testRequest({

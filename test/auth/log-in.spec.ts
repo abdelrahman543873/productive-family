@@ -1,6 +1,5 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForAuth } from './rollback-for-auth';
 import { LOGIN } from 'test/endpoints/auth';
 import { driverFactory } from '../../src/driver/driver.factory';
 import { UserRoleEnum } from '../../src/_common/app.enum';
@@ -9,9 +8,6 @@ import { providerFactory } from '../../src/provider/provider.factory';
 import { adminFactory } from '../../src/admin/admin.factory';
 import { GET_DRIVER_ORDERS } from 'test/endpoints/order';
 describe('login suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForAuth();
-  });
   it('login for driver', async () => {
     const driver = await driverFactory({ password: '12345678' });
     const res = await testRequest({

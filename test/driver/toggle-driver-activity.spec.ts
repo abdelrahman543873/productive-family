@@ -5,9 +5,6 @@ import { rollbackDbForDriver } from './rollback-db-driver';
 import { TOGGLE_DRIVER_ACTIVITY } from '../endpoints/driver';
 
 describe('get driver reviews suite case', () => {
-  afterEach(async () => {
-    await rollbackDbForDriver();
-  });
   it('get driver reviews', async () => {
     const driver = await driverFactory();
     const res = await testRequest({
