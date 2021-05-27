@@ -11,7 +11,6 @@ import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from 'src/_common/exceptions/mongo-exception.filter';
 import { ValidationMongooseError } from 'src/_common/exceptions/validation-excpetion-filter';
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
-import mongoose from 'mongoose';
 
 export let app: INestApplication;
 // this is done this way to be able to inject repositories into factories
@@ -55,6 +54,5 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
   await app.close();
 });

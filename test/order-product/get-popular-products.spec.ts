@@ -34,10 +34,7 @@ describe('get popular products suite case', () => {
     // mostPopularProduct
     await orderProductsFactory(2, {
       product: product._id,
-      providerLocation: {
-        type: SpatialType.Point,
-        coordinates: TestLocations.EL_RAML,
-      },
+      providerLocation: provider.location,
     });
     // less popular product
     await orderProductFactory({

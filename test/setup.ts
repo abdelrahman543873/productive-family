@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const fs = require('fs');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+import path from 'path';
+import fs from 'fs';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 const globalConfigPath = path.join(__dirname, 'globalConfig.json');
 
 const mongod = new MongoMemoryServer({

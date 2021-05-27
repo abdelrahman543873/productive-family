@@ -38,3 +38,4 @@ lerna-debug.log*
 # resources
 /public
 /externalVolumes/
+/test/globalConfig.json
