@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nest start",
-    "test": "cross-env NODE_ENV=test jest --forceExit --logHeapUsage --verbose --watchAll=false --maxWorkers=50%",
+    "test": "cross-env NODE_ENV=test jest --forceExit --logHeapUsage --verbose --runInBand",
     "test:cov": "jest --coverage --forceExit --logHeapUsage --verbose --runInBand",
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -21,7 +21,6 @@
   },
   "config": {
     "mongodbMemoryServer": {
-      "version": "latest",
       "arch": "x64"
     }
   },

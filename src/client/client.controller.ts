@@ -50,7 +50,7 @@ export class ClientController {
   @UseGuards(AuthGuard, RoleGuard)
   @UseInterceptors(FileValidationInterceptor)
   @UseInterceptors(FileInterceptor('imageURL'))
-  @UsePipes(new JoiValidationPipe(ClientUpdateProfileJoi))
+  @UsePipes(new JoiValidationPipe(ClientUpdateProfileJoi, true))
   @Put('updateProfile')
   async updateProfile(
     @Body() input: ClientUpdateProfileInput,

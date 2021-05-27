@@ -1,4 +1,3 @@
-import { faqsFactory } from 'src/faq/faq.factory';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { rollbackDbForFaq } from './rollback-db-faq';
@@ -12,7 +11,6 @@ describe('add faq suite case', () => {
   });
   it('add Faq', async () => {
     const user = await adminFactory({ role: UserRoleEnum.ADMIN });
-    await faqsFactory();
     const variables = await buildFaqParams();
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.POST,

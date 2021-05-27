@@ -22,6 +22,6 @@ export class TransformInterceptor<T>
   ): Observable<Response<T>> {
     const code = context.switchToHttp().getResponse()['statusCode'];
     const success = !!(code < 300 && code >= 200);
-    return next.handle().pipe(map((data) => ({ data, code, success })));
+    return next.handle().pipe(map(data => ({ data, code, success })));
   }
 }

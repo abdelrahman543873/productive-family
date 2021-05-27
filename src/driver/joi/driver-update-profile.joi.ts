@@ -11,6 +11,9 @@ export const DriverUpdateProfileJoi = Joi.object({
   newPassword: Joi.string()
     .min(8)
     .optional(),
+  nationalIDImgBack: Joi.array(),
+  nationalIDImgFront: Joi.array(),
+  imageURL: Joi.array(),
 })
   .with('password', 'newPassword')
   .with('newPassword', 'password')
