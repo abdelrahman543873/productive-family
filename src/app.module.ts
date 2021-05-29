@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { ProductModule } from './product/product.module';
 import { AddressModule } from './address/address.module';
 import { PaymentModule } from './payment/payment.module';
@@ -18,14 +17,10 @@ import { ProviderModule } from './provider/provider.module';
 import { ProviderDriverModule } from './provider-driver/provider-driver.module';
 import { OrderProductModule } from './order-product/order-product.module';
 import { AuthModule } from './_common/auth/auth.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { CategoryModule } from './category/category.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'public'),
-    }),
     DataBaseModule,
     HelperModule,
     VerificationModule,

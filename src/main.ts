@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { ValidationMongooseError } from './_common/exceptions/validation-excpetion-filter';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -42,6 +43,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
+  app.useStaticAssets({ root: join(process.cwd(), 'public') });
   app.useGlobalInterceptors(new TransformInterceptor());
   // done this way so that default values could be set in DTO
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
