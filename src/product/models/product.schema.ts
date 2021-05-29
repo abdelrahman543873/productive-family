@@ -2,6 +2,8 @@ import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectID } from 'mongodb';
 import { SchemasEnum } from '../../_common/app.enum';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
+
 export type ProductDocument = Product & Document;
 
 @Schema({ versionKey: false })
@@ -40,6 +42,27 @@ export class Product {
 
   @Prop({ type: [String] })
   imagesURLs?: string[];
+
+  @Prop({
+    type: [
+      {
+        enUnit: String,
+        arUnit: String,
+        amount: Number,
+        price: Number,
+      },
+    ],
+    required: true,
+  })
+  info: [
+    {
+      enUnit: string;
+      arUnit: string;
+      price: number;
+      amount: number;
+    },
+  ];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
+ProductSchema.plugin(aggregatePaginate);

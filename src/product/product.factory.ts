@@ -18,6 +18,12 @@ interface ProductType {
   isActive?: boolean;
   discount?: ObjectID;
   imagesURLs?: string[];
+  info?: {
+    enUnit?: string;
+    arUnit?: string;
+    price?: number;
+    amount?: number;
+  };
 }
 
 export const buildProductParams = async (
@@ -35,6 +41,14 @@ export const buildProductParams = async (
     isActive: obj.isActive ?? true,
     discount: obj.discount || (await discountFactory())._id,
     imagesURLs: obj.imagesURLs || [faker.internet.url()],
+    info: [
+      {
+        enUnit: obj?.info?.enUnit ?? faker.random.word(),
+        arUnit: obj?.info?.arUnit ?? faker.random.word(),
+        price: obj?.info?.price ?? +faker.commerce.price(),
+        amount: obj?.info?.amount ?? faker.datatype.number(),
+      },
+    ],
   };
 };
 

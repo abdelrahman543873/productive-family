@@ -8,7 +8,6 @@ import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
-import request from 'supertest';
 import { LookupSchemasEnum } from '../_common/app.enum';
 
 @Injectable()
