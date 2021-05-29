@@ -43,6 +43,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
+  // files must be served this way and not using server static module check comments
   app.useStaticAssets({ root: join(process.cwd(), 'public') });
   app.useGlobalInterceptors(new TransformInterceptor());
   // done this way so that default values could be set in DTO
