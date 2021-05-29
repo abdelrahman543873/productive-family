@@ -22,10 +22,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { CategoryModule } from './category/category.module';
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'public'),
     }),
-    ConfigModule.forRoot({ isGlobal: true }),
     DataBaseModule,
     HelperModule,
     VerificationModule,
