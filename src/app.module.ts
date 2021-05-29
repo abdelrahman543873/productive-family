@@ -23,7 +23,7 @@ import { CategoryModule } from './category/category.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(process.cwd(), 'public'),
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     DataBaseModule,
