@@ -1,3 +1,7 @@
 @types/mongoose-paginate is used instead of @types/mongoose-paginatev2 cause of the conflict with nestjs/mongoose
 see the following
 https://stackoverflow.com/questions/65669164/how-to-provide-server-side-pagination-with-nestjs
+
+serve static file doesn't work properly with fastify , if you copy a new file to the public route 
+it won't be displayed in the browser until you restart the server
+start from here and you can reproduce the problem https://github.com/nestjs/nest/issues/5127
