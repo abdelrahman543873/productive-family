@@ -21,7 +21,7 @@ import {
       fileFilter,
       preservePath: true,
       storage: diskStorage({
-        destination: './public/driver',
+        destination: './public',
         filename,
       }),
     }),

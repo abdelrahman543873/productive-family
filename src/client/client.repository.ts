@@ -50,7 +50,7 @@ export class ClientRepository extends BaseRepository<Client> {
         ...input,
         ...(input.password && { password: await hashPass(input.newPassword) }),
         ...(file?.path && {
-          imageURL: this.configService.get<string>('IP') + file.path,
+          imageURL: this.configService.get<string>('IP') + file.filename,
         }),
       },
       { lean: true, new: true, projection: { password: 0 } },

@@ -16,7 +16,7 @@ import { filename } from 'src/_common/utils/multer-file-name';
       fileFilter,
       preservePath: true,
       storage: diskStorage({
-        destination: './public/client',
+        destination: './public',
         filename,
       }),
     }),

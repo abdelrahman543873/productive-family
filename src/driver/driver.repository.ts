@@ -43,17 +43,17 @@ export class DriverRepository extends BaseRepository<Driver> {
         ...(input.password && { password: await hashPass(input.password) }),
         ...(files?.['imageURL']?.[0].path && {
           imageURL:
-            this.configService.get<string>('IP') + files['imageURL'][0].path,
+            this.configService.get<string>('IP') + files['imageURL'][0].filename,
         }),
         ...(files?.['nationalIDImgBack']?.[0].path && {
           nationalIDImgBack:
             this.configService.get<string>('IP') +
-            files['nationalIDImgBack'][0].path,
+            files['nationalIDImgBack'][0].filename,
         }),
         ...(files?.['nationalIDImgFront']?.[0].path && {
           nationalIDImgFront:
             this.configService.get<string>('IP') +
-            files['nationalIDImgFront'][0].path,
+            files['nationalIDImgFront'][0].filename,
         }),
       })
     ).toJSON();
@@ -80,17 +80,17 @@ export class DriverRepository extends BaseRepository<Driver> {
         ...(input.password && { password: await hashPass(input.newPassword) }),
         ...(files?.['imageURL']?.[0].path && {
           imageURL:
-            this.configService.get<string>('IP') + files['imageURL'][0].path,
+            this.configService.get<string>('IP') + files['imageURL'][0].filename,
         }),
         ...(files?.['nationalIDImgBack']?.[0].path && {
           nationalIDImgBack:
             this.configService.get<string>('IP') +
-            files['nationalIDImgBack'][0].path,
+            files['nationalIDImgBack'][0].filename,
         }),
         ...(files?.['nationalIDImgFront']?.[0].path && {
           nationalIDImgFront:
             this.configService.get<string>('IP') +
-            files['nationalIDImgFront'][0].path,
+            files['nationalIDImgFront'][0].filename,
         }),
       },
       { new: true, lean: true, projection: { password: 0 } },
