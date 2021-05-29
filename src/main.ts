@@ -15,7 +15,7 @@ import fastifyHelmet from 'fastify-helmet';
 import { env } from './_common/utils/env';
 declare const module: any;
 async function bootstrap() {
-  const fastifyAdapter = new FastifyAdapter();
+  const fastifyAdapter = new FastifyAdapter({ logger: true });
   fastifyAdapter.register(multer.contentParser);
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
