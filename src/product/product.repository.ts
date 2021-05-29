@@ -6,6 +6,7 @@ import { Product, ProductDocument } from './models/product.schema';
 import { Pagination } from 'src/_common/utils/pagination.input';
 import { LookupSchemasEnum } from 'src/_common/app.enum';
 import { Category } from '../category/models/category.schema';
+import { LessThanPriceInput } from './inputs/less-than-price.input';
 
 @Injectable()
 export class ProductRepository extends BaseRepository<Product> {
@@ -17,12 +18,13 @@ export class ProductRepository extends BaseRepository<Product> {
   }
 
   async getLessThanPrice(
+    input: LessThanPriceInput,
     pagination: Pagination,
   ): Promise<AggregatePaginateResult<Product>> {
     const aggregation = this.productSchema.aggregate([
       {
         $match: {
-          'info.price': { $lte: 50 },
+          'info.price': { $lte: +input.price },
           'info.amount': { $gt: 0 },
         },
       },

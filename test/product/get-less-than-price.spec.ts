@@ -13,7 +13,7 @@ describe('get less than price products suite case', () => {
     });
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.GET,
-      url: `${GET_LESS_THAN_PRICE}?limit=500`,
+      url: `${GET_LESS_THAN_PRICE}/50?limit=500`,
     });
     const correctResult = res.body.data.docs.filter(product => {
       return product._id === decodeURI(encodeURI(`${correctProduct._id}`));
