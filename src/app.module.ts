@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { ProductModule } from './product/product.module';
 import { AddressModule } from './address/address.module';
 import { PaymentModule } from './payment/payment.module';
@@ -18,15 +19,13 @@ import { ProviderDriverModule } from './provider-driver/provider-driver.module';
 import { OrderProductModule } from './order-product/order-product.module';
 import { AuthModule } from './_common/auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { CategoryModule } from './category/category.module';
-
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     DataBaseModule,
     HelperModule,
     VerificationModule,
