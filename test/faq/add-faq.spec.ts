@@ -1,6 +1,5 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForFaq } from './rollback-db-faq';
 import { ADD_FAQ } from '../endpoints/faq';
 import { buildFaqParams } from '../../src/faq/faq.factory';
 import { UserRoleEnum } from '../../src/_common/app.enum';

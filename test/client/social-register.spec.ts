@@ -2,7 +2,6 @@ import { buildClientParams } from 'src/client/client.factory';
 import { SOCIAL_CLIENT_REGISTER } from 'test/endpoints/client';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForClient } from './rollback-for-client';
 
 describe('social register client suite case', () => {
   it('social register client', async () => {

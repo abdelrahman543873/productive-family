@@ -1,4 +1,3 @@
-import { rollbackDbForVerification } from './rollback-for-verification';
 import { testRequest } from '../request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { SEND_OTP, VERIFY_OTP } from '../endpoints/verification';

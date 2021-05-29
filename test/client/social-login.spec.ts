@@ -1,9 +1,6 @@
 import { SOCIAL_CLIENT_LOGIN } from './../endpoints/client';
-import { buildClientParams } from 'src/client/client.factory';
-import { SOCIAL_CLIENT_REGISTER } from 'test/endpoints/client';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForClient } from './rollback-for-client';
 import { clientFactory } from '../../src/client/client.factory';
 
 describe('social login client suite case', () => {

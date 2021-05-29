@@ -1,5 +1,4 @@
 import { verificationFactory } from '../../src/verification/verification.factory';
-import { rollbackDbForVerification } from './rollback-for-verification';
 import { testRequest } from '../request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { VERIFY_OTP } from '../endpoints/verification';

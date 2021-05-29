@@ -5,7 +5,6 @@ import {
   buildDriverParams,
   driverFactory,
 } from '../../src/driver/driver.factory';
-import { rollbackDbForDriver } from './rollback-db-driver';
 describe('register driver suite case', () => {
   it('register driver', async () => {
     const params = await buildDriverParams();

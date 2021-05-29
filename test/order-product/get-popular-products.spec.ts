@@ -26,18 +26,17 @@ describe('get popular products suite case', () => {
         coordinates: TestLocations.EL_RAML,
       },
     });
-    const product = await productFactory({ provider: provider._id });
+    const mostPopularProduct = await productFactory({ provider: provider._id });
+    const lessPopularProduct = await productFactory({ provider: provider._id });
     // mostPopularProduct
     await orderProductsFactory(2, {
-      product: product._id,
+      product: mostPopularProduct._id,
       providerLocation: provider.location,
     });
     // less popular product
     await orderProductFactory({
-      providerLocation: {
-        type: SpatialType.Point,
-        coordinates: TestLocations.EL_RAML,
-      },
+      product: lessPopularProduct._id,
+      providerLocation: provider.location,
     });
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.GET,
@@ -46,7 +45,7 @@ describe('get popular products suite case', () => {
     });
     expect(res.body.data.docs.length).toBe(2);
     expect(res.body.data.docs[0]._id).toBe(
-      decodeURI(encodeURI(`${product._id}`)),
+      decodeURI(encodeURI(`${mostPopularProduct._id}`)),
     );
     expect(res.body.data.docs[0].provider._id).toBeTruthy();
     expect(res.body.data.docs[0].category._id).toBeTruthy();

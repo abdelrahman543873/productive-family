@@ -1,5 +1,4 @@
 import { CLIENT_UPDATE_PROFILE } from '../endpoints/client';
-import { rollbackDbForClient } from './rollback-for-client';
 import {
   buildClientParams,
   clientFactory,

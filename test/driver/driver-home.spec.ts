@@ -2,7 +2,6 @@ import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { driverFactory } from '../../src/driver/driver.factory';
 import { ordersFactory } from '../../src/order/order.factory';
-import { rollbackDbForDriver } from './rollback-db-driver';
 import { providerDriversFactory } from '../../src/provider-driver/provider-driver.factory';
 import { GET_DRIVER_HOME } from 'test/endpoints/driver';
 import { OrderEnum } from 'src/order/order.enum';

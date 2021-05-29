@@ -1,4 +1,3 @@
-import { rollbackDbForVerification } from './rollback-for-verification';
 import { verificationRepo } from './verification-test-repo';
 import { buildVerificationParams } from '../../src/verification/verification.factory';
 describe('add verification suite case', () => {

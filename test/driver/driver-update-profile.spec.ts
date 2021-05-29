@@ -5,7 +5,6 @@ import {
   buildDriverParams,
   driverFactory,
 } from '../../src/driver/driver.factory';
-import { rollbackDbForDriver } from './rollback-db-driver';
 describe('update driver suite case', () => {
   it('should update driver', async () => {
     const driver = await driverFactory();

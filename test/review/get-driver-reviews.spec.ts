@@ -1,7 +1,6 @@
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { GET_DRIVER_REVIEWS } from 'test/endpoints/reviews';
-import { rollbackDbForReview } from './rollback-db-for-review';
 import { driverFactory } from '../../src/driver/driver.factory';
 import { reviewsFactory } from '../../src/review/review.factory';
 describe('get driver reviews suite case', () => {

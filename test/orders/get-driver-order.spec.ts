@@ -3,7 +3,6 @@ import { orderFactory } from 'src/order/order.factory';
 import { GET_DRIVER_ORDER } from 'test/endpoints/order';
 import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
-import { rollbackDbForOrder } from './rollback-db-for-order';
 
 describe('get driver orders suite case', () => {
   it('should get all driver orders', async () => {
