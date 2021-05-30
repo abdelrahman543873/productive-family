@@ -37,9 +37,6 @@ export class Product {
   @Prop({ required: true, default: true })
   isActive: boolean;
 
-  @Prop({ type: ObjectID, ref: SchemasEnum.Discount })
-  discount?: ObjectID;
-
   @Prop({ type: [String] })
   imagesURLs?: string[];
 }

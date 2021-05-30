@@ -32,6 +32,7 @@ export enum LookupSchemasEnum {
   OrderProduct = 'orderproducts',
   Category = 'categories',
   Discount = 'discounts',
+  Unit = 'units',
 }
 
 export enum LangEnum {

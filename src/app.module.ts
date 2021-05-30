@@ -20,6 +20,7 @@ import { AuthModule } from './_common/auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { UnitModule } from './unit/unit.module';
 import { ProductUnitModule } from './product-unit/product-unit.module';
+import { ProductDiscountModule } from './product-discount/product-discount.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -43,6 +44,7 @@ import { ProductUnitModule } from './product-unit/product-unit.module';
     CategoryModule,
     UnitModule,
     ProductUnitModule,
+    ProductDiscountModule,
   ],
 })
 export class AppModule {}

@@ -2,7 +2,6 @@ import { Product } from './models/product.schema';
 import { ObjectID } from 'mongodb';
 import * as faker from 'faker';
 import { providerFactory } from '../provider/provider.factory';
-import { discountFactory } from '../discount/discount.factory';
 import { ProductRepo } from '../../test/product/product-test-repo';
 import { categoryFactory } from '../category/category.factory';
 
@@ -16,7 +15,6 @@ interface ProductType {
   preparationTime?: number;
   rating?: number;
   isActive?: boolean;
-  discount?: ObjectID;
   imagesURLs?: string[];
 }
 
@@ -33,7 +31,6 @@ export const buildProductParams = async (
     preparationTime: obj.preparationTime || faker.datatype.number(),
     rating: obj.rating || faker.datatype.number(5),
     isActive: obj.isActive ?? true,
-    discount: obj.discount || (await discountFactory())._id,
     imagesURLs: obj.imagesURLs || [faker.internet.url()],
   };
 };
