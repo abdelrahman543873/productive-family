@@ -8,7 +8,7 @@ import { Product } from '../product/models/product.schema';
 import { semiAuthGuard } from '../_common/guards/semi-auth.guard';
 import { Pagination } from 'src/_common/utils/pagination.input';
 
-@Controller('trends')
+@Controller('products')
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}
 
