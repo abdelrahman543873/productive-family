@@ -1,5 +1,10 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiResponse,
+  ApiHeaders,
+} from '@nestjs/swagger';
 import { AggregatePaginateResult } from 'mongoose';
 import { MessagesEnum } from 'src/_common/app.enum';
 import { OrderProduct } from './order-product.schema';
@@ -19,6 +24,7 @@ export class OrderProductController {
     type: Product,
     description: MessagesEnum.PAGINATED_RESPONSE,
   })
+  @ApiHeaders([{ name: 'long' }, { name: 'lat' }])
   @UseGuards(semiAuthGuard)
   @Get('popularProducts')
   async getPopularProducts(
