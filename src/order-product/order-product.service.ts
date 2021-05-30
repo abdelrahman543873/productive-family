@@ -17,11 +17,12 @@ export class OrderProductService {
   async getPopularProducts(
     pagination: Pagination,
   ): Promise<AggregatePaginateResult<OrderProduct>> {
-    const coordinates = this.request.currentUser.location.coordinates || [
+    const coordinates = this.request?.currentUser?.location?.coordinates || [
       this.request.long,
       this.request.lat,
     ];
-    if (!coordinates) throw new BaseHttpException(this.request.lang, 612);
+    if (!coordinates[0] || !coordinates[1])
+      throw new BaseHttpException(this.request.lang, 612);
     return await this.orderProductRepository.getPopularProducts(
       pagination,
       coordinates,
