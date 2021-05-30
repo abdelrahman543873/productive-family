@@ -34,6 +34,13 @@ export class ProviderRepository extends BaseRepository<Provider> {
           distanceMultiplier: 0.001,
         },
       },
+      {
+        $match: {
+          $expr: {
+            $lte: ['$distance', '$maxDistance'],
+          },
+        },
+      },
     ]);
     return await this.providerSchema.aggregatePaginate(aggregation, {
       sort: { createdAt: 1 },
