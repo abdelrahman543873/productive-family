@@ -12,6 +12,7 @@ import { OrderProductService } from './order-product.service';
 import { Product } from '../product/models/product.schema';
 import { semiAuthGuard } from '../_common/guards/semi-auth.guard';
 import { Pagination } from 'src/_common/utils/pagination.input';
+import { LongAndLatEnum } from '../_common/app.enum';
 
 @Controller('products')
 export class OrderProductController {
@@ -24,7 +25,10 @@ export class OrderProductController {
     type: Product,
     description: MessagesEnum.PAGINATED_RESPONSE,
   })
-  @ApiHeaders([{ name: 'long' }, { name: 'lat' }])
+  @ApiHeaders([
+    { name: LongAndLatEnum.Long, schema: { type: 'number' } },
+    { name: LongAndLatEnum.Lat, schema: { type: 'number' } },
+  ])
   @UseGuards(semiAuthGuard)
   @Get('popularProducts')
   async getPopularProducts(

@@ -38,4 +38,12 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'missing location',
     AR: 'missing location',
   },
+  613: {
+    EN: 'invalid longitude',
+    AR: 'invalid longitude',
+  },
+  614: {
+    EN: 'invalid latitude',
+    AR: 'invalid latitude',
+  },
 };

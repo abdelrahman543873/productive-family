@@ -40,6 +40,11 @@ export enum LangEnum {
   AR = 'AR',
 }
 
+export enum LongAndLatEnum {
+  Long = 'Long',
+  Lat = 'Lat',
+}
+
 export enum MessagesEnum {
   PAGINATED_RESPONSE = 'paginated response',
 }

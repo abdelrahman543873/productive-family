@@ -1,11 +1,16 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ProductUnitService } from './product-unit.service';
 import { ProductUnit } from './models/product-unit.schema';
-import { ApiBearerAuth, ApiTags, ApiResponse, ApiHeaders } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiResponse,
+  ApiHeaders,
+} from '@nestjs/swagger';
 import { AggregatePaginateResult } from 'mongoose';
 import { LessThanPriceInput } from 'src/product/inputs/less-than-price.input';
 import { Product } from 'src/product/models/product.schema';
-import { MessagesEnum } from 'src/_common/app.enum';
+import { LongAndLatEnum, MessagesEnum } from 'src/_common/app.enum';
 import { semiAuthGuard } from 'src/_common/guards/semi-auth.guard';
 import { Pagination } from 'src/_common/utils/pagination.input';
 
@@ -20,7 +25,10 @@ export class ProductUnitController {
     type: Product,
     description: MessagesEnum.PAGINATED_RESPONSE,
   })
-  @ApiHeaders([{ name: 'long' }, { name: 'lat' }])
+  @ApiHeaders([
+    { name: LongAndLatEnum.Long, schema: { type: 'number' } },
+    { name: LongAndLatEnum.Lat, schema: { type: 'number' } },
+  ])
   @UseGuards(semiAuthGuard)
   @Get('lessThanPrice/:price')
   async getLessThanPrice(
