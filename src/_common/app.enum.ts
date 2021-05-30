@@ -7,6 +7,7 @@ export enum UserRoleEnum {
 
 export enum SchemasEnum {
   Faq = 'Faq',
+  Unit = 'Unit',
   Admin = 'Admin',
   Order = 'Order',
   Client = 'Client',

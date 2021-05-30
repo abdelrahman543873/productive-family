@@ -18,6 +18,8 @@ import { ProviderDriverModule } from './provider-driver/provider-driver.module';
 import { OrderProductModule } from './order-product/order-product.module';
 import { AuthModule } from './_common/auth/auth.module';
 import { CategoryModule } from './category/category.module';
+import { UnitModule } from './unit/unit.module';
+import { ProductUnitModule } from './product-unit/product-unit.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -39,6 +41,8 @@ import { CategoryModule } from './category/category.module';
     ProductModule,
     OrderProductModule,
     CategoryModule,
+    UnitModule,
+    ProductUnitModule,
   ],
 })
 export class AppModule {}

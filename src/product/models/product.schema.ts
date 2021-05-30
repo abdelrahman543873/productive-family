@@ -42,26 +42,6 @@ export class Product {
 
   @Prop({ type: [String] })
   imagesURLs?: string[];
-
-  @Prop({
-    type: [
-      {
-        enUnit: String,
-        arUnit: String,
-        amount: Number,
-        price: Number,
-      },
-    ],
-    required: true,
-  })
-  info: [
-    {
-      enUnit: string;
-      arUnit: string;
-      price: number;
-      amount: number;
-    },
-  ];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
