@@ -15,6 +15,7 @@ import { SocialLoginInput } from './inputs/social-login.input';
 import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
 import { File } from 'fastify-multer/lib/interfaces';
+import { ToggleFavProductInput } from './inputs/toggle-fav-product.input';
 @Injectable()
 export class ClientService {
   constructor(
@@ -67,6 +68,18 @@ export class ClientService {
       this.request.currentUser._id,
       input,
       file,
+    );
+  }
+
+  async toggleFavoriteProduct(input: ToggleFavProductInput): Promise<Client> {
+    if (this.request.currentUser.favProducts.includes(input.product))
+      return await this.clientRepo.removeFavoriteProduct(
+        this.request.currentUser._id,
+        input.product,
+      );
+    return await this.clientRepo.addFavoriteProduct(
+      this.request.currentUser._id,
+      input.product,
     );
   }
 }

@@ -31,6 +31,7 @@ import { clientUpdateProfileSchema } from './swagger/client-update-profile.schem
 import { JoiValidationPipe } from 'src/_common/pipes/joi.pipe';
 import { ClientUpdateProfileJoi } from './joi/client-update-profile.joi';
 import { File } from 'fastify-multer/lib/interfaces';
+import { ToggleFavProductInput } from './inputs/toggle-fav-product.input';
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
@@ -69,5 +70,17 @@ export class ClientController {
   @Post('socialLogin')
   async socialSocialLogin(@Body() input: SocialLoginInput): Promise<Client> {
     return await this.clientService.socialLogin(input);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('client')
+  @ApiResponse({ status: 201, type: Client })
+  @HasRoles(UserRoleEnum.CLIENT)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Post('toggleFavProduct')
+  async toggleFavoriteProduct(
+    @Body() input: ToggleFavProductInput,
+  ): Promise<Client> {
+    return await this.clientService.toggleFavoriteProduct(input);
   }
 }

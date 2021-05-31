@@ -56,4 +56,40 @@ export class ClientRepository extends BaseRepository<Client> {
       { lean: true, new: true, projection: { password: 0 } },
     );
   }
+
+  async removeFavoriteProduct(
+    _id: ObjectID,
+    favProduct: ObjectID,
+  ): Promise<Client> {
+    return await this.clientSchema.findOneAndUpdate(
+      { _id },
+      {
+        $pull: {
+          favProducts: favProduct,
+        },
+      },
+      {
+        new: true,
+        lean: true,
+      },
+    );
+  }
+
+  async addFavoriteProduct(
+    _id: ObjectID,
+    favProduct: ObjectID,
+  ): Promise<Client> {
+    return await this.clientSchema.findOneAndUpdate(
+      { _id },
+      {
+        $addToSet: {
+          favProducts: favProduct,
+        },
+      },
+      {
+        new: true,
+        lean: true,
+      },
+    );
+  }
 }

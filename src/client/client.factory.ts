@@ -9,6 +9,7 @@ import { ObjectID } from 'mongodb';
 import { ClientRepo } from '../../test/client/client-test-repo';
 import { Point } from 'src/_common/spatial-schemas/point.schema';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
+import { productFactory } from '../product/product.factory';
 
 interface clientType {
   email?: string;
@@ -38,7 +39,7 @@ export const buildClientParams = async (
     socialMediaType:
       obj.socialMediaType ||
       faker.random.arrayElement(getValuesFromEnum(SocialMediaType)),
-    favProducts: obj.favProducts || null,
+    favProducts: obj.favProducts || [(await productFactory())._id],
     fcmToken: obj.fcmToken || faker.random.word(),
     imageURL: obj.imageURL || faker.internet.url(),
     location: obj.location || {
