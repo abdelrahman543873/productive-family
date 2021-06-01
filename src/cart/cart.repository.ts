@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { AddToCartInput } from './inputs/add-to-cart.input';
 import { Cart, CartDocument } from './models/cart.schema';
 import { ObjectID } from 'mongodb';
-import { Product } from 'src/product/models/product.schema';
-
+import { Pagination } from 'src/_common/utils/pagination.input';
+import { LookupSchemasEnum } from 'src/_common/app.enum';
 @Injectable()
 export class CartRepository extends BaseRepository<Cart> {
-  constructor(@InjectModel(Cart.name) private cartSchema: Model<CartDocument>) {
+  constructor(
+    @InjectModel(Cart.name)
+    private cartSchema: AggregatePaginateModel<CartDocument>,
+  ) {
     super(cartSchema);
   }
 
@@ -36,5 +39,57 @@ export class CartRepository extends BaseRepository<Cart> {
       { amount: 0, client: 0 },
       { populate: 'product' },
     );
+  }
+
+  async getCart(
+    client: ObjectID,
+    pagination: Pagination,
+  ): Promise<AggregatePaginateResult<Cart>> {
+    const aggregation = this.cartSchema.aggregate([
+      {
+        $match: {
+          client: new ObjectID(client),
+        },
+      },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Product,
+          localField: 'product',
+          foreignField: '_id',
+          as: 'product',
+        },
+      },
+      { $unwind: '$product' },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$product', '$$ROOT'],
+          },
+        },
+      },
+      { $project: { client: 0, _id: 0, product: 0 } },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Provider,
+          localField: 'provider',
+          foreignField: '_id',
+          as: 'provider',
+        },
+      },
+      { $unwind: '$provider' },
+      {
+        $lookup: {
+          from: LookupSchemasEnum.Category,
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category',
+        },
+      },
+      { $unwind: '$category' },
+    ]);
+    return await this.cartSchema.aggregatePaginate(aggregation, {
+      offset: pagination.offset * pagination.limit,
+      limit: pagination.limit,
+    });
   }
 }

@@ -2,6 +2,7 @@ import { ObjectID } from 'mongodb';
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemasEnum } from 'src/_common/app.enum';
 import { Document } from 'mongoose';
+import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 
 export type CartDocument = Cart & Document;
 
@@ -18,3 +19,4 @@ export class Cart {
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);
+CartSchema.plugin(aggregatePaginate);

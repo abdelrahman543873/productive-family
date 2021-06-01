@@ -6,6 +6,8 @@ import { CartRepository } from './cart.repository';
 import { AddToCartInput } from './inputs/add-to-cart.input';
 import { BaseHttpException } from '../_common/exceptions/base-http-exception';
 import { ProductRepository } from '../product/product.repository';
+import { AggregatePaginateResult } from 'mongoose';
+import { Pagination } from 'src/_common/utils/pagination.input';
 
 @Injectable()
 export class CartService {
@@ -28,5 +30,14 @@ export class CartService {
     if (clientProduct && clientProduct['provider'] !== product.provider)
       throw new BaseHttpException(this.request.lang, 617);
     return await this.cartRepo.addToCart(this.request.currentUser._id, input);
+  }
+
+  async getCart(
+    pagination: Pagination,
+  ): Promise<AggregatePaginateResult<Cart>> {
+    return await this.cartRepo.getCart(
+      this.request.currentUser._id,
+      pagination,
+    );
   }
 }
