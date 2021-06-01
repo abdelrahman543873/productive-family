@@ -21,6 +21,7 @@ import { CategoryModule } from './category/category.module';
 import { UnitModule } from './unit/unit.module';
 import { ProductUnitModule } from './product-unit/product-unit.module';
 import { ProductDiscountModule } from './product-discount/product-discount.module';
+import { CartModule } from './cart/cart.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -45,6 +46,7 @@ import { ProductDiscountModule } from './product-discount/product-discount.modul
     UnitModule,
     ProductUnitModule,
     ProductDiscountModule,
+    CartModule
   ],
 })
 export class AppModule {}

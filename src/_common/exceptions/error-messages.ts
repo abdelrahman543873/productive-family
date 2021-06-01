@@ -46,4 +46,16 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'invalid latitude',
     AR: 'invalid latitude',
   },
+  615: {
+    EN: 'product already exists in cart',
+    AR: 'product already exists in cart',
+  },
+  616: {
+    EN: "this product doesn't exist",
+    AR: "this product doesn't exist",
+  },
+  617: {
+    EN: 'your cart products must be from the same provider',
+    AR: 'your cart products must be from the same provider',
+  },
 };

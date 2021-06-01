@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AggregatePaginateModel } from 'mongoose';
@@ -11,5 +12,9 @@ export class ProductRepository extends BaseRepository<Product> {
     private productSchema: AggregatePaginateModel<ProductDocument>,
   ) {
     super(productSchema);
+  }
+
+  async getProduct(_id: ObjectID): Promise<Product> {
+    return await this.productSchema.findOne({ _id });
   }
 }

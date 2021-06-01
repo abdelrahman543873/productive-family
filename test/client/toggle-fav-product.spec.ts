@@ -3,8 +3,8 @@ import { testRequest } from 'test/request';
 import { HTTP_METHODS_ENUM } from 'test/request.methods.enum';
 import { productFactory } from '../../src/product/product.factory';
 import { clientFactory } from '../../src/client/client.factory';
-describe('toggle fav coupon suite case', () => {
-  it('add fav coupon successfully ', async () => {
+describe('toggle fav product suite case', () => {
+  it('add fav product successfully ', async () => {
     const client = await clientFactory();
     const product = await productFactory();
     const res = await testRequest({
@@ -21,7 +21,7 @@ describe('toggle fav coupon suite case', () => {
     );
   });
 
-  it('remove fav coupon successfully ', async () => {
+  it('remove fav product successfully ', async () => {
     const client = await clientFactory();
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.POST,
