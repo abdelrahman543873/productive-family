@@ -14,21 +14,10 @@ import { AggregatePaginateResult } from 'mongoose';
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
-
-  @ApiBearerAuth()
-  @ApiTags('client')
-  @ApiResponse({ status: 201, type: Cart })
-  @HasRoles(UserRoleEnum.CLIENT)
-  @UseGuards(AuthGuard, RoleGuard)
-  @Post('addToCart')
-  async addToCart(@Body() input: AddToCartInput): Promise<Cart> {
-    return await this.cartService.addToCart(input);
-  }
-
   @ApiBearerAuth()
   @ApiTags('client')
   @ApiResponse({
-    status: 201,
+    status: 200,
     type: Product,
     description: MessagesEnum.PAGINATED_RESPONSE,
   })
@@ -39,5 +28,15 @@ export class CartController {
     @Query() pagination: Pagination,
   ): Promise<AggregatePaginateResult<Cart>> {
     return await this.cartService.getCart(pagination);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('client')
+  @ApiResponse({ status: 201, type: Cart })
+  @HasRoles(UserRoleEnum.CLIENT)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Post('addToCart')
+  async addToCart(@Body() input: AddToCartInput): Promise<Cart> {
+    return await this.cartService.addToCart(input);
   }
 }
