@@ -13,11 +13,13 @@ import {
 import * as multer from 'fastify-multer';
 import { MongoExceptionFilter } from './_common/exceptions/mongo-exception.filter';
 import fastifyHelmet from 'fastify-helmet';
+import dotenv from 'dotenv';
 import { env } from './_common/utils/env';
 declare const module: any;
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter({ logger: true });
   fastifyAdapter.register(multer.contentParser);
+  dotenv.config();
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyAdapter,

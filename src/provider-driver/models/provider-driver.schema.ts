@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ObjectID } from 'mongodb';
-import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import { SchemasEnum } from '../../_common/app.enum';
 
 export type ProviderDriverDocument = ProviderDriver & Document;
@@ -24,4 +23,3 @@ export class ProviderDriver {
 export const ProviderDriverSchema = SchemaFactory.createForClass(
   ProviderDriver,
 );
-ProviderDriverSchema.plugin(aggregatePaginate);

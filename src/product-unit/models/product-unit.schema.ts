@@ -1,4 +1,3 @@
-import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemasEnum } from 'src/_common/app.enum';
 import { ObjectID } from 'mongodb';
@@ -24,4 +23,3 @@ export class ProductUnit {
 export const ProductUnitSchemaSchema = SchemaFactory.createForClass(
   ProductUnit,
 );
-ProductUnitSchemaSchema.plugin(aggregatePaginate);

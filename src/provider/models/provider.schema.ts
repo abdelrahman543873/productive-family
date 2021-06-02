@@ -3,7 +3,6 @@ import { Document } from 'mongoose';
 import { UserRoleEnum, SchemasEnum } from '../../_common/app.enum';
 import { ObjectID } from 'mongodb';
 import { Point } from 'src/_common/spatial-schemas/point.schema';
-import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
 
 export type ProviderDocument = Provider & Document;
 
@@ -61,4 +60,3 @@ export class Provider {
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(Provider);
-ProviderSchema.plugin(aggregatePaginate);
