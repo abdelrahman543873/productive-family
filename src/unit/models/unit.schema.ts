@@ -2,6 +2,7 @@ import { SchemasEnum } from './../../_common/app.enum';
 import { ObjectID } from 'mongodb';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Provider } from '../../provider/models/provider.schema';
 
 export type UnitDocument = Unit & Document;
 
@@ -16,7 +17,7 @@ export class Unit {
   arUnit: string;
 
   @Prop({ type: ObjectID, ref: SchemasEnum.Provider })
-  provider?: ObjectID;
+  provider?: ObjectID | Provider;
 }
 
 export const UnitSchema = SchemaFactory.createForClass(Unit);
