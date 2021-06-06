@@ -9,9 +9,20 @@ import { MulterModule } from '@webundsoehne/nest-fastify-file-upload';
 import { fileFilter } from '../_common/utils/multer-file-filter';
 import { diskStorage } from 'fastify-multer/lib';
 import { filename } from 'src/_common/utils/multer-file-name';
+import { AddressModule } from '../address/address.module';
+import { PaymentModule } from '../payment/payment.module';
+import { OrderModule } from '../order/order.module';
+import { CartModule } from '../cart/cart.module';
+import { DiscountModule } from '../discount/discount.module';
 
 @Module({
   imports: [
+    CartModule,
+    OrderModule,
+    AddressModule,
+    PaymentModule,
+    DiscountModule,
+    VerificationModule,
     MulterModule.register({
       fileFilter,
       preservePath: true,
@@ -21,7 +32,6 @@ import { filename } from 'src/_common/utils/multer-file-name';
       }),
     }),
     MongooseModule.forFeature([{ name: Client.name, schema: ClientSchema }]),
-    VerificationModule,
   ],
   controllers: [ClientController],
   providers: [ClientRepository, ClientService],

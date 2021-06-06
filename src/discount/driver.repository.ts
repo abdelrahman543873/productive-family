@@ -10,4 +10,11 @@ export class DiscountRepository extends BaseRepository<Discount> {
   ) {
     super(discountSchema);
   }
+
+  async getActiveDiscountByCode(code: string): Promise<Discount> {
+    return await this.discountSchema.findOne({
+      code,
+      expiryDate: { $gte: new Date(Date.now()) },
+    });
+  }
 }

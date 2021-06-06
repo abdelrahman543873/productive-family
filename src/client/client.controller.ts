@@ -32,6 +32,8 @@ import { JoiValidationPipe } from 'src/_common/pipes/joi.pipe';
 import { ClientUpdateProfileJoi } from './joi/client-update-profile.joi';
 import { File } from 'fastify-multer/lib/interfaces';
 import { ToggleFavProductInput } from './inputs/toggle-fav-product.input';
+import { CheckoutInput } from './inputs/checkout.input';
+import { Order } from '../order/models/order.schema';
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
@@ -82,5 +84,15 @@ export class ClientController {
     @Body() input: ToggleFavProductInput,
   ): Promise<Client> {
     return await this.clientService.toggleFavoriteProduct(input);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('client')
+  @ApiResponse({ status: 201, type: Order })
+  @HasRoles(UserRoleEnum.CLIENT)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Post('checkout')
+  async checkout(@Body() input: CheckoutInput): Promise<Order> {
+    return await this.clientService.checkout(input);
   }
 }

@@ -23,8 +23,8 @@ export class Order {
   @Prop({ type: ObjectID, ref: SchemasEnum.Provider, required: true })
   provider: ObjectID | Provider;
 
-  @Prop({ type: ObjectID, ref: SchemasEnum.Driver, required: true })
-  driver: ObjectID | Driver;
+  @Prop({ type: ObjectID, ref: SchemasEnum.Driver })
+  driver?: ObjectID | Driver;
 
   @Prop({ type: ObjectID, ref: SchemasEnum.Payment, required: true })
   payment: ObjectID | Payment;
@@ -36,17 +36,17 @@ export class Order {
   discount?: ObjectID | Discount;
 
   @Prop({ type: Number, required: true, unique: true })
-  orderNumber: number;
+  orderNumber?: number;
 
-  @Prop({ type: Number, required: true })
-  deliveryFees: number;
+  @Prop({ type: Number })
+  deliveryFees?: number;
 
   @Prop({
     enum: getValuesFromEnum(OrderEnum),
-    default: OrderEnum.PREPARING,
+    default: OrderEnum.RECEIVED,
     required: true,
   })
-  state: string;
+  state?: string;
 
   @Prop({ sparse: true })
   transactionId?: string;
@@ -54,8 +54,8 @@ export class Order {
   @Prop()
   note?: string;
 
-  @Prop({ required: true })
-  estimatedTime: Date;
+  @Prop()
+  estimatedTime?: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

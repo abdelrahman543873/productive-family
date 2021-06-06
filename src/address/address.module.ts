@@ -8,5 +8,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forFeature([{ name: Address.name, schema: AddressSchema }]),
   ],
   providers: [AddressRepository],
+  exports: [AddressRepository],
 })
 export class AddressModule {}

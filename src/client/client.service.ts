@@ -16,11 +16,25 @@ import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
 import { File } from 'fastify-multer/lib/interfaces';
 import { ToggleFavProductInput } from './inputs/toggle-fav-product.input';
+import { CheckoutInput } from './inputs/checkout.input';
+import { AddressRepository } from '../address/address.repository';
+import { ObjectID } from 'mongodb';
+import { PaymentRepository } from '../payment/payment.repository';
+import { OrderRepository } from '../order/order.repository';
+import { CartRepository } from '../cart/cart.repository';
+import { Product } from '../product/models/product.schema';
+import { DiscountRepository } from '../discount/driver.repository';
+import { Order } from '../order/models/order.schema';
 @Injectable()
 export class ClientService {
   constructor(
-    private readonly clientRepo: ClientRepository,
+    private readonly cartRepo: CartRepository,
+    private readonly orderRepo: OrderRepository,
     private readonly helperService: HelperService,
+    private readonly clientRepo: ClientRepository,
+    private readonly paymentRepo: PaymentRepository,
+    private readonly addressRepo: AddressRepository,
+    private readonly discountRepo: DiscountRepository,
     private readonly verificationRepo: VerificationRepository,
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
@@ -81,5 +95,34 @@ export class ClientService {
       this.request.currentUser._id,
       input.product,
     );
+  }
+
+  async checkout(input: CheckoutInput): Promise<Order> {
+    const address = await this.addressRepo.findOne({
+      _id: new ObjectID(input.address),
+    });
+    if (!address) throw new BaseHttpException(this.request.lang, 618);
+    const payment = await this.paymentRepo.findOne({
+      _id: new ObjectID(input.payment),
+    });
+    if (!payment) throw new BaseHttpException(this.request.lang, 619);
+    const cartProducts = await this.cartRepo.getClientCartProductsForCheckout(
+      this.request.currentUser._id,
+    );
+    if (!cartProducts.length)
+      throw new BaseHttpException(this.request.lang, 620);
+    const product = cartProducts[0]?.product as Product;
+    const order = await this.orderRepo.add({
+      client: this.request.currentUser._id,
+      provider: product.provider,
+      payment: payment._id,
+      address: address._id,
+      orderNumber: 4,
+      ...(input.code && {
+        discount: (await this.discountRepo.getActiveDiscountByCode(input.code))
+          ._id,
+      }),
+    });
+    return order;
   }
 }

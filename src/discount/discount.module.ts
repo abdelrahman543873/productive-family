@@ -10,5 +10,6 @@ import { DiscountRepository } from './driver.repository';
     ]),
   ],
   providers: [DiscountRepository],
+  exports: [DiscountRepository],
 })
 export class DiscountModule {}

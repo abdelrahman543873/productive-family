@@ -41,6 +41,16 @@ export class CartRepository extends BaseRepository<Cart> {
     );
   }
 
+  async getClientCartProductsForCheckout(client: ObjectID): Promise<Cart[]> {
+    return await this.cartSchema.find(
+      {
+        client: new ObjectID(client),
+      },
+      { client: 0 },
+      { populate: 'product' },
+    );
+  }
+
   async getCart(
     client: ObjectID,
     pagination: Pagination,

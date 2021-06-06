@@ -8,10 +8,10 @@ import { env } from '../utils/env';
       // docker and real runtime without docker
       process.env.MONGO_DB || global['__MONGO_URI__'] || env.LOCAL_MONGO_DB,
       {
-        useNewUrlParser: true,
         useCreateIndex: true,
-        useUnifiedTopology: true,
+        useNewUrlParser: true,
         useFindAndModify: false,
+        useUnifiedTopology: true,
         connectionFactory: connection => {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
           connection.plugin(require('mongoose-aggregate-paginate-v2'));

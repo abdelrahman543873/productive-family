@@ -11,6 +11,7 @@ import { ObjectID } from 'mongodb';
 import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { ConfigService } from '@nestjs/config';
 import { File } from 'fastify-multer/lib/interfaces';
+import { CheckoutInput } from './inputs/checkout.input';
 @Injectable()
 export class ClientRepository extends BaseRepository<Client> {
   constructor(

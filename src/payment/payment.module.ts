@@ -8,5 +8,6 @@ import { PaymentRepository } from './payment.repository';
     MongooseModule.forFeature([{ name: Payment.name, schema: PaymentSchema }]),
   ],
   providers: [PaymentRepository],
+  exports: [PaymentRepository],
 })
 export class PaymentModule {}

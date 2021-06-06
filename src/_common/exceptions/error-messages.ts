@@ -58,4 +58,16 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'your cart products must be from the same provider',
     AR: 'your cart products must be from the same provider',
   },
+  618: {
+    EN: "this address doesn't exist",
+    AR: "this address doesn't exist",
+  },
+  619: {
+    EN: "this payment method doesn't exist",
+    AR: "this payment method doesn't exist",
+  },
+  620: {
+    EN: 'your cart is empty',
+    AR: 'your cart is empty',
+  },
 };
