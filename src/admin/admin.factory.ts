@@ -12,6 +12,7 @@ export const buildAdminParams = (obj = <any>{}): Admin => {
     name: obj.name || faker.name.findName(),
     password: obj.password || faker.internet.password(),
     role: obj.role || UserRoleEnum.ADMIN,
+    isVerified: obj.isVerified ?? true,
   };
 };
 

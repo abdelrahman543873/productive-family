@@ -19,6 +19,9 @@ export class Admin {
   @Prop({ required: true })
   password: string;
 
+  @Prop({ required: true, default: false })
+  isVerified: boolean;
+
   @Prop({
     required: true,
     default: UserRoleEnum.ADMIN,

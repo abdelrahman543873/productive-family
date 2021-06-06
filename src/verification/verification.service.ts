@@ -32,8 +32,12 @@ export class VerificationService {
     const user = await this.helperService.getExistingUser({
       _id: verification.user,
     });
+    const updatedUser = await this.helperService.updateExistingUser(
+      { _id: verification.user },
+      { isVerified: true },
+    );
     user.token = generateAuthToken(user._id);
-    return user;
+    return updatedUser;
   }
 
   async sendOtp(input: SendOtpInput): Promise<null> {

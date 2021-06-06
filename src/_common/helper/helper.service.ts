@@ -11,6 +11,7 @@ import { GetExistingUserInput } from './inputs/get-existing-user.input';
 import { Client, ClientDocument } from '../../client/models/client.schema';
 import { Provider } from '../../provider/models/provider.schema';
 import { ProviderDocument } from '../../provider/models/provider.schema';
+import { UpdateExistingUserInput } from './inputs/update-existing-user.input';
 
 export interface TokenPayload {
   _id: string;
@@ -80,6 +81,50 @@ export class HelperService {
         },
         { ...(!input.password && { password: 0 }) },
         { lean: true },
+      ));
+    return user;
+  }
+
+  async updateExistingUser(
+    input: GetExistingUserInput,
+    update: UpdateExistingUserInput,
+  ): Promise<Admin | Driver | Client | Provider> {
+    const user =
+      (await this.adminSchema.findOneAndUpdate(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { isVerified: update.isVerified },
+        { lean: true, new: true, projection: { password: 0 } },
+      )) ??
+      (await this.driverSchema.findOneAndUpdate(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { isVerified: update.isVerified },
+        { lean: true, new: true, projection: { password: 0 } },
+      )) ??
+      (await this.clientSchema.findOneAndUpdate(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { isVerified: update.isVerified },
+        { lean: true, new: true, projection: { password: 0 } },
+      )) ??
+      (await this.providerSchema.findOneAndUpdate(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+        },
+        { isVerified: update.isVerified },
+        { lean: true, new: true, projection: { password: 0 } },
       ));
     return user;
   }

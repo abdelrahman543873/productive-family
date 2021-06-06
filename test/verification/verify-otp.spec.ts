@@ -13,6 +13,7 @@ describe('verify verification code suite case', () => {
       url: VERIFY_OTP,
       variables: { code: verification.code, email: verification.email },
     });
+    expect(res.body.data.isVerified).toBe(true);
     expect(res.body.data.email).toBe(verification.email);
   });
 
@@ -24,6 +25,7 @@ describe('verify verification code suite case', () => {
       url: VERIFY_OTP,
       variables: { code: verification.code, mobile: verification.mobile },
     });
+    expect(res.body.data.isVerified).toBe(true);
     expect(res.body.data.mobile).toBe(driver.mobile);
   });
 
@@ -55,6 +57,7 @@ describe('verify verification code suite case', () => {
       url: VERIFY_OTP,
       variables: { code: '12345', mobile: res0.body.data.mobile },
     });
+    expect(res.body.data.isVerified).toBe(true);
     expect(res.body.data.mobile).toBe(res0.body.data.mobile);
   });
 });
