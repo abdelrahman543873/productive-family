@@ -19,6 +19,9 @@ export class OrderProduct {
   @Prop({ required: true })
   price: number;
 
+  @Prop({ required: true })
+  amount: number;
+
   @Prop({ type: Point, index: '2dsphere' })
   providerLocation: Point;
 }

@@ -9,7 +9,7 @@ interface ProductUnitType {
   product?: ObjectID;
   unit?: ObjectID;
   price?: number;
-  amount?: number;
+  quantity?: number;
 }
 
 export const buildProductUnitParams = async (
@@ -19,7 +19,7 @@ export const buildProductUnitParams = async (
     product: obj.product || (await productFactory())._id,
     unit: obj.unit || (await unitFactory())._id,
     price: obj.price || +faker.commerce.price(),
-    amount: obj.amount || faker.datatype.number(),
+    quantity: obj.quantity || faker.datatype.number(),
   };
 };
 

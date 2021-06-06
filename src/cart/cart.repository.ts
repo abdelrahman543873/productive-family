@@ -19,8 +19,9 @@ export class CartRepository extends BaseRepository<Cart> {
   async addToCart(client: ObjectID, input: AddToCartInput): Promise<Cart> {
     return await this.cartSchema.create({
       client,
-      product: input.product,
+      unit: input.unit,
       amount: input.amount,
+      product: input.product,
     });
   }
 
@@ -46,7 +47,7 @@ export class CartRepository extends BaseRepository<Cart> {
       {
         client: new ObjectID(client),
       },
-      { client: 0 },
+      { client: 0, _id: 0 },
       { populate: 'product' },
     );
   }

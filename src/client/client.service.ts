@@ -109,14 +109,15 @@ export class ClientService {
     const cartProducts = await this.cartRepo.getClientCartProductsForCheckout(
       this.request.currentUser._id,
     );
+    // if cart is empty through an error
     if (!cartProducts.length)
       throw new BaseHttpException(this.request.lang, 620);
     const product = cartProducts[0]?.product as Product;
     const order = await this.orderRepo.add({
-      client: this.request.currentUser._id,
-      provider: product.provider,
-      payment: payment._id,
       address: address._id,
+      payment: payment._id,
+      provider: product.provider,
+      client: this.request.currentUser._id,
       orderNumber: await this.orderRepo.getOrdersNumber(),
       ...(input.code && {
         discount: (await this.discountRepo.getActiveDiscountByCode(input.code))

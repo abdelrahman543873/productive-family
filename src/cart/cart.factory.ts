@@ -4,11 +4,13 @@ import { Cart } from './models/cart.schema';
 import { clientFactory } from '../client/client.factory';
 import { productFactory } from '../product/product.factory';
 import { CartRepo } from 'test/cart/cart-test-repo';
+import { unitFactory } from '../unit/unit.factory';
 
 interface CartType {
+  amount?: number;
+  unit?: ObjectID;
   client?: ObjectID;
   product?: ObjectID;
-  amount?: number;
 }
 
 export const buildCartParams = async (obj: CartType = {}): Promise<Cart> => {
@@ -16,6 +18,7 @@ export const buildCartParams = async (obj: CartType = {}): Promise<Cart> => {
     client: obj.client || (await clientFactory())._id,
     product: obj.product || (await productFactory())._id,
     amount: obj.amount || faker.datatype.number(),
+    unit: obj.unit || (await unitFactory())._id,
   };
 };
 

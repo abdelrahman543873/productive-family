@@ -90,4 +90,6 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
       limit: pagination.limit,
     });
   }
+
+  async addOrderProducts() {}
 }

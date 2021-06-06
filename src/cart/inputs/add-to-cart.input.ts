@@ -6,6 +6,9 @@ export class AddToCartInput {
   @IsMongoId()
   product: ObjectID;
 
+  @IsMongoId()
+  unit: ObjectID;
+
   @Type(() => Number)
   @IsPositive()
   amount: number;

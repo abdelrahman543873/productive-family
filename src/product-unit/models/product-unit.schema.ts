@@ -19,7 +19,7 @@ export class ProductUnit {
   price: number;
 
   @Prop({ required: true })
-  amount: number;
+  quantity: number;
 }
 
 export const ProductUnitSchemaSchema = SchemaFactory.createForClass(

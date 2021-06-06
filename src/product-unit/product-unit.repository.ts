@@ -23,7 +23,7 @@ export class ProductUnitRepository extends BaseRepository<ProductUnit> {
       {
         $match: {
           price: { $lte: +input.price },
-          amount: { $gt: 0 },
+          quantity: { $gt: 0 },
         },
       },
       {

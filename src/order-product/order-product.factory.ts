@@ -12,6 +12,7 @@ interface OrderProductType {
   order?: ObjectID;
   providerLocation?: Point;
   product?: ObjectID;
+  amount?: number;
 }
 
 export const buildOrderProductParams = async (
@@ -21,6 +22,7 @@ export const buildOrderProductParams = async (
     order: obj.order || (await orderFactory())._id,
     product: obj.product || (await productFactory())._id,
     price: obj.price || parseFloat(faker.commerce.price()),
+    amount: obj.amount || faker.datatype.number(),
     providerLocation: obj.providerLocation || {
       type: SpatialType.Point,
       coordinates: [+faker.address.longitude(), +faker.address.latitude()],

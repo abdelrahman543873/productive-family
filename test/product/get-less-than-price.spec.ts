@@ -5,8 +5,8 @@ import { productUnitFactory } from '../../src/product-unit/product-unit.factory'
 
 describe('get less than price products suite case', () => {
   it('should get products with price less than 50', async () => {
-    const falseProduct = await productUnitFactory({ price: 60, amount: 0 });
-    const correctProduct = await productUnitFactory({ price: 50, amount: 1 });
+    const falseProduct = await productUnitFactory({ price: 60, quantity: 0 });
+    const correctProduct = await productUnitFactory({ price: 50, quantity: 1 });
     const res = await testRequest({
       method: HTTP_METHODS_ENUM.GET,
       url: `${GET_LESS_THAN_PRICE}/50?limit=500`,
