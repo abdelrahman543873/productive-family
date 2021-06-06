@@ -117,7 +117,7 @@ export class ClientService {
       provider: product.provider,
       payment: payment._id,
       address: address._id,
-      orderNumber: 4,
+      orderNumber: await this.orderRepo.getOrdersNumber(),
       ...(input.code && {
         discount: (await this.discountRepo.getActiveDiscountByCode(input.code))
           ._id,

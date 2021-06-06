@@ -81,4 +81,8 @@ export class OrderRepository extends BaseRepository<Order> {
       { lean: true, new: true },
     );
   }
+
+  async getOrdersNumber(): Promise<number> {
+    return await this.orderSchema.countDocuments({});
+  }
 }
