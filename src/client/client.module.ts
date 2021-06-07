@@ -14,6 +14,8 @@ import { PaymentModule } from '../payment/payment.module';
 import { OrderModule } from '../order/order.module';
 import { CartModule } from '../cart/cart.module';
 import { DiscountModule } from '../discount/discount.module';
+import { ProductUnitModule } from '../product-unit/product-unit.module';
+import { OrderProductModule } from '../order-product/order-product.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { DiscountModule } from '../discount/discount.module';
     PaymentModule,
     DiscountModule,
     VerificationModule,
+    OrderProductModule,
+    ProductUnitModule,
     MulterModule.register({
       fileFilter,
       preservePath: true,

@@ -2,6 +2,8 @@ import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectID } from 'mongodb';
 import { SchemasEnum } from '../../_common/app.enum';
+import { Provider } from '../../provider/models/provider.schema';
+import { Category } from '../../category/models/category.schema';
 
 export type ProductDocument = Product & Document;
 
@@ -9,11 +11,11 @@ export type ProductDocument = Product & Document;
 export class Product {
   _id?: ObjectID;
 
-  @Prop({ required: true, ref: SchemasEnum.Provider })
-  provider: ObjectID;
+  @Prop({ type: ObjectID, required: true, ref: SchemasEnum.Provider })
+  provider: ObjectID | Provider;
 
-  @Prop({ required: true, ref: SchemasEnum.Category })
-  category: ObjectID;
+  @Prop({ type: ObjectID, required: true, ref: SchemasEnum.Category })
+  category: ObjectID | Category;
 
   @Prop({ required: true, trim: true })
   enName: string;

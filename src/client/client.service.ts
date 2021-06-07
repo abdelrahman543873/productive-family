@@ -25,6 +25,9 @@ import { CartRepository } from '../cart/cart.repository';
 import { Product } from '../product/models/product.schema';
 import { DiscountRepository } from '../discount/driver.repository';
 import { Order } from '../order/models/order.schema';
+import { ProductUnitRepository } from '../product-unit/product-unit.repository';
+import { Provider } from '../provider/models/provider.schema';
+import { OrderProductRepository } from '../order-product/order-product.repository';
 @Injectable()
 export class ClientService {
   constructor(
@@ -35,7 +38,9 @@ export class ClientService {
     private readonly paymentRepo: PaymentRepository,
     private readonly addressRepo: AddressRepository,
     private readonly discountRepo: DiscountRepository,
+    private readonly orderProductRepo: OrderProductRepository,
     private readonly verificationRepo: VerificationRepository,
+    private readonly productUnitRepo: ProductUnitRepository,
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
 
@@ -124,6 +129,25 @@ export class ClientService {
           ._id,
       }),
     });
+    const orderProducts = await Promise.all(
+      cartProducts.map(async cartProduct => {
+        const product = cartProduct.product as Product;
+        const provider = product.provider as Provider;
+        const productUnit = await this.productUnitRepo.getProductByUnit(
+          product._id,
+          cartProduct.unit as ObjectID,
+        );
+        return {
+          order: order._id,
+          product: product._id,
+          amount: cartProduct.amount,
+          providerLocation: provider.location,
+          price: productUnit.price,
+        };
+      }),
+    );
+    await this.orderProductRepo.addMany(orderProducts);
+    await this.cartRepo.clearClientCart(this.request.currentUser._id);
     return order;
   }
 }

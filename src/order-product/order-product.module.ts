@@ -13,5 +13,6 @@ import { OrderProductController } from './order-product.controller';
   ],
   controllers: [OrderProductController],
   providers: [OrderProductRepository, OrderProductService],
+  exports: [OrderProductRepository],
 })
 export class OrderProductModule {}

@@ -5,10 +5,19 @@ import { clientFactory } from '../../src/client/client.factory';
 import { addressFactory } from '../../src/address/address.factory';
 import { paymentFactory } from '../../src/payment/payment.factory';
 import { cartFactory } from '../../src/cart/cart.factory';
+import { productUnitFactory } from '../../src/product-unit/product-unit.factory';
+import { productFactory } from '../../src/product/product.factory';
+import { ObjectID } from 'mongodb';
 describe('checkout suite case', () => {
   it('checkout successfully ', async () => {
     const client = await clientFactory();
-    await cartFactory({ client: client._id });
+    const product = await productFactory();
+    const productUnit = await productUnitFactory({ product: product._id });
+    await cartFactory({
+      client: client._id,
+      product: product._id,
+      unit: productUnit.unit as ObjectID,
+    });
     const address = await addressFactory();
     const payment = await paymentFactory();
     const res = await testRequest({

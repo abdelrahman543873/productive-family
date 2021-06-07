@@ -6,6 +6,7 @@ import { LookupSchemasEnum } from 'src/_common/app.enum';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { Pagination } from 'src/_common/utils/pagination.input';
 import { ProductUnit, ProductUnitDocument } from './models/product-unit.schema';
+import { ObjectID } from 'mongodb';
 
 @Injectable()
 export class ProductUnitRepository extends BaseRepository<ProductUnit> {
@@ -15,6 +16,7 @@ export class ProductUnitRepository extends BaseRepository<ProductUnit> {
   ) {
     super(productUnitSchema);
   }
+
   async getLessThanPrice(
     input: LessThanPriceInput,
     pagination: Pagination,
@@ -59,5 +61,12 @@ export class ProductUnitRepository extends BaseRepository<ProductUnit> {
       offset: pagination.offset * pagination.limit,
       limit: pagination.limit,
     });
+  }
+
+  async getProductByUnit(
+    product: ObjectID,
+    unit: ObjectID,
+  ): Promise<ProductUnit> {
+    return await this.productUnitSchema.findOne({ product, unit });
   }
 }

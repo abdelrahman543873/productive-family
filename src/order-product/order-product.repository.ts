@@ -6,6 +6,7 @@ import { LookupSchemasEnum } from '../_common/app.enum';
 import { SpatialType } from 'src/_common/spatial-schemas/spatial.enum';
 import { Injectable } from '@nestjs/common';
 import { Pagination } from 'src/_common/utils/pagination.input';
+import { Cart } from '../cart/models/cart.schema';
 
 @Injectable()
 export class OrderProductRepository extends BaseRepository<OrderProduct> {
@@ -91,5 +92,7 @@ export class OrderProductRepository extends BaseRepository<OrderProduct> {
     });
   }
 
-  async addOrderProducts() {}
+  async addOrderProducts(input: OrderProduct[]) {
+    return await this.orderProductSchema.insertMany(input);
+  }
 }

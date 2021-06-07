@@ -42,14 +42,27 @@ export class CartRepository extends BaseRepository<Cart> {
     );
   }
 
+  async clearClientCart(client: ObjectID): Promise<Record<any, any>> {
+    return await this.cartSchema.deleteMany({
+      client: new ObjectID(client),
+    });
+  }
+
   async getClientCartProductsForCheckout(client: ObjectID): Promise<Cart[]> {
-    return await this.cartSchema.find(
-      {
-        client: new ObjectID(client),
-      },
-      { client: 0, _id: 0 },
-      { populate: 'product' },
-    );
+    return await this.cartSchema
+      .find(
+        {
+          client: new ObjectID(client),
+        },
+        { client: 0, _id: 0 },
+      )
+      .populate({
+        path: 'product',
+        populate: {
+          path: 'provider',
+          select: { password: 0 },
+        },
+      });
   }
 
   async getCart(
