@@ -8,8 +8,9 @@ import { cartFactory } from '../../src/cart/cart.factory';
 import { productUnitFactory } from '../../src/product-unit/product-unit.factory';
 import { productFactory } from '../../src/product/product.factory';
 import { ObjectID } from 'mongodb';
+import { GET_CART } from 'test/endpoints/cart';
 describe('checkout suite case', () => {
-  it('checkout successfully ', async () => {
+  it('checkout successfully and clear cart', async () => {
     const client = await clientFactory();
     const product = await productFactory();
     const productUnit = await productUnitFactory({ product: product._id });
@@ -30,5 +31,11 @@ describe('checkout suite case', () => {
       token: client.token,
     });
     expect(res.body.data.client).toBe(decodeURI(encodeURI(`${client._id}`)));
+    const res1 = await testRequest({
+      method: HTTP_METHODS_ENUM.GET,
+      url: GET_CART,
+      token: client.token,
+    });
+    expect(res1.body.data.docs.length).toBe(0);
   });
 });
