@@ -41,7 +41,9 @@ export const buildOrderParams = async (
     orderNumber: obj.orderNumber || faker.datatype.number(),
     transactionId: obj.transactionId || faker.finance.iban(),
     deliveryFees: obj.deliveryFees || faker.datatype.number(),
-    state: obj.state || faker.random.arrayElement(getValuesFromEnum(OrderEnum)),
+    state:
+      obj.state ||
+      (faker.random.arrayElement(getValuesFromEnum(OrderEnum)) as OrderEnum),
   };
 };
 
