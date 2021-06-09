@@ -85,4 +85,21 @@ export class OrderRepository extends BaseRepository<Order> {
   async getOrdersNumber(): Promise<number> {
     return await this.orderSchema.countDocuments({});
   }
+
+  async getClientOrders(
+    client: ObjectID,
+    pagination: Pagination,
+  ): Promise<AggregatePaginateResult<Order>> {
+    const aggregation = this.orderSchema.aggregate([
+      {
+        $match: {
+          client: new ObjectID(client),
+        },
+      },
+    ]);
+    return await this.orderSchema.aggregatePaginate(aggregation, {
+      offset: pagination.offset * pagination.limit,
+      limit: pagination.limit,
+    });
+  }
 }

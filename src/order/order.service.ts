@@ -40,4 +40,13 @@ export class OrderService {
       input,
     );
   }
+
+  async getClientOrders(
+    pagination: Pagination,
+  ): Promise<Promise<AggregatePaginateResult<Order>>> {
+    return await this.orderRepository.getClientOrders(
+      this.request.currentUser._id,
+      pagination,
+    );
+  }
 }

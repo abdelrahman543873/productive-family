@@ -11,6 +11,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
+import { MessagesEnum } from '../_common/app.enum';
 
 @Controller('orders')
 export class OrderController {
@@ -37,6 +38,22 @@ export class OrderController {
   @Get('getDriverOrder')
   async getDriverOrder(@Query() input: GetDriverOrderInput): Promise<Order> {
     return await this.orderService.getDriverOrder(input);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('client')
+  @ApiResponse({
+    status: 200,
+    type: Order,
+    description: MessagesEnum.PAGINATED_RESPONSE,
+  })
+  @HasRoles(UserRoleEnum.CLIENT)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get('client')
+  async getClientOrders(
+    @Query() pagination: Pagination,
+  ): Promise<AggregatePaginateResult<Order>> {
+    return await this.orderService.getClientOrders(pagination);
   }
 
   @ApiBearerAuth()
