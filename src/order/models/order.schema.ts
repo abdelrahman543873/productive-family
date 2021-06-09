@@ -46,7 +46,7 @@ export class Order {
     default: OrderEnum.RECEIVED,
     required: true,
   })
-  state?: string;
+  state?: OrderEnum;
 
   @Prop({ sparse: true })
   transactionId?: string;
