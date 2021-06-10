@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Pagination } from '../_common/utils/pagination.input';
 import { Order } from './models/order.schema';
@@ -12,6 +20,7 @@ import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
 import { MessagesEnum } from '../_common/app.enum';
+import { CancelOrderInput } from './inputs/cancel-order.input';
 
 @Controller('orders')
 export class OrderController {
@@ -54,6 +63,15 @@ export class OrderController {
     @Query() pagination: Pagination,
   ): Promise<AggregatePaginateResult<Order>> {
     return await this.orderService.getClientOrders(pagination);
+  }
+
+  @ApiBearerAuth()
+  @ApiTags('client')
+  @HasRoles(UserRoleEnum.CLIENT)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Post('cancel')
+  async cancelOrder(@Body() input: CancelOrderInput): Promise<Order> {
+    return await this.orderService.cancelOrder(input);
   }
 
   @ApiBearerAuth()

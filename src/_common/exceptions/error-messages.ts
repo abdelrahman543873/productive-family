@@ -70,4 +70,8 @@ export const LocalizedErrorMessages: IErrorMessage = {
     EN: 'your cart is empty',
     AR: 'your cart is empty',
   },
+  621: {
+    EN: "this order doesn't exist",
+    AR: "this order doesn't exist",
+  },
 };

@@ -9,6 +9,8 @@ import { AggregatePaginateModel, AggregatePaginateResult } from 'mongoose';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
 import { LookupSchemasEnum } from '../_common/app.enum';
+import { OrderEnum } from './order.enum';
+import { CancelOrderInput } from './inputs/cancel-order.input';
 
 @Injectable()
 export class OrderRepository extends BaseRepository<Order> {
@@ -86,6 +88,10 @@ export class OrderRepository extends BaseRepository<Order> {
     return await this.orderSchema.countDocuments({});
   }
 
+  async getClientOrder(client: ObjectID, order: ObjectID): Promise<Order> {
+    return await this.orderSchema.findOne({ client, _id: order });
+  }
+
   async getClientOrders(
     client: ObjectID,
     pagination: Pagination,
@@ -101,5 +107,13 @@ export class OrderRepository extends BaseRepository<Order> {
       offset: pagination.offset * pagination.limit,
       limit: pagination.limit,
     });
+  }
+
+  async cancelOrder(input: CancelOrderInput): Promise<Order> {
+    return await this.orderSchema.findOneAndUpdate(
+      { _id: input.order },
+      { state: OrderEnum.CANCELED },
+      { new: true, lean: true },
+    );
   }
 }

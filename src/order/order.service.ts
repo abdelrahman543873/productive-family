@@ -8,6 +8,9 @@ import { RequestContext } from 'src/_common/request.interface';
 import { DriverOrdersFilterInput } from './inputs/drivers-orders-filter.input';
 import { GetDriverOrderInput } from './inputs/get-driver-order.input';
 import { addDeliveryFeesInput } from './inputs/add-delivery-fees.input';
+import { ObjectID } from 'mongodb';
+import { CancelOrderInput } from './inputs/cancel-order.input';
+import { BaseHttpException } from '../_common/exceptions/base-http-exception';
 
 @Injectable()
 export class OrderService {
@@ -48,5 +51,14 @@ export class OrderService {
       this.request.currentUser._id,
       pagination,
     );
+  }
+
+  async cancelOrder(input: CancelOrderInput): Promise<Order> {
+    const order = await this.orderRepository.getClientOrder(
+      this.request.currentUser._id,
+      input.order,
+    );
+    if (!order) throw new BaseHttpException(this.request.lang, 621);
+    return await this.orderRepository.cancelOrder(input);
   }
 }
