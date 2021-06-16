@@ -14,10 +14,7 @@ import { SpatialType } from '../../src/_common/spatial-schemas/spatial.enum';
 describe('get popular products suite case', () => {
   it('should get all most popular products', async () => {
     const client = await clientFactory({
-      location: {
-        type: SpatialType.Point,
-        coordinates: TestLocations.SIDI_BISHR,
-      },
+      location: null,
     });
     const provider = await providerFactory({
       maxDistance: 10,
@@ -42,6 +39,10 @@ describe('get popular products suite case', () => {
       method: HTTP_METHODS_ENUM.GET,
       url: GET_POPULAR_PRODUCTS,
       token: client.token,
+      headers: {
+        long: TestLocations.SIDI_BISHR[0],
+        lat: TestLocations.SIDI_BISHR[1],
+      },
     });
     expect(res.body.data.docs.length).toBe(2);
     expect(res.body.data.docs[0]._id).toBe(

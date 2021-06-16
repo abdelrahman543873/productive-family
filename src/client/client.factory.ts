@@ -42,10 +42,16 @@ export const buildClientParams = async (
     favProducts: obj.favProducts || [(await productFactory())._id],
     fcmToken: obj.fcmToken || faker.random.word(),
     imageURL: obj.imageURL || faker.internet.url(),
-    location: obj.location || {
-      type: SpatialType.Point,
-      coordinates: [+faker.address.longitude(), +faker.address.latitude()],
-    },
+    location:
+      obj.location === undefined
+        ? {
+            type: SpatialType.Point,
+            coordinates: [
+              +faker.address.longitude(),
+              +faker.address.latitude(),
+            ],
+          }
+        : obj.location,
   };
 };
 

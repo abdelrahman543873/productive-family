@@ -39,6 +39,7 @@
     "@webundsoehne/nest-fastify-file-upload": "^1.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "fastify-helmet": "^5.3.1",
     "fastify-multer": "^2.0.2",

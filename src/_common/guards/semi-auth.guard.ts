@@ -12,9 +12,9 @@ export class semiAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestContext>();
     request.appContext = request['raw'];
     request.lang =
-      request?.appContext.raw?.headers?.['accept-language'] ?? LangEnum.EN;
-    request.long = +request?.appContext.raw?.headers?.long;
-    request.lat = +request?.appContext.raw?.headers?.lat;
+      request?.appContext.headers?.['accept-language'] ?? LangEnum.EN;
+    request.long = +request?.appContext?.headers?.long;
+    request.lat = +request?.appContext?.headers?.lat;
     if (request.long && (request.long < -180 || request.long > 180))
       throw new BaseHttpException(request.lang, 613);
     if (request.lat && (request.lat < -90 || request.lat > 90))

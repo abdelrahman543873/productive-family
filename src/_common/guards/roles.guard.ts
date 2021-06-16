@@ -21,7 +21,7 @@ export class RoleGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestContext>();
     request.appContext = request['raw'];
     request.lang =
-      request?.appContext.raw?.headers?.['accept-language'] ?? LangEnum.EN;
+      request?.appContext?.headers?.['accept-language'] ?? LangEnum.EN;
     const currentUser = await this.helperService.getCurrentUser(
       request.appContext,
     );
