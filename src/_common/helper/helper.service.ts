@@ -45,6 +45,16 @@ export class HelperService {
     input: GetExistingUserInput,
   ): Promise<Admin | Driver | Client | Provider> {
     const user =
+      (await this.clientSchema.findOne(
+        {
+          ...(input._id && { _id: input._id }),
+          ...(input.email && { email: input.email }),
+          ...(input.mobile && { mobile: input.mobile }),
+          ...(input.socialMediaId && { socialMediaId: input.socialMediaId }),
+        },
+        { ...(!input.password && { password: 0 }) },
+        { lean: true },
+      )) ??
       (await this.adminSchema.findOne(
         {
           ...(input._id && { _id: input._id }),
@@ -56,15 +66,6 @@ export class HelperService {
         { lean: true },
       )) ??
       (await this.driverSchema.findOne(
-        {
-          ...(input._id && { _id: input._id }),
-          ...(input.email && { email: input.email }),
-          ...(input.mobile && { mobile: input.mobile }),
-        },
-        { ...(!input.password && { password: 0 }) },
-        { lean: true },
-      )) ??
-      (await this.clientSchema.findOne(
         {
           ...(input._id && { _id: input._id }),
           ...(input.email && { email: input.email }),

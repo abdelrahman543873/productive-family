@@ -67,12 +67,6 @@ export class ClientService {
     return client;
   }
 
-  async socialLogin(input: SocialLoginInput): Promise<Client> {
-    const client = await this.clientRepo.socialLogin(input);
-    client.token = generateAuthToken(client._id);
-    return client;
-  }
-
   async updateProfile(
     input: ClientUpdateProfileInput,
     file?: File,

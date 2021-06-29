@@ -20,6 +20,15 @@ export class AuthService {
     @Inject(REQUEST) private readonly request: RequestContext,
   ) {}
   async login(input: LoginInput): Promise<Driver | Client | Provider | Admin> {
+    const socialLogin = input.socialMediaId
+      ? await this.helperService.getExistingUser({
+          socialMediaId: input.socialMediaId,
+        })
+      : null;
+    if (socialLogin) {
+      socialLogin.token = this.jwtService.sign({ _id: socialLogin._id });
+      return socialLogin;
+    }
     const user = await this.helperService.getExistingUser({
       mobile: input.mobile,
       password: true,

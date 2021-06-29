@@ -63,12 +63,6 @@ export class ClientController {
     return await this.clientService.updateProfile(input, file);
   }
 
-  @ApiTags('client')
-  @Post('socialLogin')
-  async socialSocialLogin(@Body() input: SocialLoginInput): Promise<Client> {
-    return await this.clientService.socialLogin(input);
-  }
-
   @ApiBearerAuth()
   @ApiTags('client')
   @ApiResponse({ status: 201, type: Client })

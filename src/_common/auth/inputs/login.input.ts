@@ -1,16 +1,22 @@
 import {
-  IsNotEmpty,
+  IsOptional,
   IsPhoneNumber,
+  IsString,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 export class LoginInput {
+  @IsOptional()
   @IsPhoneNumber('EG')
-  mobile: string;
+  mobile?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(6)
   @MaxLength(255)
-  password: string;
+  password?: string;
+
+  @IsOptional()
+  @IsString()
+  socialMediaId?: string;
 }

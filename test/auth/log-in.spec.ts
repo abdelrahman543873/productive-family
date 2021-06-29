@@ -60,4 +60,17 @@ describe('login suite case', () => {
     });
     expect(res.body.data.role).toBe(UserRoleEnum.ADMIN);
   });
+
+  it('social login client', async () => {
+    const client = await clientFactory();
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: LOGIN,
+      variables: {
+        socialMediaId: client.socialMediaId,
+      },
+    });
+    expect(res.body.data.socialMediaId).toBe(client.socialMediaId);
+    expect(res.body.data.token).toBeTruthy();
+  });
 });

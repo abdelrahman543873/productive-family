@@ -29,10 +29,6 @@ export class ClientRepository extends BaseRepository<Client> {
     ).toJSON();
   }
 
-  async socialLogin(input: SocialLoginInput): Promise<Client> {
-    return await this.clientSchema.findOne({ ...input }, {}, { lean: true });
-  }
-
   async updateProfile(
     _id: ObjectID,
     input: ClientUpdateProfileInput,
