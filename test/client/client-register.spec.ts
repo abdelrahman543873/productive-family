@@ -36,4 +36,19 @@ describe('register client suite case', () => {
     });
     expect(res.body.statusCode).toBe(602);
   });
+
+  it('social register client', async () => {
+    const params = await buildClientParams();
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: CLIENT_REGISTER,
+      variables: {
+        name: params.name,
+        socialMediaId: params.socialMediaId,
+        socialMediaType: params.socialMediaType,
+      },
+    });
+    expect(res.body.data.socialMediaId).toBe(params.socialMediaId);
+    expect(res.body.data.isVerified).toBe(true);
+  });
 });

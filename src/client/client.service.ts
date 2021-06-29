@@ -10,7 +10,6 @@ import { sendMessage } from 'src/_common/utils/twilio';
 import { ClientRepository } from './client.repository';
 import { ClientRegisterInput } from './inputs/client-register.input';
 import { Client } from './models/client.schema';
-import { SocialRegisterInput } from './inputs/social-register.input';
 import { SocialLoginInput } from './inputs/social-login.input';
 import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { bcryptCheckPass } from 'src/_common/utils/bcryptHelper';
@@ -45,27 +44,27 @@ export class ClientService {
   ) {}
 
   async register(input: ClientRegisterInput): Promise<Client> {
-    const alreadyRegisteredMobile = await this.helperService.getExistingUser({
-      mobile: input.mobile,
-    });
+    const alreadyRegisteredMobile = input.mobile
+      ? await this.helperService.getExistingUser({
+          mobile: input.mobile,
+        })
+      : null;
     if (alreadyRegisteredMobile)
       throw new BaseHttpException(this.request.lang, 602);
     const client = await this.clientRepo.register(input);
     client.token = generateAuthToken(client._id);
-    const verificationCode = await this.verificationRepo.addVerificationCode({
-      user: client._id,
-      mobile: client.mobile,
-      ...createVerificationCode(),
-    });
-    await sendMessage({
-      to: client.mobile,
-      body: verificationCode.code,
-    });
+    if (input.mobile) {
+      const verificationCode = await this.verificationRepo.addVerificationCode({
+        user: client._id,
+        mobile: client.mobile,
+        ...createVerificationCode(),
+      });
+      await sendMessage({
+        to: client.mobile,
+        body: verificationCode.code,
+      });
+    }
     return client;
-  }
-
-  async socialRegister(input: SocialRegisterInput): Promise<Client> {
-    return await this.clientRepo.socialRegister(input);
   }
 
   async socialLogin(input: SocialLoginInput): Promise<Client> {

@@ -21,7 +21,6 @@ import { FileValidationInterceptor } from 'src/_common/interceptors/file-upload.
 import { ClientService } from './client.service';
 import { ClientRegisterInput } from './inputs/client-register.input';
 import { SocialLoginInput } from './inputs/social-login.input';
-import { SocialRegisterInput } from './inputs/social-register.input';
 import { Client } from './models/client.schema';
 import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { UserRoleEnum } from 'src/_common/app.enum';
@@ -34,11 +33,13 @@ import { File } from 'fastify-multer/lib/interfaces';
 import { ToggleFavProductInput } from './inputs/toggle-fav-product.input';
 import { CheckoutInput } from './inputs/checkout.input';
 import { Order } from '../order/models/order.schema';
+import { ClientRegisterJoi } from './joi/client-register.joi';
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
   @ApiTags('client')
+  @UsePipes(new JoiValidationPipe(ClientRegisterJoi))
   @Post('register')
   async register(@Body() input: ClientRegisterInput): Promise<Client> {
     return await this.clientService.register(input);
@@ -60,12 +61,6 @@ export class ClientController {
     @UploadedFile() file?: File,
   ): Promise<Client> {
     return await this.clientService.updateProfile(input, file);
-  }
-
-  @ApiTags('client')
-  @Post('socialRegister')
-  async socialRegister(@Body() input: SocialRegisterInput): Promise<Client> {
-    return await this.clientService.socialRegister(input);
   }
 
   @ApiTags('client')

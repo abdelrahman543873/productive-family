@@ -4,14 +4,12 @@ import { Model } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { hashPass } from 'src/_common/utils/bcryptHelper';
 import { ClientRegisterInput } from './inputs/client-register.input';
-import { SocialRegisterInput } from './inputs/social-register.input';
 import { Client, ClientDocument } from './models/client.schema';
 import { SocialLoginInput } from './inputs/social-login.input';
 import { ObjectID } from 'mongodb';
 import { ClientUpdateProfileInput } from './inputs/client-update-profile';
 import { ConfigService } from '@nestjs/config';
 import { File } from 'fastify-multer/lib/interfaces';
-import { CheckoutInput } from './inputs/checkout.input';
 @Injectable()
 export class ClientRepository extends BaseRepository<Client> {
   constructor(
@@ -25,14 +23,9 @@ export class ClientRepository extends BaseRepository<Client> {
     return (
       await this.clientSchema.create({
         ...input,
+        ...(input.socialMediaId && { isVerified: true }),
         ...(input.password && { password: await hashPass(input.password) }),
       })
-    ).toJSON();
-  }
-
-  async socialRegister(input: SocialRegisterInput): Promise<Client> {
-    return (
-      await this.clientSchema.create({ ...input, isVerified: true })
     ).toJSON();
   }
 
