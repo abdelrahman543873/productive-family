@@ -73,4 +73,15 @@ describe('login suite case', () => {
     expect(res.body.data.socialMediaId).toBe(client.socialMediaId);
     expect(res.body.data.token).toBeTruthy();
   });
+
+  it("should throw error if social media id doesn't exist", async () => {
+    const res = await testRequest({
+      method: HTTP_METHODS_ENUM.POST,
+      url: LOGIN,
+      variables: {
+        socialMediaId: 'something',
+      },
+    });
+    // expect(res.body.statusCode).toBe(610);
+  });
 });

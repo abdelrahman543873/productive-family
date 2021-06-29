@@ -29,10 +29,12 @@ export class AuthService {
       socialLogin.token = this.jwtService.sign({ _id: socialLogin._id });
       return socialLogin;
     }
-    const user = await this.helperService.getExistingUser({
-      mobile: input.mobile,
-      password: true,
-    });
+    const user = input.mobile
+      ? await this.helperService.getExistingUser({
+          mobile: input.mobile,
+          password: true,
+        })
+      : null;
     if (!user) throw new BaseHttpException(this.request.lang, 610);
     const passwordValidation = await bcryptCheckPass(
       input.password,
