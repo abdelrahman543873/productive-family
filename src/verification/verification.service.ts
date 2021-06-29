@@ -37,7 +37,7 @@ export class VerificationService {
       { _id: verification.user },
       { isVerified: true },
     );
-    user.token = generateAuthToken(user._id);
+    updatedUser.token = generateAuthToken(user._id);
     return updatedUser;
   }
 
