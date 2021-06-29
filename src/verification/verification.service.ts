@@ -27,8 +27,9 @@ export class VerificationService {
   ): Promise<Admin | Driver | Client | Provider> {
     const verification = await this.verificationRepo.verifyOTP(input);
     if (!verification) throw new BaseHttpException(this.request.lang, 608);
-    if (verification.expirationDate < new Date())
-      throw new BaseHttpException(this.request.lang, 609);
+    // will enable this in production
+    // if (verification.expirationDate < new Date())
+    //   throw new BaseHttpException(this.request.lang, 609);
     const user = await this.helperService.getExistingUser({
       _id: verification.user,
     });
