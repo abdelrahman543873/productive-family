@@ -46,4 +46,8 @@ export class AuthService {
     delete user.password;
     return user;
   }
+
+  async getInfo(): Promise<Record<any, any>> {
+    return this.request.currentUser;
+  }
 }
