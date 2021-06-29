@@ -33,13 +33,16 @@ export class FileValidationInterceptor implements NestInterceptor {
     ];
     if (request.files) {
       const paths = Object.keys(request.files).map(file => {
-        return request.files[file][0].path;
+        // this is done this way to cope with the two mechanisms of uploading multiple files
+        // by either multiple fields or one field that has multiple images
+        return request.files[file]?.[0]?.path || request.files[file].path;
       });
       let error = false;
       for (let i = 0; i < paths.length; i++) {
         const fileType = await file_type.fromFile(paths[i]);
         if (!fileType || !imgExt.includes(fileType.ext)) {
           fs.unlinkSync(paths[i]);
+          // done this way cause you can't throw an error directly here 
           error = true;
         }
       }

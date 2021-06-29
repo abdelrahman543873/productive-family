@@ -13,7 +13,6 @@ interface ProductType {
   enDescription?: string;
   arDescription?: string;
   preparationTime?: number;
-  rating?: number;
   isActive?: boolean;
   imagesURLs?: string[];
 }
@@ -29,7 +28,6 @@ export const buildProductParams = async (
     enDescription: obj.enDescription || faker.commerce.productDescription(),
     arDescription: obj.arDescription || faker.commerce.productDescription(),
     preparationTime: obj.preparationTime || faker.datatype.number(),
-    rating: obj.rating || faker.datatype.number(5),
     isActive: obj.isActive ?? true,
     imagesURLs: obj.imagesURLs || [faker.internet.url()],
   };

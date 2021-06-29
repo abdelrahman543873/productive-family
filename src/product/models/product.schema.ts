@@ -32,9 +32,6 @@ export class Product {
   @Prop({ required: true })
   preparationTime: number;
 
-  @Prop({ min: 0, max: 5 })
-  rating?: number;
-
   @Prop({ required: true, default: true })
   isActive: boolean;
 
