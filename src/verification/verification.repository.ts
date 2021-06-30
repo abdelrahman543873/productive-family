@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { BaseRepository } from 'src/_common/generics/repository.abstract';
 import { VerificationInput } from './inputs/verification.inputs';
 import { VerifyOtpInput } from './inputs/verify-otp.input';
+import { SendOtpInput } from './inputs/send-otp.input';
 import {
   Verification,
   VerificationDocument,
@@ -30,6 +31,14 @@ export class VerificationRepository extends BaseRepository<Verification> {
       ...(verification.email && { email: verification.email }),
       ...(verification.mobile && { mobile: verification.mobile }),
       code: verification.code,
+    });
+  }
+
+  async deleteOTP(verification: SendOtpInput): Promise<Verification> {
+    return await this.verificationSchema.findOneAndDelete({
+      ...(verification.user && { user: verification.user }),
+      ...(verification.email && { email: verification.email }),
+      ...(verification.mobile && { mobile: verification.mobile }),
     });
   }
 
