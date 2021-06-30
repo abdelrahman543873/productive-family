@@ -42,7 +42,7 @@ export class FileValidationInterceptor implements NestInterceptor {
         const fileType = await file_type.fromFile(paths[i]);
         if (!fileType || !imgExt.includes(fileType.ext)) {
           fs.unlinkSync(paths[i]);
-          // done this way cause you can't throw an error directly here 
+          // done this way cause you can't throw an error directly here
           error = true;
         }
       }

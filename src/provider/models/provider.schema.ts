@@ -51,7 +51,7 @@ export class Provider {
   isVerified: boolean;
 
   @Prop({ type: [{ type: String }] })
-  imagesURL?: string[];
+  imagesURLs?: string[];
 
   @Prop()
   fcmToken?: string;

@@ -31,7 +31,7 @@ export const buildProviderParams = async (
     isVerified: obj.isVerified ?? true,
     name: obj.name || faker.random.word(),
     role: obj.role || UserRoleEnum.PROVIDER,
-    email: obj.email || faker.random.words(),
+    email: obj.email || faker.internet.email(),
     slogan: obj.slogan || faker.random.words(),
     password: obj.password || faker.internet.password(),
     maxDistance: obj.maxDistance || faker.datatype.number(5),
