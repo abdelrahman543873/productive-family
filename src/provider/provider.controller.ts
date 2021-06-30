@@ -71,6 +71,6 @@ export class ProviderController {
   async getNewProviders(
     @Query() query: Pagination,
   ): Promise<AggregatePaginateResult<Provider>> {
-    return await this.providerService.getNewProviders(query);
+    return await this.providerService.getNewProviders(query)
   }
 }
